@@ -18,7 +18,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.*;
 
-public class Main implements KeyListener, MouseListener, MouseMotionListener {
+public class startMenu implements KeyListener, MouseListener, MouseMotionListener {
 
 // --------------------------------------	
 // ---------- Global Variables ----------
@@ -30,7 +30,7 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 	boolean buttonHovers[] = {false, false, false, false};
 	
 //JFrame and JWindow Creations
-	final static int WIN = 1000;
+	final static int WIN = 2000;
 	static JFrame window;
 	StartMenuPanel smPanel = new StartMenuPanel();
 	
@@ -40,17 +40,25 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 	Color Red = new Color (255, 0, 0);
 	Color Green = new Color(0, 255, 0);
 	Color Black = new Color (0, 0, 0);
-	Font startMenuButtons = new Font("Century", Font.BOLD, 40);
-	Font startMenuTitle = new Font("Century", Font.BOLD, 80);
+	BasicStroke mainMenuButtonStroke = new BasicStroke(WIN/100);
+	Font mainMenuButtons = new Font("Century", Font.BOLD, WIN/25);
+	Font mainMenuTitle = new Font("Century", Font.BOLD, WIN/25*2);
+	
+//Start Menu Variables
+	int menu_MAIN     = 1;
+	int menu_NEWGAME  = 2;
+	int menu_LOADGAME = 3;
+	int menu_OPTIONS  = 4;
+	int menu_CURRENT  = menu_MAIN;
 	
 //Menu Button Variables
-	int buttonWidth = 300;
-	int buttonHeight = 100;
-	int buttonArc = 10;
-	int leftButtonsX = 150;
-	int rightButtonsX = 550;
-	int topButtonsY = 450;
-	int bottomButtonsY = 600;
+	int buttonHeight = WIN/10;
+	int buttonWidth = buttonHeight*3;
+	int buttonArc = WIN/100;
+	int leftButtonsX = WIN/20*3;
+	int rightButtonsX = WIN/20*11;
+	int topButtonsY = WIN/20*9;
+	int bottomButtonsY = WIN/10*6;
 	
 //Input Variables
 	int mouseX, mouseY;
@@ -60,13 +68,13 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 	int tSpeed = 1;
 	Timer startMenuTimer;
 	
-	public static void main(String[] args) {new Main();}
+	public static void main(String[] args) {new startMenu();}
 	
-	Main() {
+	startMenu() {
 		GUISetup();
 		
-		
-		
+		startMenuTimer = new Timer(tSpeed, new StartMenuTimer());
+		startMenuTimer.start();
 	}
 	
 	void GUISetup(){
@@ -78,9 +86,6 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 		window.add(smPanel);
 		window.pack();
 		window.setVisible(true);
-		
-		startMenuTimer = new Timer(tSpeed, new StartMenuTimer());
-		startMenuTimer.start();
 	}
 
 //Start Menu Methods
@@ -100,47 +105,57 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 			super.paintComponent(g);
 			this.requestFocus();
 			
-			BasicStroke ButtonStroke = new BasicStroke(10);
-			g2.setStroke(ButtonStroke);
+		//Draw Background	
+			g.setColor(Black);
+			g.fillRect(0, 0, WIN, WIN);
 			
-			drawButtons(g, g2);
-			drawTitle(g, g2);
+			if (menu_CURRENT == menu_MAIN) {
+				drawMainMenuButtons(g, g2);
+				drawMainMenuTitle(g, g2);
+			}
+			
+			if (menu_CURRENT == menu_NEWGAME) {
+				drawFileMenuButtons(g, g2);
+			}
+			
 		
 		}
 	
 	}
 
+//Start Menu Timer
 	private class StartMenuTimer implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
-			checkMouseOverButtons();
-			checkButtonsPressed();
+			
+			if (menu_CURRENT == menu_MAIN) {
+				checkMouseOverButtons();
+				checkButtonsPressed();
+			}
 			
 			window.repaint();
 		}
 		
 	}
 
-	void drawTitle(Graphics g, Graphics2D g2) {
-		FontMetrics fontMetrics = g2.getFontMetrics(startMenuTitle);
-		g.setFont(startMenuTitle);
+//DRAWING METHODS
+	void drawMainMenuTitle(Graphics g, Graphics2D g2) {
+		FontMetrics fontMetrics = g2.getFontMetrics(mainMenuTitle);
+		g.setFont(mainMenuTitle);
 		g.setColor(White);	
 		
 		String title = "ASSASSINS";
 		int titleX = WIN/2-fontMetrics.stringWidth(title)/2;
 		
-		g.drawString(title, titleX, 250);
+		g.drawString(title, titleX, WIN/4);
 		
 	}
 	
-	void drawButtons(Graphics g, Graphics2D g2) {
-		
-	//Draw Background	
-		g.setColor(Black);
-		g.fillRect(0, 0, WIN, WIN);
+	void drawMainMenuButtons(Graphics g, Graphics2D g2) {
 		
 	//Draw Buttons
+		g2.setStroke(mainMenuButtonStroke);
 		Color ButtonOutline = new Color (140, 0, 0);
 		Color ButtonFill = new Color (51, 0, 0);
 		
@@ -174,8 +189,8 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 			
 	//Draw Button Text
 		g.setColor(White);	
-		g.setFont(startMenuButtons);
-		FontMetrics fontMetrics = g2.getFontMetrics(startMenuButtons);	
+		g.setFont(mainMenuButtons);
+		FontMetrics fontMetrics = g2.getFontMetrics(mainMenuButtons);	
 		
 		String button1text = "NEW GAME";
 		String button2text = "LOAD GAME";
@@ -197,6 +212,27 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 		
 	}
 	
+	void drawFileMenuButtons(Graphics g, Graphics2D g2) {
+		
+		g2.setStroke(mainMenuButtonStroke);
+		Color ButtonOutline = new Color (140, 0, 0);
+		Color ButtonFill = new Color (51, 0, 0);
+		
+		int ButtonsY = 400; 
+		
+		g.setColor(ButtonFill);
+		g.fillRoundRect(0, ButtonsY, 500, 500, 10, 10);
+		g.setColor(ButtonOutline);
+		g.drawRoundRect(0, ButtonsY, 500, 500, 10, 10);
+		
+		
+	}
+	
+	
+	
+	
+	
+//SYSTEM METHODS
 	void checkMouseOverButtons() {
 
 	//Left Buttons
@@ -231,6 +267,9 @@ public class Main implements KeyListener, MouseListener, MouseMotionListener {
 	void checkButtonsPressed() {
 		
 		if (M1) {
+			if (buttonHovers[0]) menu_CURRENT = menu_NEWGAME;
+			if (buttonHovers[1]) menu_CURRENT = menu_LOADGAME;
+			if (buttonHovers[2]) menu_CURRENT = menu_OPTIONS;
 			if (buttonHovers[3]) System.exit(0);
 		}
 		
