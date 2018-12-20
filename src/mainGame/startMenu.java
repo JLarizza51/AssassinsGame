@@ -15,6 +15,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -28,7 +37,7 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	String gameTitle = "Action Game";
 	
 //JFrame and JWindow Creations
-	final static int WIN = 1000;
+	final static int WIN = 1500;
 	static JFrame window;
 	StartMenuPanel smPanel = new StartMenuPanel();
 	
@@ -64,16 +73,24 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			main_button4_hovering = false;
 	
 //File Menu Buttons
-	int file_buttonWidth = 250;
-	int file_buttonHeight = 500;
-	int file_buttonArc = 10;
-	int file_buttonsY = 400;
+	int file_buttonWidth = WIN/4;
+	int file_buttonHeight = WIN/2;
+	int file_buttonArc = WIN/100;
+	int file_buttonsY = WIN/5*2;
 	int file_button2X = (WIN/2)-(file_buttonWidth/2);
 	int file_button1X = file_button2X-file_buttonWidth-(WIN/20);
 	int file_button3X = file_button2X+file_buttonWidth+(WIN/20);
 	boolean file_button1_hovering = false,
 			file_button2_hovering = false,
 			file_button3_hovering = false;
+	
+//Variables for each file
+	SaveFiles file1 = new SaveFiles();
+	SaveFiles file2 = new SaveFiles();
+	SaveFiles file3 = new SaveFiles();
+	
+	SaveFiles[] saveFiles = {file1, file2, file3};
+	
 	
 //Input Variables
 	int mouseX, mouseY;
@@ -87,6 +104,8 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	
 	startMenu() {
 		GUISetup();
+		readFileMenuFileInformation();
+		setFileMenuFileInformation();
 		
 		startMenuTimer = new Timer(tSpeed, new StartMenuTimer());
 		startMenuTimer.start();
@@ -132,11 +151,13 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			if (menu_CURRENT == menu_NEWGAME) {
 				drawFileMenuButtons(g, g2);
 				drawFileMenuTitle(g, g2, "START A NEW GAME");
+//				drawFileMenuFileInformation(g, g2);
 			}
 			
 			if (menu_CURRENT == menu_LOADGAME) {
 				drawFileMenuButtons(g, g2);
 				drawFileMenuTitle(g, g2, "LOAD A SAVED GAME");
+//				drawFileMenuFileInformation(g, g2);
 			}
 		
 		}
@@ -281,8 +302,80 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	
 	}
 	
+	void drawFileMenuButtonsInformation(Graphics g, Graphics2D g2) {
+		//TODO: DRAW THE INFORMATION
+	}
 	
 //SYSTEM METHODS
+	
+	void readFileMenuFileInformation() {
+		
+		String fileNames[] = {"SAVE FILE 1", "SAVE FILE 2", "SAVE FILE 3"};
+		
+		for (int i=0; i<3; i++) {
+			
+		//Create the Buffered Reader and Read the file
+			BufferedReader brFile = null;
+			try {
+				brFile = new BufferedReader (new FileReader(new File(fileNames[i])));
+			} catch (FileNotFoundException ee) {
+				createNewFilesText();
+			}
+			
+		//Process the text
+			while (true) {
+				try {
+					String s = brFile.readLine();
+					if (s==null) break;
+					saveFiles[i].text.add(s);
+				} catch (IOException e) {}
+			}
+			
+		//Print it out FOR (TESTING)
+			System.out.println(saveFiles[i].text);
+			
+		}
+	}
+
+	void setFileMenuFileInformation() {
+		
+//		EMPTY: FALSE
+//		NAME: Josh
+//		MAXHP: 50
+//		HP: 35
+//		LOCATION: Town Square
+//		ENEMIES KILLED: 4
+		
+//		boolean b = Boolean.parseBoolean(value);
+		
+		String[] currentStr;
+		
+		for (int i=0; i<3; i++) {
+			
+			String strEmpty = saveFiles[i].text.get(0);
+			String strName = saveFiles[i].text.get(1);
+			String strMaxHP = saveFiles[i].text.get(2);
+			String strHP = saveFiles[i].text.get(3);
+			String strLocation = saveFiles[i].text.get(4);
+			String strEnemiesKilled = saveFiles[i].text.get(5);
+			
+			System.out.println(strEmpty);
+			currentStr = strEmpty.split(": ");
+			strEmpty = currentStr[1];
+			saveFiles[i].empty = Boolean.parseBoolean(strEmpty);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+	}
+
 	void checkMouseOverMainButtons() {
 
 	//Left Buttons
@@ -356,7 +449,47 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	}
 	
 	void checkFileButtonsPressed() {
+		//TODO: WRITE THE CODE
+	}
+	
+	void createNewFilesText() {
 		
+		//TODO: FIX THIS
+		
+		PrintWriter pwFile = null;
+		try {pwFile = new PrintWriter( new BufferedWriter( new FileWriter ("SAVE FILES")));
+			} catch (IOException e) {e.printStackTrace();
+		}
+		
+		pwFile.println("FILE 1: ");
+		pwFile.println("EMPTY: TRUE");
+		pwFile.println("NAME: ");
+		pwFile.println("MAXHP: ");
+		pwFile.println("HP: ");
+		pwFile.println("LOCATION: ");
+		pwFile.println("ENEMIES KILLED: ");
+		
+		pwFile.println("");
+		
+		pwFile.println("FILE 2: ");
+		pwFile.println("EMPTY: TRUE");
+		pwFile.println("NAME: ");
+		pwFile.println("MAXHP: ");
+		pwFile.println("HP: ");
+		pwFile.println("LOCATION: ");
+		pwFile.println("ENEMIES KILLED: ");
+		
+		pwFile.println("");
+		
+		pwFile.println("FILE 3: ");
+		pwFile.println("EMPTY: TRUE");
+		pwFile.println("NAME: ");
+		pwFile.println("MAXHP: ");
+		pwFile.println("HP: ");
+		pwFile.println("LOCATION: ");
+		pwFile.println("ENEMIES KILLED: ");
+		
+		pwFile.close();
 	}
 	
 	
