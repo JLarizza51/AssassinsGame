@@ -27,10 +27,8 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 //Random Variables
 	String gameTitle = "Action Game";
 	
-	boolean buttonHovers[] = {false, false, false, false};
-	
 //JFrame and JWindow Creations
-	final static int WIN = 2000;
+	final static int WIN = 1000;
 	static JFrame window;
 	StartMenuPanel smPanel = new StartMenuPanel();
 	
@@ -42,7 +40,8 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	Color Black = new Color (0, 0, 0);
 	BasicStroke mainMenuButtonStroke = new BasicStroke(WIN/100);
 	Font mainMenuButtons = new Font("Century", Font.BOLD, WIN/25);
-	Font mainMenuTitle = new Font("Century", Font.BOLD, WIN/25*2);
+	Font mainMenuTitle = new Font("Century", Font.BOLD, WIN/100*8);
+	Font fileMenuTitle = new Font("Century", Font.BOLD, WIN/100*6);
 	
 //Start Menu Variables
 	int menu_MAIN     = 1;
@@ -51,14 +50,30 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	int menu_OPTIONS  = 4;
 	int menu_CURRENT  = menu_MAIN;
 	
-//Menu Button Variables
-	int buttonHeight = WIN/10;
-	int buttonWidth = buttonHeight*3;
-	int buttonArc = WIN/100;
-	int leftButtonsX = WIN/20*3;
-	int rightButtonsX = WIN/20*11;
-	int topButtonsY = WIN/20*9;
-	int bottomButtonsY = WIN/10*6;
+//Menu Menu Button Variables
+	int main_buttonHeight = WIN/10;
+	int main_buttonWidth = main_buttonHeight*3;
+	int main_buttonArc = WIN/100;
+	int main_leftButtonsX = WIN/20*3;
+	int main_rightButtonsX = WIN/20*11;
+	int main_topButtonsY = WIN/20*9;
+	int main_bottomButtonsY = WIN/10*6;
+	boolean main_button1_hovering = false,
+			main_button2_hovering = false,
+			main_button3_hovering = false,
+			main_button4_hovering = false;
+	
+//File Menu Buttons
+	int file_buttonWidth = 250;
+	int file_buttonHeight = 500;
+	int file_buttonArc = 10;
+	int file_buttonsY = 400;
+	int file_button2X = (WIN/2)-(file_buttonWidth/2);
+	int file_button1X = file_button2X-file_buttonWidth-(WIN/20);
+	int file_button3X = file_button2X+file_buttonWidth+(WIN/20);
+	boolean file_button1_hovering = false,
+			file_button2_hovering = false,
+			file_button3_hovering = false;
 	
 //Input Variables
 	int mouseX, mouseY;
@@ -116,8 +131,13 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			
 			if (menu_CURRENT == menu_NEWGAME) {
 				drawFileMenuButtons(g, g2);
+				drawFileMenuTitle(g, g2, "START A NEW GAME");
 			}
 			
+			if (menu_CURRENT == menu_LOADGAME) {
+				drawFileMenuButtons(g, g2);
+				drawFileMenuTitle(g, g2, "LOAD A SAVED GAME");
+			}
 		
 		}
 	
@@ -130,8 +150,18 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			
 			
 			if (menu_CURRENT == menu_MAIN) {
-				checkMouseOverButtons();
-				checkButtonsPressed();
+				checkMouseOverMainButtons();
+				checkMainButtonsPressed();
+			}
+			
+			if (menu_CURRENT == menu_NEWGAME) {
+				checkMouseOverFileButtons();
+				checkFileButtonsPressed();
+			}
+			
+			if (menu_CURRENT == menu_LOADGAME) {
+				checkMouseOverFileButtons();
+				checkFileButtonsPressed();
 			}
 			
 			window.repaint();
@@ -160,32 +190,32 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 		Color ButtonFill = new Color (51, 0, 0);
 		
 		//Draw Button #1
-			if (buttonHovers[0]) g.setColor(ButtonOutline);
+			if (main_button1_hovering) g.setColor(ButtonOutline);
 			else g.setColor(ButtonFill);
-			g.fillRoundRect(leftButtonsX, topButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.fillRoundRect(main_leftButtonsX, main_topButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			g.setColor(ButtonOutline);
-			g.drawRoundRect(leftButtonsX, topButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.drawRoundRect(main_leftButtonsX, main_topButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			
 		//Draw Button #2
-			if (buttonHovers[1]) g.setColor(ButtonOutline);
+			if (main_button2_hovering) g.setColor(ButtonOutline);
 			else g.setColor(ButtonFill);
-			g.fillRoundRect(rightButtonsX, topButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.fillRoundRect(main_rightButtonsX, main_topButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			g.setColor(ButtonOutline);
-			g.drawRoundRect(rightButtonsX, topButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.drawRoundRect(main_rightButtonsX, main_topButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			
 		//Draw Button #3
-			if (buttonHovers[2]) g.setColor(ButtonOutline);
+			if (main_button3_hovering) g.setColor(ButtonOutline);
 			else g.setColor(ButtonFill);
-			g.fillRoundRect(leftButtonsX, bottomButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.fillRoundRect(main_leftButtonsX, main_bottomButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			g.setColor(ButtonOutline);
-			g.drawRoundRect(leftButtonsX, bottomButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.drawRoundRect(main_leftButtonsX, main_bottomButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			
 		//Draw Button #4
-			if (buttonHovers[3]) g.setColor(ButtonOutline);
+			if (main_button4_hovering) g.setColor(ButtonOutline);
 			else g.setColor(ButtonFill);
-			g.fillRoundRect(rightButtonsX, bottomButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.fillRoundRect(main_rightButtonsX, main_bottomButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			g.setColor(ButtonOutline);
-			g.drawRoundRect(rightButtonsX, bottomButtonsY, buttonWidth, buttonHeight, buttonArc, buttonArc);
+			g.drawRoundRect(main_rightButtonsX, main_bottomButtonsY, main_buttonWidth, main_buttonHeight, main_buttonArc, main_buttonArc);
 			
 	//Draw Button Text
 		g.setColor(White);	
@@ -197,12 +227,12 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 		String button3text = "OPTIONS";
 		String button4text = "EXIT";
 		
-		int buttons1textX = (leftButtonsX+buttonWidth/2)-(fontMetrics.stringWidth(button1text)/2);
-		int buttons2textX = (rightButtonsX+buttonWidth/2)-(fontMetrics.stringWidth(button2text)/2);
-		int buttons3textX = (leftButtonsX+buttonWidth/2)-(fontMetrics.stringWidth(button3text)/2);
-		int buttons4textX = (rightButtonsX+buttonWidth/2)-(fontMetrics.stringWidth(button4text)/2);
-		int topButtonsTextY = (topButtonsY+buttonHeight/2)+(fontMetrics.getAscent()/2)-5;
-		int bottomButtonsTextY = (bottomButtonsY+buttonHeight/2)+(fontMetrics.getAscent()/2)-5;
+		int buttons1textX = (main_leftButtonsX+main_buttonWidth/2)-(fontMetrics.stringWidth(button1text)/2);
+		int buttons2textX = (main_rightButtonsX+main_buttonWidth/2)-(fontMetrics.stringWidth(button2text)/2);
+		int buttons3textX = (main_leftButtonsX+main_buttonWidth/2)-(fontMetrics.stringWidth(button3text)/2);
+		int buttons4textX = (main_rightButtonsX+main_buttonWidth/2)-(fontMetrics.stringWidth(button4text)/2);
+		int topButtonsTextY = (main_topButtonsY+main_buttonHeight/2)+(fontMetrics.getAscent()/2)-5;
+		int bottomButtonsTextY = (main_bottomButtonsY+main_buttonHeight/2)+(fontMetrics.getAscent()/2)-5;
 		
 		//Draw Button Text #1
 			g.drawString(button1text, buttons1textX, topButtonsTextY);
@@ -212,68 +242,124 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 		
 	}
 	
+	void drawFileMenuTitle(Graphics g, Graphics2D g2, String title) {
+		FontMetrics fontMetrics = g2.getFontMetrics(fileMenuTitle);
+		g.setFont(fileMenuTitle);
+		g.setColor(White);	
+		
+		int titleX = WIN/2-fontMetrics.stringWidth(title)/2;
+		g.drawString(title, titleX, WIN/4);
+	}
+	
 	void drawFileMenuButtons(Graphics g, Graphics2D g2) {
 		
 		g2.setStroke(mainMenuButtonStroke);
 		Color ButtonOutline = new Color (140, 0, 0);
 		Color ButtonFill = new Color (51, 0, 0);
 		
-		int ButtonsY = 400; 
 		
-		g.setColor(ButtonFill);
-		g.fillRoundRect(0, ButtonsY, 500, 500, 10, 10);
+	//Button 1
+		if (file_button1_hovering) g.setColor(ButtonOutline);
+		else g.setColor(ButtonFill);
+		g.fillRoundRect(file_button1X, file_buttonsY, file_buttonWidth, file_buttonHeight, file_buttonArc, file_buttonArc);
 		g.setColor(ButtonOutline);
-		g.drawRoundRect(0, ButtonsY, 500, 500, 10, 10);
+		g.drawRoundRect(file_button1X, file_buttonsY, file_buttonWidth, file_buttonHeight, file_buttonArc, file_buttonArc);
 		
-		
+	//Button 2
+		if (file_button2_hovering) g.setColor(ButtonOutline);
+		else g.setColor(ButtonFill);
+		g.fillRoundRect(file_button2X, file_buttonsY, file_buttonWidth, file_buttonHeight, file_buttonArc, file_buttonArc);
+		g.setColor(ButtonOutline);
+		g.drawRoundRect(file_button2X, file_buttonsY, file_buttonWidth, file_buttonHeight, file_buttonArc, file_buttonArc);
+	
+	//Button 3
+		if (file_button3_hovering) g.setColor(ButtonOutline);
+		else g.setColor(ButtonFill);
+		g.fillRoundRect(file_button3X, file_buttonsY, file_buttonWidth, file_buttonHeight, file_buttonArc, file_buttonArc);
+		g.setColor(ButtonOutline);
+		g.drawRoundRect(file_button3X, file_buttonsY, file_buttonWidth, file_buttonHeight, file_buttonArc, file_buttonArc);
+	
 	}
-	
-	
-	
 	
 	
 //SYSTEM METHODS
-	void checkMouseOverButtons() {
+	void checkMouseOverMainButtons() {
 
 	//Left Buttons
-		if (mouseX>=leftButtonsX && mouseX<=leftButtonsX+buttonWidth) {
-			if (mouseY>=topButtonsY && mouseY<=topButtonsY+buttonHeight) buttonHovers[0] = true;
-			else buttonHovers[0] = false;
+		if (mouseX>=main_leftButtonsX && mouseX<=main_leftButtonsX+main_buttonWidth) {
+			if (mouseY>=main_topButtonsY && mouseY<=main_topButtonsY+main_buttonHeight) main_button1_hovering = true;
+			else main_button1_hovering = false;
 			
-			if (mouseY>=bottomButtonsY && mouseY<=bottomButtonsY+buttonHeight) buttonHovers[2] = true;
-			else buttonHovers[2] = false;
+			if (mouseY>=main_bottomButtonsY && mouseY<=main_bottomButtonsY+main_buttonHeight) main_button3_hovering = true;
+			else main_button3_hovering = false;
 		}
 		
 		else {
-			buttonHovers[0] = false; 
-			buttonHovers[2] = false;
+			main_button1_hovering = false; 
+			main_button3_hovering = false;
 		}
 		
 	//Right Buttons
-		if (mouseX>=rightButtonsX && mouseX<=rightButtonsX+buttonWidth) {
-			if (mouseY>=topButtonsY && mouseY<=topButtonsY+buttonHeight) buttonHovers[1] = true;
-			else buttonHovers[1] = false;
+		if (mouseX>=main_rightButtonsX && mouseX<=main_rightButtonsX+main_buttonWidth) {
+			if (mouseY>=main_topButtonsY && mouseY<=main_topButtonsY+main_buttonHeight) main_button2_hovering = true;
+			else main_button2_hovering = false;
 			
-			if (mouseY>=bottomButtonsY && mouseY<=bottomButtonsY+buttonHeight) buttonHovers[3] = true;
-			else buttonHovers[3] = false;
+			if (mouseY>=main_bottomButtonsY && mouseY<=main_bottomButtonsY+main_buttonHeight) main_button4_hovering = true;
+			else main_button4_hovering = false;
 		}
 		
 		else {
-			buttonHovers[1] = false; 
-			buttonHovers[3] = false;
+			main_button2_hovering = false; 
+			main_button4_hovering = false;
 		}
 	}
 
-	void checkButtonsPressed() {
+	void checkMainButtonsPressed() {
 		
 		if (M1) {
-			if (buttonHovers[0]) menu_CURRENT = menu_NEWGAME;
-			if (buttonHovers[1]) menu_CURRENT = menu_LOADGAME;
-			if (buttonHovers[2]) menu_CURRENT = menu_OPTIONS;
-			if (buttonHovers[3]) System.exit(0);
+			if (main_button1_hovering) menu_CURRENT = menu_NEWGAME;
+			if (main_button2_hovering) menu_CURRENT = menu_LOADGAME;
+			if (main_button3_hovering) menu_CURRENT = menu_OPTIONS;
+			if (main_button4_hovering) System.exit(0);
 		}
 		
 	}
+	
+	void checkMouseOverFileButtons() {
+	
+		if (mouseY>=file_buttonsY && mouseY<=file_buttonsY+file_buttonHeight) {
+			
+		//Button 1
+			if (mouseX>=file_button1X && mouseX<=file_button1X+file_buttonWidth) {
+				file_button1_hovering = true;
+			}
+			else file_button1_hovering = false;
+			
+		//Button 2	
+			if (mouseX>=file_button2X && mouseX<=file_button2X+file_buttonWidth) {
+				file_button2_hovering = true;
+			}
+			else file_button2_hovering = false;
+			
+		//Button 3
+			if (mouseX>=file_button3X && mouseX<=file_button3X+file_buttonWidth) {
+				file_button3_hovering = true;
+			}
+			else file_button3_hovering = false;
+		}
+		else {
+			file_button1_hovering = false;
+			file_button2_hovering = false;
+			file_button3_hovering = false;
+		}
+		
+	}
+	
+	void checkFileButtonsPressed() {
+		
+	}
+	
+	
 	
 //Keyboard Presses
 	
