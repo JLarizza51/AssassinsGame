@@ -10,7 +10,7 @@ public class SaveFiles {
 	int maxHP, HP, enemiesKilled;
 	ArrayList<String> text;
 	
-	SaveFiles(){
+	SaveFiles() {
 		this.empty = true;
 		this.name = null;
 		this.location = null;
