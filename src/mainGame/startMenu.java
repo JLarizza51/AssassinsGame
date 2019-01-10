@@ -31,10 +31,8 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 // ---------- Global Variables ----------
 // --------------------------------------
 	
-//Random Variables
-	String gameTitle = "Assassins";
-	
 //JFrame and JWindow Creations
+	String gameTitle = "Assassins";
 	final static int WIN = 1500;
 	static JFrame window;
 	StartMenuPanel smPanel = new StartMenuPanel();
