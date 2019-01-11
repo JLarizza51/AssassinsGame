@@ -9,12 +9,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
-import java.awt.geom.Area;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import com.sun.javafx.geom.Shape;
 
 
 public class DrawGameMap {
@@ -26,7 +23,7 @@ public class DrawGameMap {
 //JFrame and JWindow Creations
 	String gameTitle = "Assassins";
 	final static int WINW = 2500;
-	final static int WINH = 1500;
+	final static int WINH = WINW/5*3;
 	static JFrame window;
 	DrawingPanel drPanel = new DrawingPanel();
 			
@@ -37,7 +34,12 @@ public class DrawGameMap {
 	Color Green = new Color(0, 255, 0);
 	Color Black = new Color (0, 0, 0);
 	BasicStroke DefaultStroke = new BasicStroke(1);
-	BasicStroke ColosseumStroke = new BasicStroke(50);
+	BasicStroke ColosseumStroke = new BasicStroke(WINW/50);
+	
+//NUMBERS USED FOR RATIOS
+	static int ratioW = WINW/2500,
+			   ratioH = WINH/1500;
+	
 
 	public static void main(String[] args) {new DrawGameMap();}
 
@@ -66,12 +68,12 @@ public class DrawGameMap {
 			super.paintComponent(g1);
 			this.requestFocus();
 			
-			drawBoarder(g);
-			drawMaze(g);
-			drawMansionFence(g);
+//			drawBoarder(g);
+//			drawMaze(g);
+//			drawMansionFence(g);
 			drawMansion(g);
-			drawColosseumBoarder(g);
-			drawSpawnPointBoarder(g);
+//			drawColosseumBoarder(g);
+//			drawSpawnPointBoarder(g);
 			drawTriangleBuilding1(g);
 			drawMansionSideBuilding1(g);
 			drawMansionSideBuilding2(g);
@@ -97,6 +99,20 @@ public class DrawGameMap {
 		
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
+		
+	//POINT LIST
+	// 01: 0, 0		02: WINW, 0		03: WINW, WINH		04: 0, WINH			05: 0, 0
+	// 06: 50, 0	07: 50, 1450	08: 2450, 1450		09: 2450, 50		10: 0, 50
+		
+		int point01X = 0,  point02X = WINW, point03X = WINW, point04X = 0,    point05X = 0,
+			point06X = 50, point07X = 50,   point08X = 2450, point09X = 2450, point10X = 0;
+		int xPos[] = {point01X, point02X, point03X, point04X, point05X,
+					  point06X, point07X, point08X, point09X, point10X};
+		
+		int point01Y = 0, point02Y = 0,    point03Y = WINH, point04Y =WINH, point05Y = 0,
+			point06Y = 0, point07Y = 1450, point08Y = 1450, point09Y = 50,  point10Y = 50;
+		int YPos[] = {point01Y, point02Y, point03Y, point04Y, point05Y,
+				      point06Y, point07Y, point08Y, point09Y, point10Y};
 		
 		g.fillRect(0, 0, WINW, 50);
 		g.fillRect(0, 0, 50, WINH);
@@ -133,6 +149,13 @@ public class DrawGameMap {
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
 		
+	//Ratios based off the width
+		int width_EIGHTYONE = WINW/2500*81,
+			width_FOURHUNDREDEIGHTY = WINW/125*24,
+			width_THREEHUNDREDSEVENTYONE = WINW/2500*371,
+			width_THREEHUNDREDTHIRTYTWO = WINW/1250*166,
+			width_TWOHUNDREDEIGHTYTWO = WINW/1250*141;
+		
 	//North Fence
 		g.drawLine(81, 461, 81, 625);
 		g.drawLine(81, 461, 480, 461);
@@ -154,10 +177,25 @@ public class DrawGameMap {
 	}
 	
 	void drawMansion(Graphics2D g) {
+
+	//POINTS LIST
+	//	01:	81, 626		
+	//	02: 282, 626		
+	//	03: 81, 874
+	//	04: 282, 874
 		
+		int point01X = ratioW*81, point02X = ratioW*282, point03X = ratioW*282, point04X = ratioW*81;
+		int xPos[] = {point01X, point02X, point03X, point04X};
+		
+		int point01Y = ratioH*626, point02Y = ratioH*626, point03Y = ratioH*874, point04Y = ratioH*874;
+		int yPos[] = {point01Y, point02Y, point03Y, point04Y};
+		
+		Polygon building = new Polygon(xPos, yPos, 4);
+	
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
-		g.fillRect(81, 626, 201, 248);
+		
+		g.fillPolygon(building);
 		
 	}
 
@@ -191,13 +229,18 @@ public class DrawGameMap {
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
 		
-		int point1X = 531,
-			point2X = 531,
-			point3X = 917;
+	//POINT LIST
+	// 01: 531, 824
+	// 02: 531, 1056
+	// 03: 824, 824
 		
-		int point1Y = 824,
-			point2Y = 1056,
-			point3Y = 824;
+		int point1X = ratioW*531,
+			point2X = ratioW*531,
+			point3X = ratioW*917;
+		
+		int point1Y = ratioH*824,
+			point2Y = ratioH*1056,
+			point3Y = ratioH*824;
 		
 		int xPos[] = {point1X, point2X, point3X};
 		int yPos[] = {point1Y, point2Y, point3Y};
@@ -214,17 +257,16 @@ public class DrawGameMap {
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
 		
-		int point1X = 81,
-			point2X = 228,
-			point3X = 228,
-			point4X = 81;
-		
-		int point1Y = 1079,
-			point2Y = 1079,
-			point3Y = 1242,
-			point4Y = 1332;
-		
+	//POINT LIST
+	// 01: 81, 1079
+	// 02: 228, 1079
+	// 03: 228, 1242
+	// 04: 81, 1332
+	
+		int point1X = ratioW*81, point2X = ratioW*228, point3X = ratioW*228, point4X = ratioW*81;
 		int xPos[] = {point1X, point2X, point3X, point4X};
+		
+		int point1Y = ratioH*1079, point2Y = ratioH*1079, point3Y = ratioH*1242, point4Y = ratioH*1332;
 		int yPos[] = {point1Y, point2Y, point3Y, point4Y};
 		
 		Polygon building = new Polygon(xPos, yPos, 4);
@@ -240,17 +282,16 @@ public class DrawGameMap {
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
 		
-		int point1X = 279,
-			point2X = 480,
-			point3X = 480,
-			point4X = 279;
+	//POINT LIST
+	// 01: 279, 1079
+	// 02: 480, 1079
+	// 03: 480, 1090
+	// 04: 279, 1211
 		
-		int point1Y = 1079,
-			point2Y = 1079,
-			point3Y = 1090,
-			point4Y = 1211;
-		
+		int point1X = ratioW*279, point2X = ratioW*480, point3X = ratioW*480, point4X = ratioW*279;
 		int xPos[] = {point1X, point2X, point3X, point4X};
+		
+		int point1Y = ratioH*1079, point2Y = ratioH*1079, point3Y = ratioH*1090, point4Y = ratioH*1211;
 		int yPos[] = {point1Y, point2Y, point3Y, point4Y};
 		
 		Polygon building = new Polygon(xPos, yPos, 4);
@@ -266,15 +307,15 @@ public class DrawGameMap {
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
 		
-		int point1X = 480,
-			point2X = 480,
-			point3X = 195;
+	//POINT LIST
+	// 01: 480, 1209
+	// 02: 480, 1380
+	// 03: 195, 1380
 		
-		int point1Y = 1209,
-			point2Y = 1380,
-			point3Y = 1380;
-		
+		int point1X = ratioW*480, point2X = ratioW*480, point3X = ratioW*195;
 		int xPos[] = {point1X, point2X, point3X};
+		
+		int point1Y = ratioH*1209, point2Y = ratioH*1380, point3Y = ratioH*1380;
 		int yPos[] = {point1Y, point2Y, point3Y};
 		
 		Polygon building = new Polygon(xPos, yPos, 3);
@@ -303,38 +344,38 @@ public class DrawGameMap {
 	//	71:	1075, 1186		72:	1075, 1380		73:	531, 1380		74:	531, 1178	
 			
 	//X Coordinates
-		int point01X = 910,  point02X = 960,  point03X = 816,  point04X = 816,  point05X = 759,
-			point06X = 759,  point07X = 632,  point08X = 632,  point09X = 617,  point10X = 617,
-			point11X = 576,  point12X = 576,  point13X = 617,  point14X = 617,  point15X = 632,
-			point16X = 632,  point17X = 617,  point18X = 617,  point19X = 576,  point20X = 576,
-			point21X = 617,  point22X = 617,  point23X = 666,  point24X = 666,  point25X = 707,
-			point26X = 707,  point27X = 666,  point28X = 666,  point29X = 647,  point30X = 647,
-			point31X = 666,  point32X = 666,  point33X = 707,  point34X = 707,  point35X = 666,
-			point36X = 666,  point37X = 647,  point38X = 647,  point39X = 759,  point40X = 759,
-			point41X = 816,  point42X = 816,  point43X = 737,  point44X = 737,  point45X = 909,
-			point46X = 909,  point47X = 835,  point48X = 835,  point49X = 888,  point50X = 888,
-			point51X = 990,  point52X = 990,  point53X = 964,  point54X = 964,  point55X = 990,
-			point56X = 990,  point57X = 962,  point58X = 962,  point59X = 1032, point60X = 1032,
-			point61X = 1008, point62X = 1008, point63X = 1034, point64X = 1034, point65X = 1008,
-			point66X = 1008, point67X = 888,  point68X = 888,  point69X = 835,  point70X = 835,
-			point71X = 969,  point72X = 1075, point73X = 1075, point74X = 531,  point75X = 531;
+		int point01X = ratioW*910,  point02X = ratioW*960,  point03X = ratioW*816,  point04X = ratioW*816,  point05X = ratioW*759,
+			point06X = ratioW*759,  point07X = ratioW*632,  point08X = ratioW*632,  point09X = ratioW*617,  point10X = ratioW*617,
+			point11X = ratioW*576,  point12X = ratioW*576,  point13X = ratioW*617,  point14X = ratioW*617,  point15X = ratioW*632,
+			point16X = ratioW*632,  point17X = ratioW*617,  point18X = ratioW*617,  point19X = ratioW*576,  point20X = ratioW*576,
+			point21X = ratioW*617,  point22X = ratioW*617,  point23X = ratioW*666,  point24X = ratioW*666,  point25X = ratioW*707,
+			point26X = ratioW*707,  point27X = ratioW*666,  point28X = ratioW*666,  point29X = ratioW*647,  point30X = ratioW*647,
+			point31X = ratioW*666,  point32X = ratioW*666,  point33X = ratioW*707,  point34X = ratioW*707,  point35X = ratioW*666,
+			point36X = ratioW*666,  point37X = ratioW*647,  point38X = ratioW*647,  point39X = ratioW*759,  point40X = ratioW*759,
+			point41X = ratioW*816,  point42X = ratioW*816,  point43X = ratioW*737,  point44X = ratioW*737,  point45X = ratioW*909,
+			point46X = ratioW*909,  point47X = ratioW*835,  point48X = ratioW*835,  point49X = ratioW*888,  point50X = ratioW*888,
+			point51X = ratioW*990,  point52X = ratioW*990,  point53X = ratioW*964,  point54X = ratioW*964,  point55X = ratioW*990,
+			point56X = ratioW*990,  point57X = ratioW*962,  point58X = ratioW*962,  point59X = ratioW*1032, point60X = ratioW*1032,
+			point61X = ratioW*1008, point62X = ratioW*1008, point63X = ratioW*1034, point64X = ratioW*1034, point65X = ratioW*1008,
+			point66X = ratioW*1008, point67X = ratioW*888,  point68X = ratioW*888,  point69X = ratioW*835,  point70X = ratioW*835,
+			point71X = ratioW*969,  point72X = ratioW*1075, point73X = ratioW*1075, point74X = ratioW*531,  point75X = ratioW*531;
 		
 	//Y Coordinates
-		int point01Y = 946,  point02Y = 1018, point03Y = 1018, point04Y = 1085, point05Y = 1085,
-			point06Y = 1151, point07Y = 1151, point08Y = 1242, point09Y = 1242, point10Y = 1218,
-			point11Y = 1218, point12Y = 1283, point13Y = 1283, point14Y = 1254, point15Y = 1254,
-			point16Y = 1330, point17Y = 1330, point18Y = 1305, point19Y = 1305, point20Y = 1370,
-			point21Y = 1370, point22Y = 1340, point23Y = 1340, point24Y = 1370, point25Y = 1370,
-			point26Y = 1305, point27Y = 1305, point28Y = 1330, point29Y = 1330, point30Y = 1254,
-			point31Y = 1254, point32Y = 1283, point33Y = 1283, point34Y = 1218, point35Y = 1218,
-			point36Y = 1242, point37Y = 1242, point38Y = 1169, point39Y = 1169, point40Y = 1214,
-			point41Y = 1214, point42Y = 1303, point43Y = 1303, point44Y = 1354, point45Y = 1354,
-			point46Y = 1303, point47Y = 1303, point48Y = 1214, point49Y = 1214, point50Y = 1169,
-			point51Y = 1169, point52Y = 1185, point53Y = 1185, point54Y = 1253, point55Y = 1253,
-			point56Y = 1287, point57Y = 1287, point58Y = 1354, point59Y = 1354, point60Y = 1287,
-			point61Y = 1287, point62Y = 1253, point63Y = 1253, point64Y = 1185, point65Y = 1185,
-			point66Y = 1151, point67Y = 1151, point68Y = 1085, point69Y = 1085, point70Y = 1032,
-			point71Y = 1032, point72Y = 1186, point73Y = 1380, point74Y = 1380, point75Y = 1178;
+		int point01Y = ratioH*946,  point02Y = ratioH*1018, point03Y = ratioH*1018, point04Y = ratioH*1085, point05Y = ratioH*1085,
+			point06Y = ratioH*1151, point07Y = ratioH*1151, point08Y = ratioH*1242, point09Y = ratioH*1242, point10Y = ratioH*1218,
+			point11Y = ratioH*1218, point12Y = ratioH*1283, point13Y = ratioH*1283, point14Y = ratioH*1254, point15Y = ratioH*1254,
+			point16Y = ratioH*1330, point17Y = ratioH*1330, point18Y = ratioH*1305, point19Y = ratioH*1305, point20Y = ratioH*1370,
+			point21Y = ratioH*1370, point22Y = ratioH*1340, point23Y = ratioH*1340, point24Y = ratioH*1370, point25Y = ratioH*1370,
+			point26Y = ratioH*1305, point27Y = ratioH*1305, point28Y = ratioH*1330, point29Y = ratioH*1330, point30Y = ratioH*1254,
+			point31Y = ratioH*1254, point32Y = ratioH*1283, point33Y = ratioH*1283, point34Y = ratioH*1218, point35Y = ratioH*1218,
+			point36Y = ratioH*1242, point37Y = ratioH*1242, point38Y = ratioH*1169, point39Y = ratioH*1169, point40Y = ratioH*1214,
+			point41Y = ratioH*1214, point42Y = ratioH*1303, point43Y = ratioH*1303, point44Y = ratioH*1354, point45Y = ratioH*1354,
+			point46Y = ratioH*1303, point47Y = ratioH*1303, point48Y = ratioH*1214, point49Y = ratioH*1214, point50Y = ratioH*1169,
+			point51Y = ratioH*1169, point52Y = ratioH*1185, point53Y = ratioH*1185, point54Y = ratioH*1253, point55Y = ratioH*1253,
+			point56Y = ratioH*1287, point57Y = ratioH*1287, point58Y = ratioH*1354, point59Y = ratioH*1354, point60Y = ratioH*1287,
+			point61Y = ratioH*1287, point62Y = ratioH*1253, point63Y = ratioH*1253, point64Y = ratioH*1185, point65Y = ratioH*1185,
+			point66Y = ratioH*1151, point67Y = ratioH*1151, point68Y = ratioH*1085, point69Y = ratioH*1085, point70Y = ratioH*1032,
+			point71Y = ratioH*1032, point72Y = ratioH*1186, point73Y = ratioH*1380, point74Y = ratioH*1380, point75Y = ratioH*1178;
 		
 		int xPos[] = {point01X,  point02X,  point03X,  point04X,  point05X,
 					  point06X,  point07X,  point08X,  point09X,  point10X,
@@ -374,7 +415,6 @@ public class DrawGameMap {
 		g.setStroke(DefaultStroke);
 		g.fillPolygon(building);
 	
-	
 	}
 
 	void drawSpawnPointSideStreet(Graphics2D g) {
@@ -385,14 +425,14 @@ public class DrawGameMap {
 	//	11: 1030, 1084		12:	927, 935		13: 1133, 807
 		
 	//X Coordinates - North Section
-		int Npoint01X = 1151, Npoint02X = 1151, Npoint03X = 1219, Npoint04X = 1219, Npoint05X = 1142,
-			Npoint06X = 1142, Npoint07X = 1068, Npoint08X = 1068, Npoint09X = 1082, Npoint10X = 1082,
-			Npoint11X = 1030, Npoint12X = 927,  Npoint13X = 1133;
+		int Npoint01X = ratioW*1151, Npoint02X = ratioW*1151, Npoint03X = ratioW*1219, Npoint04X = ratioW*1219, Npoint05X = ratioW*1142,
+			Npoint06X = ratioW*1142, Npoint07X = ratioW*1068, Npoint08X = ratioW*1068, Npoint09X = ratioW*1082, Npoint10X = ratioW*1082,
+			Npoint11X = ratioW*1030, Npoint12X = ratioW*927,  Npoint13X = ratioW*1133;
 		
 	//Y Coordinates - North Section
-		int Npoint01Y = 807,  Npoint02Y = 819,  Npoint03Y = 819,  Npoint04Y = 923,  Npoint05Y = 923,
-			Npoint06Y = 895,  Npoint07Y = 895,  Npoint08Y = 972,  Npoint09Y = 972,  Npoint10Y = 1046,
-			Npoint11Y = 1084, Npoint12Y = 935,  Npoint13Y = 807;		
+		int Npoint01Y = ratioH*807,  Npoint02Y = ratioH*819,  Npoint03Y = ratioH*819,  Npoint04Y = ratioH*923,  Npoint05Y = ratioH*923,
+			Npoint06Y = ratioH*895,  Npoint07Y = ratioH*895,  Npoint08Y = ratioH*972,  Npoint09Y = ratioH*972,  Npoint10Y = ratioH*1046,
+			Npoint11Y = ratioH*1084, Npoint12Y = ratioH*935,  Npoint13Y = ratioH*807;		
 				
 		int NxPos[] = {Npoint01X, Npoint02X, Npoint03X, Npoint04X, Npoint05X,
 					   Npoint06X, Npoint07X, Npoint08X, Npoint09X, Npoint10X,
@@ -411,12 +451,12 @@ public class DrawGameMap {
 	//	06:	1132, 1061		07: 1132, 972		08: 1142, 972		09: 1142, 940		
 	
 	//X Coordinates - North Section
-		int Spoint01X = 1219, Spoint02X = 1219, Spoint03X = 1093, Spoint04X = 1039, Spoint05X = 1093,
-			Spoint06X = 1132, Spoint07X = 1132, Spoint08X = 1142, Spoint09X = 1142;
+		int Spoint01X = ratioW*1219, Spoint02X = ratioW*1219, Spoint03X = ratioW*1093, Spoint04X = ratioW*1039, Spoint05X = ratioW*1093,
+			Spoint06X = ratioW*1132, Spoint07X = ratioW*1132, Spoint08X = ratioW*1142, Spoint09X = ratioW*1142;
 	
 	//Y Coordinates - North Section
-		int Spoint01Y = 940,  Spoint02Y = 1176, Spoint03Y = 1176, Spoint04Y = 1099, Spoint05Y = 1061,
-		    Spoint06Y = 1061, Spoint07Y = 972,  Spoint08Y = 972,  Spoint09Y = 940;  	
+		int Spoint01Y = ratioH*940,  Spoint02Y = ratioH*1176, Spoint03Y = ratioH*1176, Spoint04Y = ratioH*1099, Spoint05Y = ratioH*1061,
+		    Spoint06Y = ratioH*1061, Spoint07Y = ratioH*972,  Spoint08Y = ratioH*972,  Spoint09Y = ratioH*940;  	
 			
 		int SxPos[] = {Spoint01X, Spoint02X, Spoint03X, Spoint04X, Spoint05X,
 					   Spoint06X, Spoint07X, Spoint08X, Spoint09X};
@@ -441,11 +481,11 @@ public class DrawGameMap {
 	//	01:	1122, 1211		02: 1375, 1211		03: 1375, 1380		04: 1270, 1380		05: 1270, 1346
 	//	06:	1216, 1346		07: 1216, 1380		08: 1122, 1380		
 			
-		int point01X = 1122, point02X = 1375, point03X = 1375, point04X = 1270, point05X = 1270,
-			point06X = 1216, point07X = 1216, point08X = 1122;
+		int point01X = ratioW*1122, point02X = ratioW*1375, point03X = ratioW*1375, point04X = ratioW*1270, point05X = ratioW*1270,
+			point06X = ratioW*1216, point07X = ratioW*1216, point08X = ratioW*1122;
 			
-		int point01Y = 1211, point02Y = 1211, point03Y = 1380, point04Y = 1380, point05Y = 1346,
-			point06Y = 1346, point07Y = 1380, point08Y = 1380;	
+		int point01Y = ratioH*1211, point02Y = ratioH*1211, point03Y = ratioH*1380, point04Y = ratioH*1380, point05Y = ratioH*1346,
+			point06Y = ratioH*1346, point07Y = ratioH*1380, point08Y = ratioH*1380;	
 		
 		int xPos[] = {point01X, point02X, point03X, point04X, point05X,
 					  point06X, point07X, point08X};
@@ -467,11 +507,11 @@ public class DrawGameMap {
 	//	01:	1615, 798		02: 1615, 1380		03: 1422, 1380		04: 1422, 1176		05: 1266, 1176
 	//	06:	1266, 819		07: 1355, 819		08: 1355, 798		
 			
-		int Opoint01X = 1615, Opoint02X = 1615, Opoint03X = 1422, Opoint04X = 1422, Opoint05X = 1266,
-			Opoint06X = 1266, Opoint07X = 1355, Opoint08X = 1355;
+		int Opoint01X = ratioW*1615, Opoint02X = ratioW*1615, Opoint03X = ratioW*1422, Opoint04X = ratioW*1422, Opoint05X = ratioW*1266,
+			Opoint06X = ratioW*1266, Opoint07X = ratioW*1355, Opoint08X = ratioW*1355;
 			
-		int Opoint01Y = 798, Opoint02Y = 1380, Opoint03Y = 1380, Opoint04Y = 1176, Opoint05Y = 1176,
-			Opoint06Y = 819, Opoint07Y = 819,  Opoint08Y = 798;	
+		int Opoint01Y = ratioH*798, Opoint02Y = ratioH*1380, Opoint03Y = ratioH*1380, Opoint04Y = ratioH*1176, Opoint05Y = ratioH*1176,
+			Opoint06Y = ratioH*819, Opoint07Y = ratioH*819,  Opoint08Y = ratioH*798;	
 		
 		int OxPos[] = {Opoint01X, Opoint02X, Opoint03X, Opoint04X, Opoint05X,
 					  Opoint06X, Opoint07X, Opoint08X};
@@ -487,13 +527,13 @@ public class DrawGameMap {
 	//	06:	1533, 1351		07: 1494, 1351		08: 1494, 1312		09: 1499, 1312		10: 1499, 1090	
 	//	11:	1345, 1090		12: 1345, 888
 		
-		int Ipoint01X = 1539, Ipoint02X = 1539, Ipoint03X = 1528, Ipoint04X = 1528, Ipoint05X = 1533,
-			Ipoint06X = 1533, Ipoint07X = 1494, Ipoint08X = 1494, Ipoint09X = 1499, Ipoint10X = 1499, 
-			Ipoint11X = 1345, Ipoint12X = 1345;
+		int Ipoint01X = ratioW*1539, Ipoint02X = ratioW*1539, Ipoint03X = ratioW*1528, Ipoint04X = ratioW*1528, Ipoint05X = ratioW*1533,
+			Ipoint06X = ratioW*1533, Ipoint07X = ratioW*1494, Ipoint08X = ratioW*1494, Ipoint09X = ratioW*1499, Ipoint10X = ratioW*1499, 
+			Ipoint11X = ratioW*1345, Ipoint12X = ratioW*1345;
 		
-		int Ipoint01Y = 888,  Ipoint02Y = 1090, Ipoint03Y = 1090, Ipoint04Y = 1312, Ipoint05Y = 1312,
-			Ipoint06Y = 1351, Ipoint07Y = 1351, Ipoint08Y = 1312, Ipoint09Y = 1312, Ipoint10Y = 1090,  
-			Ipoint11Y = 1090, Ipoint12Y = 888;	
+		int Ipoint01Y = ratioH*888,  Ipoint02Y = ratioH*1090, Ipoint03Y = ratioH*1090, Ipoint04Y = ratioH*1312, Ipoint05Y = ratioH*1312,
+			Ipoint06Y = ratioH*1351, Ipoint07Y = ratioH*1351, Ipoint08Y = ratioH*1312, Ipoint09Y = ratioH*1312, Ipoint10Y = ratioH*1090,  
+			Ipoint11Y = ratioH*1090, Ipoint12Y = ratioH*888;	
 	
 		int IxPos[] = {Ipoint01X, Ipoint02X, Ipoint03X, Ipoint04X, Ipoint05X,
 				  	   Ipoint06X, Ipoint07X, Ipoint08X, Ipoint09X, Ipoint10X, 
@@ -518,14 +558,15 @@ public class DrawGameMap {
 	void drawHiddenCourtyardInterior(Graphics2D g) {
 		
 	//POINTS LIST
-	//	01:	1485, 937		02: 1485, 1025		03: 1403, 1025		04: 1403, 937
+	//	01:	1485, 937		
+	//	02: 1485, 1025		
+	//	03: 1403, 1025		
+	//	04: 1403, 937
 			
-		int point01X = 1485, point02X = 1485, point03X = 1403, point04X = 1403;
-		
-		int point01Y = 937,  point02Y = 1025, point03Y = 1025, point04Y = 937;
-		
+		int point01X = ratioW*1485, point02X = ratioW*1485, point03X = ratioW*1403, point04X = ratioW*1403;
 		int xPos[] = {point01X, point02X, point03X, point04X};
 		
+		int point01Y = ratioH*937,  point02Y = ratioH*1025, point03Y = ratioH*1025, point04Y = ratioH*937;
 		int yPos[] = {point01Y, point02Y, point03Y, point04Y};
 		
 		Polygon building = new Polygon(xPos, yPos, 4);	
@@ -550,26 +591,26 @@ public class DrawGameMap {
 	//	41:	1807, 1042		42:	1807, 1065		43:	1690, 1065		44:	1690, 798
 			
 	//X Coordinates
-		int point01X = 2004, point02X = 2004, point03X = 1884, point04X = 1884, point05X = 1859,
-			point06X = 1859, point07X = 1934, point08X = 1934, point09X = 1984, point10X = 1984,
-			point11X = 1934, point12X = 1934, point13X = 1860, point14X = 1860, point15X = 1934,
-			point16X = 1934, point17X = 1983, point18X = 1983, point19X = 1934, point20X = 1934,
-			point21X = 1859, point22X = 1859, point23X = 1934, point24X = 1934, point25X = 1984,
-			point26X = 1984, point27X = 1934, point28X = 1934, point29X = 1859, point30X = 1859,
-			point31X = 1832, point32X = 1832, point33X = 1792, point34X = 1792, point35X = 1717,
-			point36X = 1717, point37X = 1792, point38X = 1792, point39X = 1832, point40X = 1832,
-			point41X = 1807, point42X = 1807, point43X = 1690, point44X = 1690;
+		int point01X = ratioW*2004, point02X = ratioW*2004, point03X = ratioW*1884, point04X = ratioW*1884, point05X = ratioW*1859,
+			point06X = ratioW*1859, point07X = ratioW*1934, point08X = ratioW*1934, point09X = ratioW*1984, point10X = ratioW*1984,
+			point11X = ratioW*1934, point12X = ratioW*1934, point13X = ratioW*1860, point14X = ratioW*1860, point15X = ratioW*1934,
+			point16X = ratioW*1934, point17X = ratioW*1983, point18X = ratioW*1983, point19X = ratioW*1934, point20X = ratioW*1934,
+			point21X = ratioW*1859, point22X = ratioW*1859, point23X = ratioW*1934, point24X = ratioW*1934, point25X = ratioW*1984,
+			point26X = ratioW*1984, point27X = ratioW*1934, point28X = ratioW*1934, point29X = ratioW*1859, point30X = ratioW*1859,
+			point31X = ratioW*1832, point32X = ratioW*1832, point33X = ratioW*1792, point34X = ratioW*1792, point35X = ratioW*1717,
+			point36X = ratioW*1717, point37X = ratioW*1792, point38X = ratioW*1792, point39X = ratioW*1832, point40X = ratioW*1832,
+			point41X = ratioW*1807, point42X = ratioW*1807, point43X = ratioW*1690, point44X = ratioW*1690;
 		
 	//Y Coordinates
-		int point01Y = 798,  point02Y = 1065, point03Y = 1065, point04Y = 1042, point05Y = 1042,
-			point06Y = 1020, point07Y = 1020, point08Y = 1034, point09Y = 1034, point10Y = 983,
-			point11Y = 983,  point12Y = 994,  point13Y = 994,  point14Y = 953,  point15Y = 953,
-			point16Y = 967,  point17Y = 967,  point18Y = 916,  point19Y = 916,  point20Y = 928,
-			point21Y = 928,  point22Y = 873,  point23Y = 873,  point24Y = 886,  point25Y = 886,
-			point26Y = 834,  point27Y = 834,  point28Y = 849,  point29Y = 849,  point30Y = 837,
-			point31Y = 837,  point32Y = 934,  point33Y = 934,  point34Y = 847,  point35Y = 847,
-			point36Y = 1022, point37Y = 1022, point38Y = 948,  point39Y = 948,  point40Y = 1042,
-			point41Y = 1042, point42Y = 1065, point43Y = 1065, point44Y = 798;
+		int point01Y = ratioH*798,  point02Y = ratioH*1065, point03Y = ratioH*1065, point04Y = ratioH*1042, point05Y = ratioH*1042,
+			point06Y = ratioH*1020, point07Y = ratioH*1020, point08Y = ratioH*1034, point09Y = ratioH*1034, point10Y = ratioH*983,
+			point11Y = ratioH*983,  point12Y = ratioH*994,  point13Y = ratioH*994,  point14Y = ratioH*953,  point15Y = ratioH*953,
+			point16Y = ratioH*967,  point17Y = ratioH*967,  point18Y = ratioH*916,  point19Y = ratioH*916,  point20Y = ratioH*928,
+			point21Y = ratioH*928,  point22Y = ratioH*873,  point23Y = ratioH*873,  point24Y = ratioH*886,  point25Y = ratioH*886,
+			point26Y = ratioH*834,  point27Y = ratioH*834,  point28Y = ratioH*849,  point29Y = ratioH*849,  point30Y = ratioH*837,
+			point31Y = ratioH*837,  point32Y = ratioH*934,  point33Y = ratioH*934,  point34Y = ratioH*847,  point35Y = ratioH*847,
+			point36Y = ratioH*1022, point37Y = ratioH*1022, point38Y = ratioH*948,  point39Y = ratioH*948,  point40Y = ratioH*1042,
+			point41Y = ratioH*1042, point42Y = ratioH*1065, point43Y = ratioH*1065, point44Y = ratioH*798;
 		
 		int xPos[] = {point01X,  point02X,  point03X,  point04X,  point05X,
 					  point06X,  point07X,  point08X,  point09X,  point10X,
@@ -611,22 +652,22 @@ public class DrawGameMap {
 	//	31:	1884, 1127		32: 1884, 1098
 			
 	//X Coordinates
-		int Opoint01X = 2004, Opoint02X = 2004, Opoint03X = 1690, Opoint04X = 1690, Opoint05X = 1807,
-			Opoint06X = 1807, Opoint07X = 1832, Opoint08X = 1832, Opoint09X = 1713, Opoint10X = 1713,
-			Opoint11X = 1706, Opoint12X = 1706, Opoint13X = 1713, Opoint14X = 1713, Opoint15X = 1831,
-			Opoint16X = 1831, Opoint17X = 1859, Opoint18X = 1859, Opoint19X = 1974, Opoint20X = 1974,
-			Opoint21X = 1945, Opoint22X = 1945, Opoint23X = 1966, Opoint24X = 1966, Opoint25X = 1897,
-			Opoint26X = 1897, Opoint27X = 1922, Opoint28X = 1922, Opoint29X = 1860, Opoint30X = 1860,
-			Opoint31X = 1884, Opoint32X = 1884;
+		int Opoint01X = ratioW*2004, Opoint02X = ratioW*2004, Opoint03X = ratioW*1690, Opoint04X = ratioW*1690, Opoint05X = ratioW*1807,
+			Opoint06X = ratioW*1807, Opoint07X = ratioW*1832, Opoint08X = ratioW*1832, Opoint09X = ratioW*1713, Opoint10X = ratioW*1713,
+			Opoint11X = ratioW*1706, Opoint12X = ratioW*1706, Opoint13X = ratioW*1713, Opoint14X = ratioW*1713, Opoint15X = ratioW*1831,
+			Opoint16X = ratioW*1831, Opoint17X = ratioW*1859, Opoint18X = ratioW*1859, Opoint19X = ratioW*1974, Opoint20X = ratioW*1974,
+			Opoint21X = ratioW*1945, Opoint22X = ratioW*1945, Opoint23X = ratioW*1966, Opoint24X = ratioW*1966, Opoint25X = ratioW*1897,
+			Opoint26X = ratioW*1897, Opoint27X = ratioW*1922, Opoint28X = ratioW*1922, Opoint29X = ratioW*1860, Opoint30X = ratioW*1860,
+			Opoint31X = ratioW*1884, Opoint32X = ratioW*1884;
 		
 	//Y Coordinates
-		int Opoint01Y = 1098, Opoint02Y = 1354, Opoint03Y = 1354, Opoint04Y = 1098, Opoint05Y = 1098,
-			Opoint06Y = 1127, Opoint07Y = 1127, Opoint08Y = 1150, Opoint09Y = 1150, Opoint10Y = 1200,
-			Opoint11Y = 1200, Opoint12Y = 1243, Opoint13Y = 1243, Opoint14Y = 1311, Opoint15Y = 1311,
-			Opoint16Y = 1324, Opoint17Y = 1324, Opoint18Y = 1308, Opoint19Y = 1308, Opoint20Y = 1267,
-			Opoint21Y = 1267, Opoint22Y = 1233, Opoint23Y = 1233, Opoint24Y = 1161, Opoint25Y = 1161,
-			Opoint26Y = 1233, Opoint27Y = 1233, Opoint28Y = 1267, Opoint29Y = 1267, Opoint30Y = 1127,
-			Opoint31Y = 1127, Opoint32Y = 1098;
+		int Opoint01Y = ratioH*1098, Opoint02Y = ratioH*1354, Opoint03Y = ratioH*1354, Opoint04Y = ratioH*1098, Opoint05Y = ratioH*1098,
+			Opoint06Y = ratioH*1127, Opoint07Y = ratioH*1127, Opoint08Y = ratioH*1150, Opoint09Y = ratioH*1150, Opoint10Y = ratioH*1200,
+			Opoint11Y = ratioH*1200, Opoint12Y = ratioH*1243, Opoint13Y = ratioH*1243, Opoint14Y = ratioH*1311, Opoint15Y = ratioH*1311,
+			Opoint16Y = ratioH*1324, Opoint17Y = ratioH*1324, Opoint18Y = ratioH*1308, Opoint19Y = ratioH*1308, Opoint20Y = ratioH*1267,
+			Opoint21Y = ratioH*1267, Opoint22Y = ratioH*1233, Opoint23Y = ratioH*1233, Opoint24Y = ratioH*1161, Opoint25Y = ratioH*1161,
+			Opoint26Y = ratioH*1233, Opoint27Y = ratioH*1233, Opoint28Y = ratioH*1267, Opoint29Y = ratioH*1267, Opoint30Y = ratioH*1127,
+			Opoint31Y = ratioH*1127, Opoint32Y = ratioH*1098;
 		
 		int OxPos[] = {Opoint01X,  Opoint02X,  Opoint03X,  Opoint04X,  Opoint05X,
 					  Opoint06X,  Opoint07X,  Opoint08X,  Opoint09X,  Opoint10X,
@@ -654,16 +695,16 @@ public class DrawGameMap {
 //		16: 1732, 1162
 			
 	//X Coordinates
-		int Ipoint01X = 1832, Ipoint02X = 1832, Ipoint03X = 1794, Ipoint04X = 1794, Ipoint05X = 1769,
-			Ipoint06X = 1769, Ipoint07X = 1793, Ipoint08X = 1793, Ipoint09X = 1832, Ipoint10X = 1832,
-			Ipoint11X = 1732, Ipoint12X = 1732, Ipoint13X = 1748, Ipoint14X = 1748, Ipoint15X = 1732,
-			Ipoint16X = 1732;
+		int Ipoint01X = ratioW*1832, Ipoint02X = ratioW*1832, Ipoint03X = ratioW*1794, Ipoint04X = ratioW*1794, Ipoint05X = ratioW*1769,
+			Ipoint06X = ratioW*1769, Ipoint07X = ratioW*1793, Ipoint08X = ratioW*1793, Ipoint09X = ratioW*1832, Ipoint10X = ratioW*1832,
+			Ipoint11X = ratioW*1732, Ipoint12X = ratioW*1732, Ipoint13X = ratioW*1748, Ipoint14X = ratioW*1748, Ipoint15X = ratioW*1732,
+			Ipoint16X = ratioW*1732;
 		
 	//Y Coordinates
-		int Ipoint01Y = 1162, Ipoint02Y = 1215, Ipoint03Y = 1215, Ipoint04Y = 1210, Ipoint05Y = 1210,
-			Ipoint06Y = 1236, Ipoint07Y = 1236, Ipoint08Y = 1232, Ipoint09Y = 1232, Ipoint10Y = 1299,
-			Ipoint11Y = 1299, Ipoint12Y = 1243, Ipoint13Y = 1243, Ipoint14Y = 1200, Ipoint15Y = 1200,
-			Ipoint16Y = 1162;
+		int Ipoint01Y = ratioH*1162, Ipoint02Y = ratioH*1215, Ipoint03Y = ratioH*1215, Ipoint04Y = ratioH*1210, Ipoint05Y = ratioH*1210,
+			Ipoint06Y = ratioH*1236, Ipoint07Y = ratioH*1236, Ipoint08Y = ratioH*1232, Ipoint09Y = ratioH*1232, Ipoint10Y = ratioH*1299,
+			Ipoint11Y = ratioH*1299, Ipoint12Y = ratioH*1243, Ipoint13Y = ratioH*1243, Ipoint14Y = ratioH*1200, Ipoint15Y = ratioH*1200,
+			Ipoint16Y = ratioH*1162;
 		
 		int IxPos[] = {Ipoint01X,  Ipoint02X,  Ipoint03X,  Ipoint04X,  Ipoint05X,
 					   Ipoint06X,  Ipoint07X,  Ipoint08X,  Ipoint09X,  Ipoint10X,
@@ -687,14 +728,15 @@ public class DrawGameMap {
 	void drawSouthEastWall(Graphics2D g) {
 		
 	//POINTS LIST
-	//	01:	2111, 1023		02: 2111, 1354		03: 2068, 1354		04: 2068, 1023
+	//	01:	2111, 1023		
+	//	02: 2111, 1354		
+	//	03: 2068, 1354		
+	//	04: 2068, 1023
 			
-		int point01X = 2111, point02X = 2111, point03X = 2068, point04X = 2068;
-		
-		int point01Y = 1023,  point02Y = 1354, point03Y = 1354, point04Y = 1023;
-		
+		int point01X = ratioW*2111, point02X = ratioW*2111, point03X = ratioW*2068, point04X = ratioW*2068;
 		int xPos[] = {point01X, point02X, point03X, point04X};
 		
+		int point01Y = ratioH*1023,  point02Y = ratioH*1354, point03Y = ratioH*1354, point04Y = ratioH*1023;
 		int yPos[] = {point01Y, point02Y, point03Y, point04Y};
 		
 		Polygon building = new Polygon(xPos, yPos, 4);	
@@ -702,10 +744,6 @@ public class DrawGameMap {
 		g.setColor(Black);
 		g.setStroke(DefaultStroke);
 		g.fillPolygon(building);
-		
-		
-		
-		
 		
 	}
 
@@ -715,11 +753,11 @@ public class DrawGameMap {
 	//	01:	2377, 1023		02: 2377, 1156		03: 2323, 1156		04: 2323, 1111 		05:2184, 1111		
 	//	06: 2184, 1156		07: 2153, 1156		08: 2153, 1023
 			
-		int point01X = 2377, point02X = 2377, point03X = 2323, point04X = 2323, point05X = 2184, 
-			point06X = 2184, point07X = 2153, point08X = 2153;
+		int point01X = ratioW*2377, point02X = 2377, point03X = ratioW*2323, point04X = ratioW*2323, point05X = ratioW*2184, 
+			point06X = ratioW*2184, point07X = 2153, point08X = ratioW*2153;
 		
-		int point01Y = 1023,  point02Y = 1156, point03Y = 1156, point04Y = 1111, point05Y = 1111,  
-			point06Y = 1156, point07Y = 1156, point08Y = 1023;
+		int point01Y = ratioH*1023,  point02Y = ratioH*1156, point03Y = ratioH*1156, point04Y = ratioH*1111, point05Y = ratioH*1111,  
+			point06Y = ratioH*1156,  point07Y = ratioH*1156, point08Y = ratioH*1023;
 		
 		int xPos[] = {point01X, point02X, point03X, point04X, point05X, 
 				      point06X, point07X, point08X};
@@ -742,13 +780,13 @@ public class DrawGameMap {
 	//	06: 2215, 1354		07: 2153, 1354		08: 2153, 1198		09: 2184, 1198		10: 2184, 1252
 	//	11: 2322, 1252		12: 2322, 1198
 			
-		int point01X = 2377, point02X = 2377, point03X = 2296, point04X = 2296, point05X = 2215, 
-			point06X = 2215, point07X = 2153, point08X = 2153, point09X = 2184, point10X = 2184,
-			point11X = 2322, point12X = 2322;
+		int point01X = ratioW*2377, point02X = ratioW*2377, point03X = ratioW*2296, point04X = ratioW*2296, point05X = ratioW*2215, 
+			point06X = ratioW*2215, point07X = ratioW*2153, point08X = ratioW*2153, point09X = ratioW*2184, point10X = ratioW*2184,
+			point11X = ratioW*2322, point12X = ratioW*2322;
 		
-		int point01Y = 1198,  point02Y = 1354, point03Y = 1354, point04Y = 1315, point05Y = 1315,  
-			point06Y = 1354,  point07Y = 1354, point08Y = 1198, point09Y = 1198, point10Y = 1252,
-		    point11Y = 1252,  point12Y = 1198;
+		int point01Y = ratioH*1198,  point02Y = ratioH*1354, point03Y = ratioH*1354, point04Y = ratioH*1315, point05Y = ratioH*1315,  
+			point06Y = ratioH*1354,  point07Y = ratioH*1354, point08Y = ratioH*1198, point09Y = ratioH*1198, point10Y = ratioH*1252,
+		    point11Y = ratioH*1252,  point12Y = ratioH*1198;
 		
 		int xPos[] = {point01X, point02X, point03X, point04X, point05X, 
 				      point06X, point07X, point08X, point09X, point10X,
@@ -774,15 +812,15 @@ public class DrawGameMap {
 	//	11: 2297, 764		12: 2315, 764		13: 2315, 733		14: 2433, 733		15: 2433, 587		
 	//  16: 2499, 587		17: 2499, 1499		18: 1690, 1499
 			
-		int point01X = 1690, point02X = 2432, point03X = 2432, point04X = 2450, point05X = 2450, 
-			point06X = 2432, point07X = 2432, point08X = 2068, point09X = 2068, point10X = 2297,
-			point11X = 2297, point12X = 2315, point13X = 2315, point14X = 2433, point15X = 2433,  
-			point16X = 2499, point17X = 2499, point18X = 1690;
+		int point01X = ratioW*1690, point02X = ratioW*2432, point03X = ratioW*2432, point04X = ratioW*2450, point05X = ratioW*2450, 
+			point06X = ratioW*2432, point07X = ratioW*2432, point08X = ratioW*2068, point09X = ratioW*2068, point10X = ratioW*2297,
+			point11X = ratioW*2297, point12X = ratioW*2315, point13X = ratioW*2315, point14X = ratioW*2433, point15X = ratioW*2433,  
+			point16X = ratioW*2499, point17X = ratioW*2499, point18X = ratioW*1690;
 		
-		int point01Y = 1400,  point02Y = 1400, point03Y = 1198, point04Y = 1198, point05Y = 1156,  
-			point06Y = 1156,  point07Y = 974,  point08Y = 974,  point09Y = 925,  point10Y = 925,
-		    point11Y = 764,   point12Y = 764,  point13Y = 733,  point14Y = 733,  point15Y = 587,  
-		    point16Y = 587,   point17Y = 1499, point18Y = 1499;
+		int point01Y = ratioH*1400,  point02Y = ratioH*1400, point03Y = ratioH*1198, point04Y = ratioH*1198, point05Y = ratioH*1156,  
+			point06Y = ratioH*1156,  point07Y = ratioH*974,  point08Y = ratioH*974,  point09Y = ratioH*925,  point10Y = ratioH*925,
+		    point11Y = ratioH*764,   point12Y = ratioH*764,  point13Y = ratioH*733,  point14Y = ratioH*733,  point15Y = ratioH*587,  
+		    point16Y = ratioH*587,   point17Y = ratioH*1499, point18Y = ratioH*1499;
 		
 		int xPos[] = {point01X, point02X, point03X, point04X, point05X, 
 				      point06X, point07X, point08X, point09X, point10X,
@@ -808,10 +846,10 @@ public class DrawGameMap {
 		g.setColor(Black);
 		
 	//Arc Variables for All
-		int arcX = 656, 
-			arcY = 164,
-			arcWidth = 350,
-			arcHeight = 350;
+		int arcX = ratioW*656, 
+			arcY = ratioH*164,
+			arcWidth = ratioW*350,
+			arcHeight = ratioH*350;
 		
 	//Arc 1 Variables
 		int arc1startAngle = 60;
