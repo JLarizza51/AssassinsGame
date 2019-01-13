@@ -159,7 +159,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.boarder = new BuildingObjects(xPos, yPos, 10, Black, DefaultStroke);
-		System.out.println("BOARDER INITIALIZED");
 		
 	}
 	

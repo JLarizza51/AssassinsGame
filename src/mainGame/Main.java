@@ -48,6 +48,13 @@ public class Main implements KeyListener{
     Player player = new Player(name, location, maxHP, HP, enemiesKilled);
     int originX = (player.xLoc-player.x)*-1,
     	originY = (player.yLoc-player.y)*-1;
+  
+//Input Variables
+    boolean keyW = false,
+    		keyA = false,
+    		keyS = false,
+    		keyD = false;
+    
     
 //Initialize Building Objects
     static BuildingObjects boarder,					
@@ -101,7 +108,7 @@ public class Main implements KeyListener{
 	Main() {
 		GUISetup();
 		timerSetup();
-		DrawGameMap.initializeBuildings(originX, originY);
+		mapSetup();
 	}
 	
 	void GUISetup() {
@@ -112,6 +119,12 @@ public class Main implements KeyListener{
 		window.add(drPanel);
 		window.pack();
 		window.setVisible(true);
+	}
+	
+	void mapSetup() {
+		originX = (player.xLoc-player.x)*-1;
+	    originY = (player.yLoc-player.y)*-1;
+	    DrawGameMap.initializeBuildings(originX, originY);
 	}
 	
 	void timerSetup() {
@@ -188,9 +201,13 @@ public class Main implements KeyListener{
 	private class MainTimer implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-				originX = (player.xLoc-player.x)*-1;
-			    originY = (player.yLoc-player.y)*-1;
-			    DrawGameMap.initializeBuildings(originX, originY);
+			
+				if (keyW) player.yLoc-=player.speed;
+				if (keyA) player.xLoc-=player.speed;
+				if (keyS) player.yLoc+=player.speed;
+				if (keyD) player.xLoc+=player.speed;
+				
+				mapSetup();
 				window.repaint();	
 			}
 		}
@@ -206,17 +223,21 @@ public class Main implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {	
 		
-		if (e.getKeyChar()=='W' || e.getKeyChar()=='w') player.yLoc-=20;
-		if (e.getKeyChar()=='A' || e.getKeyChar()=='a') player.xLoc-=20;
-		if (e.getKeyChar()=='S' || e.getKeyChar()=='s') player.yLoc+=20;
-		if (e.getKeyChar()=='D' || e.getKeyChar()=='d') player.xLoc+=20;
+		if (e.getKeyChar()=='W' || e.getKeyChar()=='w') keyW = true;
+		if (e.getKeyChar()=='A' || e.getKeyChar()=='a') keyA = true;
+		if (e.getKeyChar()=='S' || e.getKeyChar()=='s') keyS = true;
+		if (e.getKeyChar()=='D' || e.getKeyChar()=='d') keyD = true;
 		
 	}
 	
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void keyReleased(KeyEvent e) {	
+		
+		if (e.getKeyChar()=='W' || e.getKeyChar()=='w') keyW = false;
+		if (e.getKeyChar()=='A' || e.getKeyChar()=='a') keyA = false;
+		if (e.getKeyChar()=='S' || e.getKeyChar()=='s') keyS = false;
+		if (e.getKeyChar()=='D' || e.getKeyChar()=='d') keyD = false;
 		
 	}
 	

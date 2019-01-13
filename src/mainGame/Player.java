@@ -15,6 +15,7 @@ class Player extends Rectangle{
 	   int xLoc, yLoc; // <--- the X and Y Location of the Player. This is NOT the location
 	   				   //	   on the screen, but rather the location on the map
 	   int radius = 24;
+	   int speed;
 	  
 	
 	
@@ -24,8 +25,8 @@ class Player extends Rectangle{
 		this.maxHP = maxHP;
 		this.HP = HP;
 		this.enemiesKilled = enemiesKilled;
-
 		
+		this.speed = 5;
 		x = Main.WINW/2-radius;
 		y = Main.WINW/2-radius;
 		
