@@ -20,19 +20,20 @@ public class DrawGameMap {
 	
 //JFrame and JWindow Creations
 	String gameTitle = "Assassins";
-	final static int mapW = 2500;
+	final static int mapW = Main.WINW/3*50;
+//	final static int mapW = 2500;
 	final static int mapH = mapW/5*3;
 	static JFrame window;
 	DrawingPanel drPanel = new DrawingPanel();
 			
 //Colors, Font, and Strokes
-	Color White = new Color (255, 255, 255);
-	Color Blue = new Color (0, 0, 255);
-	Color Red = new Color (255, 0, 0);
-	Color Green = new Color(0, 255, 0);
-	Color Black = new Color (0, 0, 0);
-	BasicStroke DefaultStroke = new BasicStroke(1);
-	BasicStroke ColosseumStroke = new BasicStroke(mapW/50);
+	static Color White = new Color (255, 255, 255);
+	static Color Blue = new Color (0, 0, 255);
+	static Color Red = new Color (255, 0, 0);
+	static Color Green = new Color(0, 255, 0);
+	static Color Black = new Color (0, 0, 0);
+	static BasicStroke DefaultStroke = new BasicStroke(1);
+	static BasicStroke ColosseumStroke = new BasicStroke(mapW/50);
 	
 //NUMBERS USED FOR RATIOS
 	static double ratioW = mapW/2500.0,
@@ -54,6 +55,45 @@ public class DrawGameMap {
 		window.setVisible(true);
 	}
 	
+	static void initializeBuildings(int originX, int originY) {
+		initializeBoarder(originX, originY);
+		initializeMaze(originX, originY);
+		initializeMansionFenceNorth(originX, originY);
+		initializeMansionFenceSouth(originX, originY);
+		initializeMansion(originX, originY);
+		
+		initializeColosseumBoarder(originX, originY);
+		initializeTriangleBuilding1(originX, originY);
+		initializeMansionSideBuilding1(originX, originY);
+		initializeMansionSideBuilding2(originX, originY);
+		initializeTriangleBuilding2(originX, originY);
+		initializeHouseArea1(originX, originY);
+//		initializeSpawnPointSideStreet(originX, originY);
+		initializeBuildingWithBottomEntrance(originX, originY);
+		initializeHiddenCourtyard(originX, originY);
+		initializeHiddenCourtyardInterior(originX, originY);
+		initializeHouseArea2(originX, originY);
+		initializeHouseArea3(originX, originY);
+		initializeSouthEastWall(originX, originY);
+		initializeSouthEastNorthBuilding(originX, originY);
+		initializeSouthEastSouthBuilding(originX, originY);
+		initializeSouthEastExtendedBoarder(originX, originY);
+		initializeColosseum(originX, originY);
+		initializeTownSquareWEST(originX, originY);
+		initializeTownSquareSOUTHEAST(originX, originY);
+		initializeTownSquareNORTHEAST(originX, originY);
+		
+
+//Main.spawnPointBoarder = new BuildingObjects(xPos, yPos, #);
+//Main.houseArea3 = new BuildingObjects(xPos, yPos, #)		
+//Main.colosseum = new BuildingObjects(xPos, yPos, #);
+		
+
+		
+	}
+	
+	
+	
 	@SuppressWarnings("serial")
 	private class DrawingPanel extends JPanel {
 		
@@ -67,40 +107,37 @@ public class DrawGameMap {
 			super.paintComponent(g1);
 			this.requestFocus();
 			
-			drawBoarder(g);
-			drawMaze(g);
-			drawMansionFenceNorth(g);
-			drawMansionFenceSouth(g);
-			drawMansion(g);
-			drawSpawnPointBoarder(g);
-			drawColosseumBoarder(g);
-			drawTriangleBuilding1(g);
-			drawMansionSideBuilding1(g);
-			drawMansionSideBuilding2(g);
-			drawTriangleBuilding2(g);
-			drawHouseArea1(g);
-			drawSpawnPointSideStreet(g);
-			drawBuildingWithBottomEntrance(g);
-			drawHiddenCourtyard(g);
-			drawHiddenCourtyardInterior(g);
-			drawHouseArea2(g);
-			drawHouseArea3(g);
-			drawSouthEastWall(g);
-			drawSouthEastNorthBuilding(g);
-			drawSouthEastSouthBuilding(g);
-			drawSouthEastExtendedBoarder(g);
-			drawColosseum(g);
-			drawTownSquareWEST(g);
-			drawTownSquareSOUTHEAST(g);
-			drawTownSquareNORTHEAST(g);
+//			initializeBoarder(g);
+//			initializeMaze(g);
+//			initializeMansionFenceNorth(g);
+//			initializeMansionFenceSouth(g);
+//			initializeMansion(g);
+//			initializeSpawnPointBoarder(g);
+//			initializeColosseumBoarder(g);
+//			initializeTriangleBuilding1(g);
+//			initializeMansionSideBuilding1(g);
+//			initializeMansionSideBuilding2(g);
+//			initializeTriangleBuilding2(g);
+//			initializeHouseArea1(g);
+//			initializeSpawnPointSideStreet(g);
+//			initializeBuildingWithBottomEntrance(g);
+//			initializeHiddenCourtyard(g);
+//			initializeHiddenCourtyardInterior(g);
+//			initializeHouseArea2(g);
+//			initializeHouseArea3(g);
+//			initializeSouthEastWall(g);
+//			initializeSouthEastNorthBuilding(g);
+//			initializeSouthEastSouthBuilding(g);
+//			initializeSouthEastExtendedBoarder(g);
+//			initializeColosseum(g);
+//			initializeTownSquareWEST(g);
+//			initializeTownSquareSOUTHEAST(g);
+//			initializeTownSquareNORTHEAST(g);
 		}
 		
 	}
 	
-	void drawBoarder(Graphics2D g) {
-		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
+	static void initializeBoarder(int originX, int originY) {
 		
 	//POINT LIST
 	// 01: 0, 0		02: WINW, 0		03: WINW, WINH		04: 0, WINH			05: 0, 50
@@ -111,17 +148,22 @@ public class DrawGameMap {
 		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X,
 				      (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X};
 		
+		
+		
 		double point01Y = 0,         point02Y = 0,           point03Y = mapH,        point04Y = mapH,        point05Y = ratioH*50,
 			   point06Y = ratioH*50, point07Y = ratioH*1450, point08Y = ratioH*1450, point09Y = ratioH*50,   point10Y = ratioH*50;
 		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
 				      (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y};
 		
-		Polygon boarder = new Polygon(xPos, yPos, 10);
-		g.fillPolygon(boarder);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
+		
+		Main.boarder = new BuildingObjects(xPos, yPos, 10, Black, DefaultStroke);
+		System.out.println("BOARDER INITIALIZED");
 		
 	}
 	
-	void drawMaze(Graphics2D g) {
+	static void initializeMaze(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01: 480, 81			02: 81, 81 			03: 81, 430			04:	480, 430		05: 480, 131
@@ -160,36 +202,22 @@ public class DrawGameMap {
 					  (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
 					  (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
 					  (int)point26Y};
+	
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 			
-		Polygon building = new Polygon(xPos, yPos, 26);
-			
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);	
+		Main.maze = new BuildingObjects(xPos, yPos, 26, Black, DefaultStroke);
 		
-		
+//		Polygon building = new Polygon(xPos, yPos, 26);
+//			
 //		g.setColor(Black);
 //		g.setStroke(DefaultStroke);
-//		
-//		g.fillRect(81, 81, 400, 25);
-//		g.fillRect(81, 81, 25, 350);
-//		g.fillRect(81, 406, 400, 25);
-//		g.fillRect(456, 131, 25, 300);
-//		
-//		g.fillRect(131, 131, 350, 25);
-//		g.fillRect(131, 131, 25, 250);
-//		g.fillRect(156, 356, 275, 25);
-//		g.fillRect(406, 181, 25, 200);
-//		
-//		g.fillRect(181, 181, 250, 25);
-//		g.fillRect(181, 181, 25, 150);
-//		g.fillRect(181, 306, 200, 25);
-//		g.fillRect(356, 231, 25, 100);
+//		g.fillPolygon(building);
 		
 		
 	}
 
-	void drawMansionFenceNorth(Graphics2D g) {
+	static void initializeMansionFenceNorth(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	332, 720		02: 367, 720		03: 367, 670		04: 475, 670		05: 475, 465
@@ -219,14 +247,19 @@ public class DrawGameMap {
 				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
 				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y};
 		
-		Polygon fence = new Polygon(xPos, yPos, 20);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(fence);
+		Main.mansionFenceNorth = new BuildingObjects(xPos, yPos, 20, Black, DefaultStroke);
+		
+//		Polygon fence = new Polygon(xPos, yPos, 20);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(fence);
 	}
 
-	void drawMansionFenceSouth(Graphics2D g) {
+	static void initializeMansionFenceSouth(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	332, 779		02: 367, 779		03: 367, 829		04: 475, 829		05: 475, 1034
@@ -256,15 +289,22 @@ public class DrawGameMap {
 				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
 				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y};
 		
-		Polygon fence = new Polygon(xPos, yPos, 20);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(fence);
+		
+		Main.mansionFenceSouth = new BuildingObjects(xPos, yPos, 20, Black, DefaultStroke);
+		
+		
+//		Polygon fence = new Polygon(xPos, yPos, 20);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(fence);
 		
 		}
 	
-	void drawMansion(Graphics2D g) {
+	static void initializeMansion(int originX, int originY) {
 
 	//POINTS LIST
 	//	01:	81, 626		
@@ -277,17 +317,24 @@ public class DrawGameMap {
 		
 		double point01Y = ratioH*626, point02Y = ratioH*626, point03Y = ratioH*874, point04Y = ratioH*874;
 		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
+
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		Polygon building = new Polygon(xPos, yPos, 4);
-	
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
 		
-		g.fillPolygon(building);
+		Main.mansion = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 4);
+//	
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		
+//		g.fillPolygon(building);
 		
 	}
 
-	void drawColosseumBoarder(Graphics2D g) {
+	static void initializeColosseumBoarder(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01: 1230, 270		02: 1230, 81		03: 531, 81			04:	531, 674		05: 1150, 674
@@ -311,16 +358,22 @@ public class DrawGameMap {
 		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
 					  (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
 					  (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y};
-			
-		Polygon building = new Polygon(xPos, yPos, 14);
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
+		
+		Main.colosseumBoarder = new BuildingObjects(xPos, yPos, 14, Black, DefaultStroke);
+		
+//		
+//		Polygon building = new Polygon(xPos, yPos, 14);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 		
 	}
 
-	void drawSpawnPointBoarder(Graphics2D g) {
+	static void initializeSpawnPointBoarder(int originX, int originY) {
 		
 	//NORTH WEST POINTS LIST
 	//	01:	1146, 674		02: 1150, 674		03: 1150, 724		04: 1146, 724
@@ -331,11 +384,13 @@ public class DrawGameMap {
 		double NWpoint01Y = ratioH*674,  NWpoint02Y = ratioH*674, NWpoint03Y = ratioH*724, NWpoint04Y = ratioH*724;
 		int NWyPos[] = {(int)NWpoint01Y, (int)NWpoint02Y, (int)NWpoint03Y, (int)NWpoint04Y};
 		
+		for (int i=0; i<NWxPos.length; i++) NWxPos[i]+=originX;
+		for (int i=0; i<NWyPos.length; i++) NWyPos[i]+=originY;
 		Polygon NWBoarder = new Polygon(NWxPos, NWyPos, 4);	
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(NWBoarder);
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(NWBoarder);
 		
 	//SOUTH WEST POINTS LIST
 	//	01:	1146, 770		02: 1150, 770		03: 1150, 807		04: 1146, 807
@@ -346,8 +401,10 @@ public class DrawGameMap {
 		double SWpoint01Y = ratioH*770,  SWpoint02Y = ratioH*770, SWpoint03Y = ratioH*807, SWpoint04Y = ratioH*807;
 		int SWyPos[] = {(int)SWpoint01Y, (int)SWpoint02Y, (int)SWpoint03Y, (int)SWpoint04Y};
 		
+		for (int i=0; i<SWxPos.length; i++) SWxPos[i]+=originX;
+		for (int i=0; i<SWyPos.length; i++) SWyPos[i]+=originY;
 		Polygon SWBoarder = new Polygon(SWxPos, SWyPos, 4);	
-		g.fillPolygon(SWBoarder);
+//		g.fillPolygon(SWBoarder);
 		
 	//SOUTH EAST POINTS LIST
 	//	01:	1355, 770		02: 1359, 770		03: 1359, 807		04: 1355, 807
@@ -358,8 +415,10 @@ public class DrawGameMap {
 		double SEpoint01Y = ratioH*770,  SEpoint02Y = ratioH*770, SEpoint03Y = ratioH*807, SEpoint04Y = ratioH*807;
 		int SEyPos[] = {(int)SEpoint01Y, (int)SEpoint02Y, (int)SEpoint03Y, (int)SEpoint04Y};
 		
+		for (int i=0; i<SExPos.length; i++) SExPos[i]+=originX;
+		for (int i=0; i<SEyPos.length; i++) SEyPos[i]+=originY;
 		Polygon SEBoarder = new Polygon(SExPos, SEyPos, 4);	
-		g.fillPolygon(SEBoarder);
+//		g.fillPolygon(SEBoarder);
 		
 	//NORTH EAST POINTS LIST
 	//	01:	1355, 674		02: 1359, 674		03: 1359, 724		04: 1355, 724
@@ -369,15 +428,17 @@ public class DrawGameMap {
 		
 		double NEpoint01Y = ratioH*674,  NEpoint02Y = ratioH*674, NEpoint03Y = ratioH*724, NEpoint04Y = ratioH*724;
 		int NEyPos[] = {(int)NEpoint01Y, (int)NEpoint02Y, (int)NEpoint03Y, (int)NEpoint04Y};
-		
+
+		for (int i=0; i<NExPos.length; i++) NExPos[i]+=originX;
+		for (int i=0; i<NEyPos.length; i++) NEyPos[i]+=originY;
 		Polygon NEBoarder = new Polygon(NExPos, NEyPos, 4);
-		g.fillPolygon(NEBoarder);
+//		g.fillPolygon(NEBoarder);
 	}
 
-	void drawTriangleBuilding1(Graphics2D g) {
+	static void initializeTriangleBuilding1(int originX, int originY) {
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
 		
 	//POINT LIST
 	// 01: 531, 824
@@ -390,17 +451,23 @@ public class DrawGameMap {
 		double point1Y = ratioH*824, point2Y = ratioH*1056, point3Y = ratioH*824;
 		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 3);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.fillPolygon(building);
+		Main.triangleBuilding1 = new BuildingObjects(xPos, yPos, 3, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 3);
+//		
+//		g.fillPolygon(building);
 		
 		
 	}
 
-	void drawMansionSideBuilding1(Graphics2D g) {
+	static void initializeMansionSideBuilding1(int originX, int originY) {
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
 		
 	//POINT LIST
 	// 01: 81, 1079
@@ -414,18 +481,21 @@ public class DrawGameMap {
 		double point1Y = ratioH*1079, point2Y = ratioH*1079, point3Y = ratioH*1242, point4Y = ratioH*1332;
 		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y, (int)point4Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 4);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.fillPolygon(building);
+		Main.mansionSideBuilding1 = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 4);
+//		
+//		g.fillPolygon(building);
 		
 		
 		
 	}
 
-	void drawMansionSideBuilding2(Graphics2D g) {
-		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
+	static void initializeMansionSideBuilding2(int originX, int originY) {
 		
 	//POINT LIST
 	// 01: 279, 1079
@@ -439,18 +509,23 @@ public class DrawGameMap {
 		double point1Y = ratioH*1079, point2Y = ratioH*1079, point3Y = ratioH*1090, point4Y = ratioH*1211;
 		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y, (int)point4Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 4);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.fillPolygon(building);
+		Main.mansionSideBuilding2 = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+		
+//		Polygon building = new Polygon(xPos, yPos, 4);
+//		
+//		g.fillPolygon(building);
 		
 		
 		
 	}
 
-	void drawTriangleBuilding2(Graphics2D g) {
+	static void initializeTriangleBuilding2(int originX, int originY) {
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
 		
 	//POINT LIST
 	// 01: 480, 1209
@@ -463,13 +538,18 @@ public class DrawGameMap {
 		double point1Y = ratioH*1209, point2Y = ratioH*1380, point3Y = ratioH*1380;
 		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 3);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.fillPolygon(building);
+		Main.triangleBuilding2 = new BuildingObjects(xPos, yPos, 3, Black, DefaultStroke);
+		
+//		Polygon building = new Polygon(xPos, yPos, 3);
+//		
+//		g.fillPolygon(building);
 		
 	}
 
-	void drawHouseArea1(Graphics2D g) {
+	static void initializeHouseArea1(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	910, 946		02: 960, 1018		03: 816, 1081		04: 816, 1085		05: 759, 1085
@@ -554,15 +634,20 @@ public class DrawGameMap {
 				      (int)point66Y,  (int)point67Y,  (int)point68Y,  (int)point69Y,  (int)point70Y,
 				      (int)point71Y,  (int)point72Y,  (int)point73Y,  (int)point74Y,  (int)point75Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 75);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		Main.houseArea1 = new BuildingObjects(xPos, yPos, 75, Black, DefaultStroke);
+		
+//		Polygon building = new Polygon(xPos, yPos, 75);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 	
 	}
 
-	void drawSpawnPointSideStreet(Graphics2D g) {
+	static void initializeSpawnPointSideStreet(int originX, int originY) {
 		
 	//POINTS LIST - NORTH SECTION
 	//	01:	1150, 807		02: 1150, 819		03: 1219, 819		04: 1219, 923		05: 1142, 923
@@ -587,6 +672,11 @@ public class DrawGameMap {
 				       (int)Npoint06Y, (int)Npoint07Y, (int)Npoint08Y, (int)Npoint09Y, (int)Npoint10Y,
 				       (int)Npoint11Y, (int)Npoint12Y, (int)Npoint13Y};
 		
+		for (int i=0; i<NxPos.length; i++) NxPos[i]+=originX;
+		for (int i=0; i<NyPos.length; i++) NyPos[i]+=originY;
+		
+		
+		
 		Polygon NorthBuilding = new Polygon(NxPos, NyPos, 13);
 		
 		
@@ -608,19 +698,21 @@ public class DrawGameMap {
 	
 		int SyPos[] = {(int)Spoint01Y, (int)Spoint02Y, (int)Spoint03Y, (int)Spoint04Y, (int)Spoint05Y,
 				       (int)Spoint06Y, (int)Spoint07Y, (int)Spoint08Y, (int)Spoint09Y};
-	
+		
+		for (int i=0; i<NxPos.length; i++) NxPos[i]+=originX;
+		for (int i=0; i<NyPos.length; i++) NyPos[i]+=originY;
 		Polygon SouthBuilding = new Polygon(SxPos, SyPos, 9);
 			
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		
-		g.fillPolygon(NorthBuilding);
-		g.fillPolygon(SouthBuilding);
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		
+//		g.fillPolygon(NorthBuilding);
+//		g.fillPolygon(SouthBuilding);
 
 			
 	}
 
-	void drawBuildingWithBottomEntrance(Graphics2D g) {
+	static void initializeBuildingWithBottomEntrance(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	1122, 1211		02: 1375, 1211		03: 1375, 1380		04: 1270, 1380		05: 1270, 1346
@@ -638,15 +730,22 @@ public class DrawGameMap {
 		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
 				      (int)point06Y, (int)point07Y, (int)point08Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 8);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.buildingWithBottomEntrance = new BuildingObjects(xPos, yPos, 8, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 8);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 	
 	}
 
-	void drawHiddenCourtyard(Graphics2D g) {
+	static void initializeHiddenCourtyard(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	1533, 1351		02: 1533, 1380		03: 1422, 1380 		04: 1422, 1776		05: 1266, 1176 
@@ -681,15 +780,22 @@ public class DrawGameMap {
 				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
 				      (int)point21Y,  (int)point22Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 22);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.hiddenCourtyard = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 22);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 	
 	}
 
-	void drawHiddenCourtyardInterior(Graphics2D g) {
+	static void initializeHiddenCourtyardInterior(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	1485, 937		02: 1485, 1025		03: 1403, 1025		04: 1403, 937
@@ -700,15 +806,22 @@ public class DrawGameMap {
 		double point01Y = ratioH*937,  point02Y = ratioH*1025, point03Y = ratioH*1025, point04Y = ratioH*937;
 		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 4);	
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.hiddenCourtyardInterior = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 4);	
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 			
 	}
 
-	void drawHouseArea2(Graphics2D g) {
+	static void initializeHouseArea2(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	2004, 798		02: 2004, 1065		03: 1884, 1065		04: 1884, 1042		05: 1859, 1042
@@ -763,15 +876,22 @@ public class DrawGameMap {
 					  (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
 					  (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 44);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.houseArea2 = new BuildingObjects(xPos, yPos, 44, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 44);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 		
 	}
 
-	void drawHouseArea3(Graphics2D g) {
+	static void initializeHouseArea3(int originX, int originY) {
 		
 	//OUTSIDE POINTS LIST
 	//	01:	2004, 1098		02: 2004, 1354		03: 1690, 1354		04: 1690, 1098		05: 1807, 1098
@@ -816,14 +936,16 @@ public class DrawGameMap {
 				       (int)Opoint26Y,  (int)Opoint27Y,  (int)Opoint28Y,  (int)Opoint29Y,  (int)Opoint30Y,
 				       (int)Opoint31Y,  (int)Opoint32Y};
 		
+		for (int i=0; i<OxPos.length; i++) OxPos[i]+=originX;
+		for (int i=0; i<OyPos.length; i++) OyPos[i]+=originY;
 		Polygon building = new Polygon(OxPos, OyPos, 32);
 
 	
-//INSIDE POINTS LIST
-//		01:	1832, 1162		02: 1832, 1215		03: 1794, 1215		04: 1794, 1210		05: 1769, 1210
-//		06:	1769, 1236		07: 1793, 1236		08: 1793, 1232		09: 1832, 1232		10:	1832, 1299
-//		11: 1732, 1299		12:	1732, 1243		13: 1748, 1243		14: 1748, 1200		15:	1732, 1200
-//		16: 1732, 1162
+	//INSIDE POINTS LIST
+	//	01:	1832, 1162		02: 1832, 1215		03: 1794, 1215		04: 1794, 1210		05: 1769, 1210
+	//	06:	1769, 1236		07: 1793, 1236		08: 1793, 1232		09: 1832, 1232		10:	1832, 1299
+	//	11: 1732, 1299		12:	1732, 1243		13: 1748, 1243		14: 1748, 1200		15:	1732, 1200
+	//	16: 1732, 1162
 			
 	//X Coordinates
 		double Ipoint01X = ratioW*1832, Ipoint02X = ratioW*1832, Ipoint03X = ratioW*1794, Ipoint04X = ratioW*1794, Ipoint05X = ratioW*1769,
@@ -847,16 +969,18 @@ public class DrawGameMap {
 					   (int)Ipoint11Y,  (int)Ipoint12Y,  (int)Ipoint13Y,  (int)Ipoint14Y,  (int)Ipoint15Y,
 					   (int)Ipoint16Y};
 		
+		for (int i=0; i<IxPos.length; i++) IxPos[i]+=originX;
+		for (int i=0; i<IyPos.length; i++) IyPos[i]+=originY;
 		Polygon interiorBuilding = new Polygon(IxPos, IyPos, 16);
 		
-	g.setColor(Black);
-	g.setStroke(DefaultStroke);
-	g.fillPolygon(building);
-	g.fillPolygon(interiorBuilding);
+//	g.setColor(Black);
+//	g.setStroke(DefaultStroke);
+//	g.fillPolygon(building);
+//	g.fillPolygon(interiorBuilding);
 		
 	}
 
-	void drawSouthEastWall(Graphics2D g) {
+	static void initializeSouthEastWall(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	2111, 1023		
@@ -870,15 +994,21 @@ public class DrawGameMap {
 		double point01Y = ratioH*1023,  point02Y = ratioH*1354, point03Y = ratioH*1354, point04Y = ratioH*1023;
 		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 4);	
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		Main.southEastWall = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 4);	
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 		
 	}
 
-	void drawSouthEastNorthBuilding(Graphics2D g) {
+	static void initializeSouthEastNorthBuilding(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	2377, 1023		02: 2377, 1156		03: 2323, 1156		04: 2323, 1111 		05:2184, 1111		
@@ -896,15 +1026,22 @@ public class DrawGameMap {
 		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
 				      (int)point06Y, (int)point07Y, (int)point08Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 8);	
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		Main.southEastNorthBuilding = new BuildingObjects(xPos, yPos, 8, Black, DefaultStroke);
+		
+		
+//		
+//		Polygon building = new Polygon(xPos, yPos, 8);	
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 			
 	}
 
-	void drawSouthEastSouthBuilding(Graphics2D g) {
+	static void initializeSouthEastSouthBuilding(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	2377, 1198		02: 2377, 1354		03: 2296, 1354		04: 2296, 1315 		05:2215, 1315		
@@ -927,15 +1064,23 @@ public class DrawGameMap {
 				      (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y,
 				      (int)point11Y, (int)point12Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 12);	
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.southEastSouthBuilding = new BuildingObjects(xPos, yPos, 12, Black, DefaultStroke);
+		
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 12);	
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 		
 	}
 	
-	void drawSouthEastExtendedBoarder(Graphics2D g) {
+	static void initializeSouthEastExtendedBoarder(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	1690, 1400		02: 2432, 1400		03: 2432, 1198		04: 2450, 1198 		05: 2450, 1156		
@@ -968,22 +1113,29 @@ public class DrawGameMap {
 					  (int)point16Y, (int)point17Y, (int)point18Y, (int)point19Y, (int)point20Y,
 				      (int)point21Y, (int)point22Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 22);	
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		Main.southEastExtendedBoarder = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
+		
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 22);	
+		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 		
 	}
 	
-	void drawColosseum(Graphics2D g) {
+	static void initializeColosseum(int originX, int originY) {
 		
-		g.setStroke(ColosseumStroke);
-		g.setColor(Black);
+//		g.setStroke(ColosseumStroke);
+//		g.setColor(Black);
 		
 	//Arc Variables for All
-		double arcX = ratioW*656, 
-			   arcY = ratioH*164,
+		double arcX = ratioW*656+originX, 
+			   arcY = ratioH*164+originY,
 			   arcWidth = ratioW*350,
 			   arcHeight = ratioH*350;
 		
@@ -999,13 +1151,13 @@ public class DrawGameMap {
 		int arc3startAngle = -15;
 		int arc3arcAngle = -12;
 		
-		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc1startAngle, arc1arcAngle);
-		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc2startAngle, arc2arcAngle);
-		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc3startAngle, arc3arcAngle);
+//		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc1startAngle, arc1arcAngle);
+//		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc2startAngle, arc2arcAngle);
+//		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc3startAngle, arc3arcAngle);
 		
 	}
 	
-	void drawTownSquareWEST(Graphics2D g) {
+	static void initializeTownSquareWEST(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	1855, 639		02: 1855, 675		03: 1355, 675		04: 1355, 638		05: 1288, 638
@@ -1066,14 +1218,22 @@ public class DrawGameMap {
 				      (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y,
 				      (int)point46Y,  (int)point47Y,  (int)point48Y,  (int)point49Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 49);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.townSquareWEST = new BuildingObjects(xPos, yPos, 49, Black, DefaultStroke);
+		
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 49);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 	}
 
-	void drawTownSquareSOUTHEAST(Graphics2D g) {
+	static void initializeTownSquareSOUTHEAST(int originX, int originY) {
 
 		
 		//POINTS LIST
@@ -1115,14 +1275,22 @@ public class DrawGameMap {
 					      (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
 					      (int)point26Y};
 			
-			Polygon building = new Polygon(xPos, yPos, 26);
+			for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+			for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 			
-			g.setColor(Black);
-			g.setStroke(DefaultStroke);
-			g.fillPolygon(building);
+			
+			Main.townSquareSOUTHEAST = new BuildingObjects(xPos, yPos, 26, Black, DefaultStroke);
+			
+			
+//			
+//			Polygon building = new Polygon(xPos, yPos, 26);
+//			
+//			g.setColor(Black);
+//			g.setStroke(DefaultStroke);
+//			g.fillPolygon(building);
 	}
 
-	void drawTownSquareNORTHEAST(Graphics2D g) {
+	static void initializeTownSquareNORTHEAST(int originX, int originY) {
 		
 	//POINTS LIST
 	//	01:	2341, 50		02: 2341, 159		03: 2422, 159		04: 2422, 308		05: 2363, 308
@@ -1177,11 +1345,18 @@ public class DrawGameMap {
 				      (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
 				      (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y};
 		
-		Polygon building = new Polygon(xPos, yPos, 45);
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		g.setColor(Black);
-		g.setStroke(DefaultStroke);
-		g.fillPolygon(building);
+		
+		Main.townSquareNORTHEAST = new BuildingObjects(xPos, yPos, 45, Black, DefaultStroke);
+		
+		
+//		Polygon building = new Polygon(xPos, yPos, 45);
+//		
+//		g.setColor(Black);
+//		g.setStroke(DefaultStroke);
+//		g.fillPolygon(building);
 		
 	}
 }
