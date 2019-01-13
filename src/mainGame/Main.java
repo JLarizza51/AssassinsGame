@@ -63,15 +63,23 @@ public class Main implements KeyListener{
                            mansionFenceSouth,
                            mansion,
                            colosseumBoarder,
+                           spawnPointBoarderNW,
+                           spawnPointBoarderSW,
+                           spawnPointBoarderSE,
+                           spawnPointBoarderNE,
                            triangleBuilding1,   
                            mansionSideBuilding1,
                            mansionSideBuilding2,
                            triangleBuilding2,
                            houseArea1,
+                           spawnPointSideStreetNORTH,
+                           spawnPointSideStreetSOUTH,
                            buildingWithBottomEntrance,
                            hiddenCourtyard,
                            hiddenCourtyardInterior,
                            houseArea2,
+                           houseArea3OUTSIDE,
+                           houseArea3INSIDE,
                            southEastWall,
                            southEastNorthBuilding,
                            southEastSouthBuilding,
@@ -80,21 +88,33 @@ public class Main implements KeyListener{
                            townSquareSOUTHEAST,
                            townSquareNORTHEAST;
     
+	static ColosseumBuildingObjects colosseumLarge,
+	                                colosseumSmall1,
+	                                colosseumSmall2;
+    
     static BuildingObjects[] buildings = {boarder,				
                                           maze,
                                           mansionFenceNorth,
                                           mansionFenceSouth,
                                           mansion,
                                           colosseumBoarder,
+                                          spawnPointBoarderNW,
+                                          spawnPointBoarderSW,
+                                          spawnPointBoarderSE,
+                                          spawnPointBoarderNE,
                                           triangleBuilding1,   
                                           mansionSideBuilding1,
                                           mansionSideBuilding2,
                                           triangleBuilding2,
                                           houseArea1,
+                                          spawnPointSideStreetNORTH,
+                                          spawnPointSideStreetSOUTH,
                                           buildingWithBottomEntrance,
                                           hiddenCourtyard,
                                           hiddenCourtyardInterior,
                                           houseArea2,
+                                          houseArea3OUTSIDE,
+                                          houseArea3INSIDE,
                                           southEastWall,
                                           southEastNorthBuilding,
                                           southEastSouthBuilding,
@@ -102,6 +122,10 @@ public class Main implements KeyListener{
                                           townSquareWEST,
                                           townSquareSOUTHEAST,
                                           townSquareNORTHEAST};
+    
+    static ColosseumBuildingObjects[] colosseumBuildings = {colosseumLarge,
+                                                            colosseumSmall1,
+                                                            colosseumSmall2};
 	
 	public static void main(String[] args) {new Main();}
 
@@ -132,9 +156,53 @@ public class Main implements KeyListener{
 		mainTimer.start();	
 	}
 	
-	@SuppressWarnings("serial")
+	void playerMove() {
+		
+		if (keyW) {
+			checkCollision("UP");
+//			player.yLoc-=player.speed;
+		}
+		if (keyA) {
+//			checkCollision("LEFT");
+			player.xLoc-=player.speed;
+		}
+		if (keyS) {
+//			checkCollision("DOWN");
+			player.yLoc+=player.speed;
+		}
+		if (keyD) {
+//			checkCollision("RIGHT");
+			player.xLoc+=player.speed;
+		}
+		
+	}
 	
-
+	void checkCollision(String direction) {
+		
+		if (direction.equals("UP")) {
+			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.yLoc-=player.speed;
+		}
+		
+		if (direction.equals("LEFT")) {
+			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.xLoc-=player.speed;
+		}
+		
+		if (direction.equals("DOWN")) {
+			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.yLoc+=player.speed;
+		}
+		
+		if (direction.equals("RIGHT")) {
+			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.xLoc+=player.speed;
+		}
+		
+	}
+	
+	
+// --------------------------------------
+// ---------- GRAPHICS METHODS ----------
+// --------------------------------------
+	
+	@SuppressWarnings("serial")
 	private class DrawingPanel extends JPanel {
 		
 		DrawingPanel() {this.setPreferredSize(new Dimension(WINW, WINW));}
@@ -173,28 +241,36 @@ public class Main implements KeyListener{
         mansionFenceSouth.paint(g);
         mansion.paint(g);
         colosseumBoarder.paint(g);
+        spawnPointBoarderNW.paint(g);
+        spawnPointBoarderSW.paint(g);
+        spawnPointBoarderSE.paint(g);
+        spawnPointBoarderNE.paint(g);
         triangleBuilding1.paint(g);   
         mansionSideBuilding1.paint(g);
         mansionSideBuilding2.paint(g);
         triangleBuilding2.paint(g);
         houseArea1.paint(g);
+        spawnPointSideStreetNORTH.paint(g);
+        spawnPointSideStreetSOUTH.paint(g);
         buildingWithBottomEntrance.paint(g);
         hiddenCourtyard.paint(g);
         hiddenCourtyardInterior.paint(g);
         houseArea2.paint(g);
+        houseArea3OUTSIDE.paint(g);
+        houseArea3INSIDE.paint(g);
         southEastWall.paint(g);
         southEastNorthBuilding.paint(g);
         southEastSouthBuilding.paint(g);
         southEastExtendedBoarder.paint(g);
+        colosseumLarge.paint(g);
+        colosseumSmall1.paint(g);
+        colosseumSmall2.paint(g);
         townSquareWEST.paint(g);
         townSquareSOUTHEAST.paint(g);
         townSquareNORTHEAST.paint(g);
         
 	}
 
-	
-	
-	
 // --------------------------------------
 // --------------- TIMER ----------------
 // --------------------------------------
@@ -202,23 +278,11 @@ public class Main implements KeyListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
-				if (keyW) player.yLoc-=player.speed;
-				if (keyA) player.xLoc-=player.speed;
-				if (keyS) player.yLoc+=player.speed;
-				if (keyD) player.xLoc+=player.speed;
-				
+				playerMove();
 				mapSetup();
 				window.repaint();	
 			}
 		}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public void keyPressed(KeyEvent e) {	

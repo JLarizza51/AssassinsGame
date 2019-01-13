@@ -26,7 +26,7 @@ class Player extends Rectangle{
 		this.HP = HP;
 		this.enemiesKilled = enemiesKilled;
 		
-		this.speed = 5;
+		this.speed = 1;
 		x = Main.WINW/2-radius;
 		y = Main.WINW/2-radius;
 		
@@ -40,8 +40,11 @@ class Player extends Rectangle{
 		
 		else {
 			
-			xLoc = (int) (DrawGameMap.ratioW*706);
-			yLoc = (int) (DrawGameMap.ratioH*1282);
+			xLoc = (int) (DrawGameMap.ratioW*336);
+			yLoc = (int) (DrawGameMap.ratioH*739);
+			
+//			xLoc = (int) (DrawGameMap.ratioW*706);
+//			yLoc = (int) (DrawGameMap.ratioH*1282);
 			
 //			xLoc = (int) (DrawGameMap.ratioW*0);
 //			yLoc = (int) (DrawGameMap.ratioH*0);

@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 
 import javax.swing.JFrame;
@@ -61,14 +60,14 @@ public class DrawGameMap {
 		initializeMansionFenceNorth(originX, originY);
 		initializeMansionFenceSouth(originX, originY);
 		initializeMansion(originX, originY);
-		
 		initializeColosseumBoarder(originX, originY);
+		initializeSpawnPointBoarder(originX, originY);
 		initializeTriangleBuilding1(originX, originY);
 		initializeMansionSideBuilding1(originX, originY);
 		initializeMansionSideBuilding2(originX, originY);
 		initializeTriangleBuilding2(originX, originY);
 		initializeHouseArea1(originX, originY);
-//		initializeSpawnPointSideStreet(originX, originY);
+		initializeSpawnPointSideStreet(originX, originY);
 		initializeBuildingWithBottomEntrance(originX, originY);
 		initializeHiddenCourtyard(originX, originY);
 		initializeHiddenCourtyardInterior(originX, originY);
@@ -82,14 +81,6 @@ public class DrawGameMap {
 		initializeTownSquareWEST(originX, originY);
 		initializeTownSquareSOUTHEAST(originX, originY);
 		initializeTownSquareNORTHEAST(originX, originY);
-		
-
-//Main.spawnPointBoarder = new BuildingObjects(xPos, yPos, #);
-//Main.houseArea3 = new BuildingObjects(xPos, yPos, #)		
-//Main.colosseum = new BuildingObjects(xPos, yPos, #);
-		
-
-		
 	}
 	
 	
@@ -106,33 +97,6 @@ public class DrawGameMap {
 			
 			super.paintComponent(g1);
 			this.requestFocus();
-			
-//			initializeBoarder(g);
-//			initializeMaze(g);
-//			initializeMansionFenceNorth(g);
-//			initializeMansionFenceSouth(g);
-//			initializeMansion(g);
-//			initializeSpawnPointBoarder(g);
-//			initializeColosseumBoarder(g);
-//			initializeTriangleBuilding1(g);
-//			initializeMansionSideBuilding1(g);
-//			initializeMansionSideBuilding2(g);
-//			initializeTriangleBuilding2(g);
-//			initializeHouseArea1(g);
-//			initializeSpawnPointSideStreet(g);
-//			initializeBuildingWithBottomEntrance(g);
-//			initializeHiddenCourtyard(g);
-//			initializeHiddenCourtyardInterior(g);
-//			initializeHouseArea2(g);
-//			initializeHouseArea3(g);
-//			initializeSouthEastWall(g);
-//			initializeSouthEastNorthBuilding(g);
-//			initializeSouthEastSouthBuilding(g);
-//			initializeSouthEastExtendedBoarder(g);
-//			initializeColosseum(g);
-//			initializeTownSquareWEST(g);
-//			initializeTownSquareSOUTHEAST(g);
-//			initializeTownSquareNORTHEAST(g);
 		}
 		
 	}
@@ -145,15 +109,13 @@ public class DrawGameMap {
 		
 		double point01X = 0,         point02X = mapW,        point03X = mapW,        point04X = 0,           point05X = 0,
 			   point06X = ratioW*50, point07X = ratioW*50,   point08X = ratioW*2450, point09X = ratioW*2450, point10X = ratioW*0;
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X,
-				      (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X};
-		
-		
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X,
+				         (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X};
 		
 		double point01Y = 0,         point02Y = 0,           point03Y = mapH,        point04Y = mapH,        point05Y = ratioH*50,
 			   point06Y = ratioH*50, point07Y = ratioH*1450, point08Y = ratioH*1450, point09Y = ratioH*50,   point10Y = ratioH*50;
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
-				      (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y};
+	       int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
+				         (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
@@ -179,7 +141,12 @@ public class DrawGameMap {
 			   point16X = ratioW*205,  point17X = ratioW*205,  point18X = ratioW*406,  point19X = ratioW*406,  point20X = ratioW*155,
 			   point21X = ratioW*155,  point22X = ratioW*456,  point23X = ratioW*456,  point24X = ratioW*105,  point25X = ratioW*105,
 			   point26X = ratioW*480;
-			
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+				         (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+				         (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+				         (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+				         (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
+				         (int)point26X};
 	//Y Coordinates
 		double point01Y = ratioH*81,   point02Y = ratioH*81,   point03Y = ratioH*430,  point04Y = ratioH*430,  point05Y = ratioH*131,
 			   point06Y = ratioH*131,  point07Y = ratioH*380,  point08Y = ratioH*380,  point09Y = ratioH*181,  point10Y = ratioH*181,
@@ -187,32 +154,17 @@ public class DrawGameMap {
 			   point16Y = ratioH*306,  point17Y = ratioH*205,  point18Y = ratioH*205,  point19Y = ratioH*356,  point20Y = ratioH*356,
 			   point21Y = ratioH*155,  point22Y = ratioH*155,  point23Y = ratioH*406,  point24Y = ratioH*406,  point25Y = ratioH*105,
 			   point26Y = ratioH*105;
-			
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-					  (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-					  (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-					  (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-					  (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
-					  (int)point26X};
-			
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-					  (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-					  (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-					  (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-					  (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
-					  (int)point26Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+					     (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+					     (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+					     (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+					     (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
+					     (int)point26Y};
 	
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 			
 		Main.maze = new BuildingObjects(xPos, yPos, 26, Black, DefaultStroke);
-		
-//		Polygon building = new Polygon(xPos, yPos, 26);
-//			
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
-		
 		
 	}
 
@@ -229,33 +181,25 @@ public class DrawGameMap {
 			   point06X = ratioW*85,   point07X = ratioW*85,   point08X = ratioW*281,  point09X = ratioW*281,  point10X = ratioW*321,
 			   point11X = ratioW*321,  point12X = ratioW*280,  point13X = ratioW*280,  point14X = ratioW*81,   point15X = ratioW*81,
 			   point16X = ratioW*479,  point17X = ratioW*479,  point18X = ratioW*371,  point19X = ratioW*371,  point20X = ratioW*332;
-		
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+				         (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+				         (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+				         (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X};
 	//Y Coordinates
 		double point01Y = ratioH*720,  point02Y = ratioH*720,  point03Y = ratioH*670, point04Y = ratioH*670, point05Y = ratioH*465,
 			   point06Y = ratioH*465,  point07Y = ratioH*625,  point08Y = ratioH*625, point09Y = ratioH*720, point10Y = ratioH*720,
 			   point11Y = ratioH*724,  point12Y = ratioH*724,  point13Y = ratioH*627, point14Y = ratioH*627, point15Y = ratioH*461,
 			   point16Y = ratioH*461,  point17Y = ratioH*674,  point18Y = ratioH*674, point19Y = ratioH*724, point20Y = ratioH*724;
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-				      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-				      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-				      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-				      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+				         (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+				         (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+				         (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionFenceNorth = new BuildingObjects(xPos, yPos, 20, Black, DefaultStroke);
 		
-//		Polygon fence = new Polygon(xPos, yPos, 20);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(fence);
 	}
 
 	static void initializeMansionFenceSouth(int originX, int originY) {
@@ -271,35 +215,24 @@ public class DrawGameMap {
 			   point06X = ratioW*85,   point07X = ratioW*85,   point08X = ratioW*281,  point09X = ratioW*281,  point10X = ratioW*321,
 			   point11X = ratioW*321,  point12X = ratioW*280,  point13X = ratioW*280,  point14X = ratioW*81,   point15X = ratioW*81,
 			   point16X = ratioW*479,  point17X = ratioW*479,  point18X = ratioW*371,  point19X = ratioW*371,  point20X = ratioW*332;
-		
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+				         (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+				         (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+				         (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X};
 	//Y Coordinates
 		double point01Y = ratioH*779,  point02Y = ratioH*779,  point03Y = ratioH*829, point04Y = ratioH*829, point05Y = ratioH*1034,
 			   point06Y = ratioH*1034, point07Y = ratioH*874,  point08Y = ratioH*874, point09Y = ratioH*779, point10Y = ratioH*779,
 			   point11Y = ratioH*775,  point12Y = ratioH*775,  point13Y = ratioH*870, point14Y = ratioH*870, point15Y = ratioH*1038,
 			   point16Y = ratioH*1038, point17Y = ratioH*825,  point18Y = ratioH*825, point19Y = ratioH*775, point20Y = ratioH*775;
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-				      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-				      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-				      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-				      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+				         (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+				         (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+				         (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		
 		Main.mansionFenceSouth = new BuildingObjects(xPos, yPos, 20, Black, DefaultStroke);
-		
-		
-//		Polygon fence = new Polygon(xPos, yPos, 20);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(fence);
 		
 		}
 	
@@ -312,24 +245,15 @@ public class DrawGameMap {
 	//	04: 282, 874
 		
 		double point01X = ratioW*81, point02X = ratioW*282, point03X = ratioW*282, point04X = ratioW*81;
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X};
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X};
 		
 		double point01Y = ratioH*626, point02Y = ratioH*626, point03Y = ratioH*874, point04Y = ratioH*874;
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
 
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		
 		Main.mansion = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 4);
-//	
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		
-//		g.fillPolygon(building);
 		
 	}
 
@@ -344,31 +268,22 @@ public class DrawGameMap {
 		double point01X = ratioW*1230,  point02X = ratioW*1230,  point03X = ratioW*531,   point04X = ratioW*531,   point05X = ratioW*1150,
 			   point06X = ratioW*1150,  point07X = ratioW*1230,  point08X = ratioW*1230,  point09X = ratioW*1181,  point10X = ratioW*1181,
 			   point11X = ratioW*580,   point12X = ratioW*580,   point13X = ratioW*1181,  point14X = ratioW*1181;
-			
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+					     (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+					     (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X};	
+		
 	//Y Coordinates
 		double point01Y = ratioH*270,   point02Y = ratioH*81,  point03Y = ratioH*81,   point04Y = ratioH*674,  point05Y = ratioH*674,
 			   point06Y = ratioH*635,  point07Y = ratioH*635,  point08Y = ratioH*320,  point09Y = ratioH*320,  point10Y = ratioH*586,
 			   point11Y = ratioH*586,  point12Y = ratioH*120,  point13Y = ratioH*120,  point14Y = ratioH*270;
-			
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-					  (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-					  (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X};
-			
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-					  (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-					  (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+					     (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+					     (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.colosseumBoarder = new BuildingObjects(xPos, yPos, 14, Black, DefaultStroke);
-		
-//		
-//		Polygon building = new Polygon(xPos, yPos, 14);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 		
 	}
 
@@ -378,66 +293,57 @@ public class DrawGameMap {
 	//	01:	1146, 674		02: 1150, 674		03: 1150, 724		04: 1146, 724
 			
 		double NWpoint01X = ratioW*1146, NWpoint02X = ratioW*1150, NWpoint03X = ratioW*1150, NWpoint04X = ratioW*1146;
-		int NWxPos[] = {(int)NWpoint01X, (int)NWpoint02X, (int)NWpoint03X, (int)NWpoint04X};
+		   int NWxPos[] = {(int)NWpoint01X, (int)NWpoint02X, (int)NWpoint03X, (int)NWpoint04X};
 		
 		double NWpoint01Y = ratioH*674,  NWpoint02Y = ratioH*674, NWpoint03Y = ratioH*724, NWpoint04Y = ratioH*724;
-		int NWyPos[] = {(int)NWpoint01Y, (int)NWpoint02Y, (int)NWpoint03Y, (int)NWpoint04Y};
+		   int NWyPos[] = {(int)NWpoint01Y, (int)NWpoint02Y, (int)NWpoint03Y, (int)NWpoint04Y};
 		
 		for (int i=0; i<NWxPos.length; i++) NWxPos[i]+=originX;
 		for (int i=0; i<NWyPos.length; i++) NWyPos[i]+=originY;
-		Polygon NWBoarder = new Polygon(NWxPos, NWyPos, 4);	
-		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(NWBoarder);
+		Main.spawnPointBoarderNW = new BuildingObjects(NWxPos, NWyPos, 4, Black, DefaultStroke);
 		
 	//SOUTH WEST POINTS LIST
 	//	01:	1146, 770		02: 1150, 770		03: 1150, 807		04: 1146, 807
 			
 		double SWpoint01X = ratioW*1146, SWpoint02X = ratioW*1150, SWpoint03X = ratioW*1150, SWpoint04X = ratioW*1146;
-		int SWxPos[] = {(int)SWpoint01X, (int)SWpoint02X, (int)SWpoint03X, (int)SWpoint04X};
+		   int SWxPos[] = {(int)SWpoint01X, (int)SWpoint02X, (int)SWpoint03X, (int)SWpoint04X};
 		
 		double SWpoint01Y = ratioH*770,  SWpoint02Y = ratioH*770, SWpoint03Y = ratioH*807, SWpoint04Y = ratioH*807;
-		int SWyPos[] = {(int)SWpoint01Y, (int)SWpoint02Y, (int)SWpoint03Y, (int)SWpoint04Y};
+		   int SWyPos[] = {(int)SWpoint01Y, (int)SWpoint02Y, (int)SWpoint03Y, (int)SWpoint04Y};
 		
 		for (int i=0; i<SWxPos.length; i++) SWxPos[i]+=originX;
 		for (int i=0; i<SWyPos.length; i++) SWyPos[i]+=originY;
-		Polygon SWBoarder = new Polygon(SWxPos, SWyPos, 4);	
-//		g.fillPolygon(SWBoarder);
+		Main.spawnPointBoarderSW = new BuildingObjects(SWxPos, SWyPos, 4, Black, DefaultStroke);
 		
 	//SOUTH EAST POINTS LIST
 	//	01:	1355, 770		02: 1359, 770		03: 1359, 807		04: 1355, 807
 			
 		double SEpoint01X = ratioW*1355, SEpoint02X = ratioW*1359, SEpoint03X = ratioW*1359, SEpoint04X = ratioW*1355;
-		int SExPos[] = {(int)SEpoint01X, (int)SEpoint02X, (int)SEpoint03X, (int)SEpoint04X};
+		   int SExPos[] = {(int)SEpoint01X, (int)SEpoint02X, (int)SEpoint03X, (int)SEpoint04X};
 		
 		double SEpoint01Y = ratioH*770,  SEpoint02Y = ratioH*770, SEpoint03Y = ratioH*807, SEpoint04Y = ratioH*807;
-		int SEyPos[] = {(int)SEpoint01Y, (int)SEpoint02Y, (int)SEpoint03Y, (int)SEpoint04Y};
+		   int SEyPos[] = {(int)SEpoint01Y, (int)SEpoint02Y, (int)SEpoint03Y, (int)SEpoint04Y};
 		
 		for (int i=0; i<SExPos.length; i++) SExPos[i]+=originX;
 		for (int i=0; i<SEyPos.length; i++) SEyPos[i]+=originY;
-		Polygon SEBoarder = new Polygon(SExPos, SEyPos, 4);	
-//		g.fillPolygon(SEBoarder);
+		Main.spawnPointBoarderSE = new BuildingObjects(SExPos, SEyPos, 4, Black, DefaultStroke);
 		
 	//NORTH EAST POINTS LIST
 	//	01:	1355, 674		02: 1359, 674		03: 1359, 724		04: 1355, 724
 			
 		double NEpoint01X = ratioW*1355, NEpoint02X = ratioW*1359, NEpoint03X = ratioW*1359, NEpoint04X = ratioW*1355;
-		int NExPos[] = {(int)NEpoint01X, (int)NEpoint02X, (int)NEpoint03X, (int)NEpoint04X};
+		   int NExPos[] = {(int)NEpoint01X, (int)NEpoint02X, (int)NEpoint03X, (int)NEpoint04X};
 		
 		double NEpoint01Y = ratioH*674,  NEpoint02Y = ratioH*674, NEpoint03Y = ratioH*724, NEpoint04Y = ratioH*724;
-		int NEyPos[] = {(int)NEpoint01Y, (int)NEpoint02Y, (int)NEpoint03Y, (int)NEpoint04Y};
+		   int NEyPos[] = {(int)NEpoint01Y, (int)NEpoint02Y, (int)NEpoint03Y, (int)NEpoint04Y};
 
 		for (int i=0; i<NExPos.length; i++) NExPos[i]+=originX;
 		for (int i=0; i<NEyPos.length; i++) NEyPos[i]+=originY;
-		Polygon NEBoarder = new Polygon(NExPos, NEyPos, 4);
-//		g.fillPolygon(NEBoarder);
+		Main.spawnPointBoarderNE= new BuildingObjects(NExPos, NEyPos, 4, Black, DefaultStroke);
+		
 	}
 
 	static void initializeTriangleBuilding1(int originX, int originY) {
-		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
 		
 	//POINT LIST
 	// 01: 531, 824
@@ -445,28 +351,19 @@ public class DrawGameMap {
 	// 03: 824, 824
 		
 		double point1X = ratioW*531, point2X = ratioW*531, point3X = ratioW*917;
-		int xPos[] = {(int)point1X, (int)point2X, (int)point3X};
+		   int xPos[] = {(int)point1X, (int)point2X, (int)point3X};
 		
 		double point1Y = ratioH*824, point2Y = ratioH*1056, point3Y = ratioH*824;
-		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y};
+		   int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.triangleBuilding1 = new BuildingObjects(xPos, yPos, 3, Black, DefaultStroke);
 		
-		
-//		Polygon building = new Polygon(xPos, yPos, 3);
-//		
-//		g.fillPolygon(building);
-		
-		
 	}
 
 	static void initializeMansionSideBuilding1(int originX, int originY) {
-		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
 		
 	//POINT LIST
 	// 01: 81, 1079
@@ -475,22 +372,15 @@ public class DrawGameMap {
 	// 04: 81, 1332
 	
 		double point1X = ratioW*81, point2X = ratioW*228, point3X = ratioW*228, point4X = ratioW*81;
-		int xPos[] = {(int)point1X, (int)point2X, (int)point3X, (int)point4X};
+		   int xPos[] = {(int)point1X, (int)point2X, (int)point3X, (int)point4X};
 		
 		double point1Y = ratioH*1079, point2Y = ratioH*1079, point3Y = ratioH*1242, point4Y = ratioH*1332;
-		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y, (int)point4Y};
+		   int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y, (int)point4Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionSideBuilding1 = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 4);
-//		
-//		g.fillPolygon(building);
-		
-		
 		
 	}
 
@@ -503,28 +393,19 @@ public class DrawGameMap {
 	// 04: 279, 1211
 		
 		double point1X = ratioW*279, point2X = ratioW*480, point3X = ratioW*480, point4X = ratioW*279;
-		int xPos[] = {(int)point1X, (int)point2X, (int)point3X, (int)point4X};
+		   int xPos[] = {(int)point1X, (int)point2X, (int)point3X, (int)point4X};
 		
 		double point1Y = ratioH*1079, point2Y = ratioH*1079, point3Y = ratioH*1090, point4Y = ratioH*1211;
-		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y, (int)point4Y};
+		   int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y, (int)point4Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionSideBuilding2 = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
 		
-//		Polygon building = new Polygon(xPos, yPos, 4);
-//		
-//		g.fillPolygon(building);
-		
-		
-		
 	}
 
 	static void initializeTriangleBuilding2(int originX, int originY) {
-		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
 		
 	//POINT LIST
 	// 01: 480, 1209
@@ -532,19 +413,15 @@ public class DrawGameMap {
 	// 03: 195, 1380
 		
 		double point1X = ratioW*480, point2X = ratioW*480, point3X = ratioW*195;
-		int xPos[] = {(int)point1X, (int)point2X, (int)point3X};
+		   int xPos[] = {(int)point1X, (int)point2X, (int)point3X};
 		
 		double point1Y = ratioH*1209, point2Y = ratioH*1380, point3Y = ratioH*1380;
-		int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y};
+		   int yPos[] = {(int)point1Y, (int)point2Y, (int)point3Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.triangleBuilding2 = new BuildingObjects(xPos, yPos, 3, Black, DefaultStroke);
-		
-//		Polygon building = new Polygon(xPos, yPos, 3);
-//		
-//		g.fillPolygon(building);
 		
 	}
 
@@ -583,6 +460,21 @@ public class DrawGameMap {
 			   point61X = ratioW*1008, point62X = ratioW*1008, point63X = ratioW*1034, point64X = ratioW*1034, point65X = ratioW*1008,
 			   point66X = ratioW*1008, point67X = ratioW*888,  point68X = ratioW*888,  point69X = ratioW*835,  point70X = ratioW*835,
 			   point71X = ratioW*969,  point72X = ratioW*1075, point73X = ratioW*1075, point74X = ratioW*531,  point75X = ratioW*531;
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+				         (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+				         (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+				         (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+				         (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
+				         (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
+				         (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
+				         (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
+				         (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X,  (int)point45X,
+				         (int)point46X,  (int)point47X,  (int)point48X,  (int)point49X,  (int)point50X,
+				         (int)point51X,  (int)point52X,  (int)point53X,  (int)point54X,  (int)point55X,
+				         (int)point56X,  (int)point57X,  (int)point58X,  (int)point59X,  (int)point60X,
+				         (int)point61X,  (int)point62X,  (int)point63X,  (int)point64X,  (int)point65X,
+				         (int)point66X,  (int)point67X,  (int)point68X,  (int)point69X,  (int)point70X,
+				         (int)point71X,  (int)point72X,  (int)point73X,  (int)point74X,  (int)point75X};
 		
 	//Y Coordinates
 		double point01Y = ratioH*946,  point02Y = ratioH*1018, point03Y = ratioH*1018, point04Y = ratioH*1085, point05Y = ratioH*1085,
@@ -600,49 +492,25 @@ public class DrawGameMap {
 			   point61Y = ratioH*1287, point62Y = ratioH*1253, point63Y = ratioH*1253, point64Y = ratioH*1185, point65Y = ratioH*1185,
 			   point66Y = ratioH*1151, point67Y = ratioH*1151, point68Y = ratioH*1085, point69Y = ratioH*1085, point70Y = ratioH*1032,
 			   point71Y = ratioH*1032, point72Y = ratioH*1186, point73Y = ratioH*1380, point74Y = ratioH*1380, point75Y = ratioH*1178;
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-				      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-				      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-				      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-				      (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
-				      (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
-				      (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
-				      (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
-				      (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X,  (int)point45X,
-				      (int)point46X,  (int)point47X,  (int)point48X,  (int)point49X,  (int)point50X,
-				      (int)point51X,  (int)point52X,  (int)point53X,  (int)point54X,  (int)point55X,
-				      (int)point56X,  (int)point57X,  (int)point58X,  (int)point59X,  (int)point60X,
-				      (int)point61X,  (int)point62X,  (int)point63X,  (int)point64X,  (int)point65X,
-				      (int)point66X,  (int)point67X,  (int)point68X,  (int)point69X,  (int)point70X,
-				      (int)point71X,  (int)point72X,  (int)point73X,  (int)point74X,  (int)point75X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-				      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-				      (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
-				      (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
-				      (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
-				      (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
-				      (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y,
-				      (int)point46Y,  (int)point47Y,  (int)point48Y,  (int)point49Y,  (int)point50Y,
-				      (int)point51Y,  (int)point52Y,  (int)point53Y,  (int)point54Y,  (int)point55Y,
-				      (int)point56Y,  (int)point57Y,  (int)point58Y,  (int)point59Y,  (int)point60Y,
-				      (int)point61Y,  (int)point62Y,  (int)point63Y,  (int)point64Y,  (int)point65Y,
-				      (int)point66Y,  (int)point67Y,  (int)point68Y,  (int)point69Y,  (int)point70Y,
-				      (int)point71Y,  (int)point72Y,  (int)point73Y,  (int)point74Y,  (int)point75Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+				         (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+				         (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+				         (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+				         (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
+				         (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
+				         (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
+				         (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
+				         (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y,
+				         (int)point46Y,  (int)point47Y,  (int)point48Y,  (int)point49Y,  (int)point50Y,
+				         (int)point51Y,  (int)point52Y,  (int)point53Y,  (int)point54Y,  (int)point55Y,
+				         (int)point56Y,  (int)point57Y,  (int)point58Y,  (int)point59Y,  (int)point60Y,
+				         (int)point61Y,  (int)point62Y,  (int)point63Y,  (int)point64Y,  (int)point65Y,
+				         (int)point66Y,  (int)point67Y,  (int)point68Y,  (int)point69Y,  (int)point70Y,
+				         (int)point71Y,  (int)point72Y,  (int)point73Y,  (int)point74Y,  (int)point75Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
 		Main.houseArea1 = new BuildingObjects(xPos, yPos, 75, Black, DefaultStroke);
-		
-//		Polygon building = new Polygon(xPos, yPos, 75);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 	
 	}
 
@@ -656,29 +524,22 @@ public class DrawGameMap {
 	//X Coordinates - North Section
 		double Npoint01X = ratioW*1150, Npoint02X = ratioW*1150, Npoint03X = ratioW*1219, Npoint04X = ratioW*1219, Npoint05X = ratioW*1142,
 			   Npoint06X = ratioW*1142, Npoint07X = ratioW*1068, Npoint08X = ratioW*1068, Npoint09X = ratioW*1082, Npoint10X = ratioW*1082,
-			   Npoint11X = ratioW*1030, Npoint12X = ratioW*927,  Npoint13X = ratioW*1133;
+			   Npoint11X = ratioW*1030, Npoint12X = ratioW*927,  Npoint13X = ratioW*1133;		
+		   int NxPos[] = {(int)Npoint01X, (int)Npoint02X, (int)Npoint03X, (int)Npoint04X, (int)Npoint05X,
+		                  (int)Npoint06X, (int)Npoint07X, (int)Npoint08X, (int)Npoint09X, (int)Npoint10X,
+		                  (int)Npoint11X, (int)Npoint12X, (int)Npoint13X};
 		
 	//Y Coordinates - North Section
 		double Npoint01Y = ratioH*807,  Npoint02Y = ratioH*819,  Npoint03Y = ratioH*819,  Npoint04Y = ratioH*923,  Npoint05Y = ratioH*923,
 			   Npoint06Y = ratioH*895,  Npoint07Y = ratioH*895,  Npoint08Y = ratioH*972,  Npoint09Y = ratioH*972,  Npoint10Y = ratioH*1046,
-			   Npoint11Y = ratioH*1084, Npoint12Y = ratioH*935,  Npoint13Y = ratioH*807;		
-				
-		int NxPos[] = {(int)Npoint01X, (int)Npoint02X, (int)Npoint03X, (int)Npoint04X, (int)Npoint05X,
-				       (int)Npoint06X, (int)Npoint07X, (int)Npoint08X, (int)Npoint09X, (int)Npoint10X,
-				       (int)Npoint11X, (int)Npoint12X, (int)Npoint13X};
-		
-		int NyPos[] = {(int)Npoint01Y, (int)Npoint02Y, (int)Npoint03Y, (int)Npoint04Y, (int)Npoint05Y,
-				       (int)Npoint06Y, (int)Npoint07Y, (int)Npoint08Y, (int)Npoint09Y, (int)Npoint10Y,
-				       (int)Npoint11Y, (int)Npoint12Y, (int)Npoint13Y};
+			   Npoint11Y = ratioH*1084, Npoint12Y = ratioH*935,  Npoint13Y = ratioH*807;
+	       int NyPos[] = {(int)Npoint01Y, (int)Npoint02Y, (int)Npoint03Y, (int)Npoint04Y, (int)Npoint05Y,
+	    		   		  (int)Npoint06Y, (int)Npoint07Y, (int)Npoint08Y, (int)Npoint09Y, (int)Npoint10Y,
+	    		   		  (int)Npoint11Y, (int)Npoint12Y, (int)Npoint13Y};
 		
 		for (int i=0; i<NxPos.length; i++) NxPos[i]+=originX;
 		for (int i=0; i<NyPos.length; i++) NyPos[i]+=originY;
-		
-		
-		
-		Polygon NorthBuilding = new Polygon(NxPos, NyPos, 13);
-		
-		
+		Main.spawnPointSideStreetNORTH = new BuildingObjects(NxPos, NyPos, 13, Black, DefaultStroke);
 		
 	//POINTS LIST - SOUTH SECTION
 	//	01:	1219, 940		02: 1219, 1176		03: 1093, 1176		04: 1039, 1099		05: 1093, 1061
@@ -686,28 +547,19 @@ public class DrawGameMap {
 	
 	//X Coordinates - North Section
 		double Spoint01X = ratioW*1219, Spoint02X = ratioW*1219, Spoint03X = ratioW*1093, Spoint04X = ratioW*1039, Spoint05X = ratioW*1093,
-			   Spoint06X = ratioW*1132, Spoint07X = ratioW*1132, Spoint08X = ratioW*1142, Spoint09X = ratioW*1142;
+			   Spoint06X = ratioW*1132, Spoint07X = ratioW*1132, Spoint08X = ratioW*1142, Spoint09X = ratioW*1142;  	
+	       int SxPos[] = {(int)Spoint01X, (int)Spoint02X, (int)Spoint03X, (int)Spoint04X, (int)Spoint05X,
+				          (int)Spoint06X, (int)Spoint07X, (int)Spoint08X, (int)Spoint09X};
 	
 	//Y Coordinates - North Section
 		double Spoint01Y = ratioH*940,  Spoint02Y = ratioH*1176, Spoint03Y = ratioH*1176, Spoint04Y = ratioH*1099, Spoint05Y = ratioH*1061,
-		       Spoint06Y = ratioH*1061, Spoint07Y = ratioH*972,  Spoint08Y = ratioH*972,  Spoint09Y = ratioH*940;  	
-			
-		int SxPos[] = {(int)Spoint01X, (int)Spoint02X, (int)Spoint03X, (int)Spoint04X, (int)Spoint05X,
-					   (int)Spoint06X, (int)Spoint07X, (int)Spoint08X, (int)Spoint09X};
-	
-		int SyPos[] = {(int)Spoint01Y, (int)Spoint02Y, (int)Spoint03Y, (int)Spoint04Y, (int)Spoint05Y,
-				       (int)Spoint06Y, (int)Spoint07Y, (int)Spoint08Y, (int)Spoint09Y};
+		       Spoint06Y = ratioH*1061, Spoint07Y = ratioH*972,  Spoint08Y = ratioH*972,  Spoint09Y = ratioH*940;
+		   int SyPos[] = {(int)Spoint01Y, (int)Spoint02Y, (int)Spoint03Y, (int)Spoint04Y, (int)Spoint05Y,
+				          (int)Spoint06Y, (int)Spoint07Y, (int)Spoint08Y, (int)Spoint09Y};
 		
-		for (int i=0; i<NxPos.length; i++) NxPos[i]+=originX;
-		for (int i=0; i<NyPos.length; i++) NyPos[i]+=originY;
-		Polygon SouthBuilding = new Polygon(SxPos, SyPos, 9);
-			
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		
-//		g.fillPolygon(NorthBuilding);
-//		g.fillPolygon(SouthBuilding);
-
+		for (int i=0; i<SxPos.length; i++) SxPos[i]+=originX;
+		for (int i=0; i<SyPos.length; i++) SyPos[i]+=originY;
+		Main.spawnPointSideStreetSOUTH = new BuildingObjects(SxPos, SyPos, 9, Black, DefaultStroke);
 			
 	}
 
@@ -719,28 +571,17 @@ public class DrawGameMap {
 			
 		double point01X = ratioW*1122, point02X = ratioW*1375, point03X = ratioW*1375, point04X = ratioW*1270, point05X = ratioW*1270,
 			   point06X = ratioW*1216, point07X = ratioW*1216, point08X = ratioW*1122;
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X,
+				         (int)point06X, (int)point07X, (int)point08X};
 			
 		double point01Y = ratioH*1211, point02Y = ratioH*1211, point03Y = ratioH*1380, point04Y = ratioH*1380, point05Y = ratioH*1346,
-			   point06Y = ratioH*1346, point07Y = ratioH*1380, point08Y = ratioH*1380;	
-		
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X,
-					  (int)point06X, (int)point07X, (int)point08X};
-		
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
-				      (int)point06Y, (int)point07Y, (int)point08Y};
+			   point06Y = ratioH*1346, point07Y = ratioH*1380, point08Y = ratioH*1380;
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
+				         (int)point06Y, (int)point07Y, (int)point08Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
-		
 		Main.buildingWithBottomEntrance = new BuildingObjects(xPos, yPos, 8, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 8);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 	
 	}
 
@@ -759,6 +600,11 @@ public class DrawGameMap {
 			   point11X = ratioW*1533,  point12X = ratioW*1533,  point13X = ratioW*1528,  point14X = ratioW*1528,  point15X = ratioW*1539,
 			   point16X = ratioW*1539,  point17X = ratioW*1345,  point18X = ratioW*1345,  point19X = ratioW*1499,  point20X = ratioW*1499,
 			   point21X = ratioW*1494,  point22X = ratioW*1494;
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+			             (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+			             (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+			             (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+			             (int)point21X,  (int)point22X};
 		
 	//Y Coordinates
 		double point01Y = ratioH*1351,  point02Y = ratioH*1380,  point03Y = ratioH*1380,  point04Y = ratioH*1176,  point05Y = ratioH*1176,
@@ -766,31 +612,15 @@ public class DrawGameMap {
 			   point11Y = ratioH*1380,  point12Y = ratioH*1312,  point13Y = ratioH*1312,  point14Y = ratioH*1090,  point15Y = ratioH*1090,
 			   point16Y = ratioH*888,   point17Y = ratioH*888,   point18Y = ratioH*1090,  point19Y = ratioH*1090,  point20Y = ratioH*1312,
 			   point21Y = ratioH*1312,  point22Y = ratioH*1351;
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-				      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-				      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-				      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-				      (int)point21X,  (int)point22X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-				      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-				      (int)point21Y,  (int)point22Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+				         (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+				         (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+				         (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+				         (int)point21Y,  (int)point22Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
-		
 		Main.hiddenCourtyard = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 22);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 	
 	}
 
@@ -800,23 +630,16 @@ public class DrawGameMap {
 	//	01:	1485, 937		02: 1485, 1025		03: 1403, 1025		04: 1403, 937
 			
 		double point01X = ratioW*1485, point02X = ratioW*1485, point03X = ratioW*1403, point04X = ratioW*1403;
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X};
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X};
 		
 		double point01Y = ratioH*937,  point02Y = ratioH*1025, point03Y = ratioH*1025, point04Y = ratioH*937;
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		
 		Main.hiddenCourtyardInterior = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 4);	
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 			
 	}
 
@@ -843,6 +666,15 @@ public class DrawGameMap {
 			   point31X = ratioW*1832, point32X = ratioW*1832, point33X = ratioW*1792, point34X = ratioW*1792, point35X = ratioW*1717,
 			   point36X = ratioW*1717, point37X = ratioW*1792, point38X = ratioW*1792, point39X = ratioW*1832, point40X = ratioW*1832,
 			   point41X = ratioW*1807, point42X = ratioW*1807, point43X = ratioW*1690, point44X = ratioW*1690;
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+				         (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+				         (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+				         (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+				         (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
+				         (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
+				         (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
+				         (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
+				         (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X};
 		
 	//Y Coordinates
 		double point01Y = ratioH*798,  point02Y = ratioH*1065, point03Y = ratioH*1065, point04Y = ratioH*1042, point05Y = ratioH*1042,
@@ -854,39 +686,19 @@ public class DrawGameMap {
 			   point31Y = ratioH*837,  point32Y = ratioH*934,  point33Y = ratioH*934,  point34Y = ratioH*847,  point35Y = ratioH*847,
 			   point36Y = ratioH*1022, point37Y = ratioH*1022, point38Y = ratioH*948,  point39Y = ratioH*948,  point40Y = ratioH*1042,
 			   point41Y = ratioH*1042, point42Y = ratioH*1065, point43Y = ratioH*1065, point44Y = ratioH*798;
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-					  (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-					  (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-					  (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-					  (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
-					  (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
-					  (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
-					  (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
-					  (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-					  (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-					  (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-					  (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-					  (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
-					  (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
-					  (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
-					  (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
-					  (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+					     (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+					     (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+					     (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+					     (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
+					     (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
+					     (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
+					     (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
+					     (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
-		
 		Main.houseArea2 = new BuildingObjects(xPos, yPos, 44, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 44);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 		
 	}
 
@@ -909,6 +721,13 @@ public class DrawGameMap {
 			   Opoint21X = ratioW*1945, Opoint22X = ratioW*1945, Opoint23X = ratioW*1966, Opoint24X = ratioW*1966, Opoint25X = ratioW*1897,
 			   Opoint26X = ratioW*1897, Opoint27X = ratioW*1922, Opoint28X = ratioW*1922, Opoint29X = ratioW*1860, Opoint30X = ratioW*1860,
 			   Opoint31X = ratioW*1884, Opoint32X = ratioW*1884;
+		   int OxPos[] = {(int)Opoint01X,  (int)Opoint02X,  (int)Opoint03X,  (int)Opoint04X,  (int)Opoint05X,
+			              (int)Opoint06X,  (int)Opoint07X,  (int)Opoint08X,  (int)Opoint09X,  (int)Opoint10X,
+			              (int)Opoint11X,  (int)Opoint12X,  (int)Opoint13X,  (int)Opoint14X,  (int)Opoint15X,
+			              (int)Opoint16X,  (int)Opoint17X,  (int)Opoint18X,  (int)Opoint19X,  (int)Opoint20X,
+			              (int)Opoint21X,  (int)Opoint22X,  (int)Opoint23X,  (int)Opoint24X,  (int)Opoint25X,
+			              (int)Opoint26X,  (int)Opoint27X,  (int)Opoint28X,  (int)Opoint29X,  (int)Opoint30X,
+			              (int)Opoint31X,  (int)Opoint32X};
 		
 	//Y Coordinates
 		double Opoint01Y = ratioH*1098, Opoint02Y = ratioH*1354, Opoint03Y = ratioH*1354, Opoint04Y = ratioH*1098, Opoint05Y = ratioH*1098,
@@ -918,26 +737,17 @@ public class DrawGameMap {
 			   Opoint21Y = ratioH*1267, Opoint22Y = ratioH*1233, Opoint23Y = ratioH*1233, Opoint24Y = ratioH*1161, Opoint25Y = ratioH*1161,
 			   Opoint26Y = ratioH*1233, Opoint27Y = ratioH*1233, Opoint28Y = ratioH*1267, Opoint29Y = ratioH*1267, Opoint30Y = ratioH*1127,
 			   Opoint31Y = ratioH*1127, Opoint32Y = ratioH*1098;
-		
-		int OxPos[] = {(int)Opoint01X,  (int)Opoint02X,  (int)Opoint03X,  (int)Opoint04X,  (int)Opoint05X,
-				       (int)Opoint06X,  (int)Opoint07X,  (int)Opoint08X,  (int)Opoint09X,  (int)Opoint10X,
-				       (int)Opoint11X,  (int)Opoint12X,  (int)Opoint13X,  (int)Opoint14X,  (int)Opoint15X,
-				       (int)Opoint16X,  (int)Opoint17X,  (int)Opoint18X,  (int)Opoint19X,  (int)Opoint20X,
-				       (int)Opoint21X,  (int)Opoint22X,  (int)Opoint23X,  (int)Opoint24X,  (int)Opoint25X,
-				       (int)Opoint26X,  (int)Opoint27X,  (int)Opoint28X,  (int)Opoint29X,  (int)Opoint30X,
-				       (int)Opoint31X,  (int)Opoint32X};
-		
-		int OyPos[] = {(int)Opoint01Y,  (int)Opoint02Y,  (int)Opoint03Y,  (int)Opoint04Y,  (int)Opoint05Y,
-				       (int)Opoint06Y,  (int)Opoint07Y,  (int)Opoint08Y,  (int)Opoint09Y,  (int)Opoint10Y,
-				       (int)Opoint11Y,  (int)Opoint12Y,  (int)Opoint13Y,  (int)Opoint14Y,  (int)Opoint15Y,
-				       (int)Opoint16Y,  (int)Opoint17Y,  (int)Opoint18Y,  (int)Opoint19Y,  (int)Opoint20Y,
-				       (int)Opoint21Y,  (int)Opoint22Y,  (int)Opoint23Y,  (int)Opoint24Y,  (int)Opoint25Y,
-				       (int)Opoint26Y,  (int)Opoint27Y,  (int)Opoint28Y,  (int)Opoint29Y,  (int)Opoint30Y,
-				       (int)Opoint31Y,  (int)Opoint32Y};
+		   int OyPos[] = {(int)Opoint01Y,  (int)Opoint02Y,  (int)Opoint03Y,  (int)Opoint04Y,  (int)Opoint05Y,
+				       	  (int)Opoint06Y,  (int)Opoint07Y,  (int)Opoint08Y,  (int)Opoint09Y,  (int)Opoint10Y,
+				       	  (int)Opoint11Y,  (int)Opoint12Y,  (int)Opoint13Y,  (int)Opoint14Y,  (int)Opoint15Y,
+				       	  (int)Opoint16Y,  (int)Opoint17Y,  (int)Opoint18Y,  (int)Opoint19Y,  (int)Opoint20Y,
+				       	  (int)Opoint21Y,  (int)Opoint22Y,  (int)Opoint23Y,  (int)Opoint24Y,  (int)Opoint25Y,
+				       	  (int)Opoint26Y,  (int)Opoint27Y,  (int)Opoint28Y,  (int)Opoint29Y,  (int)Opoint30Y,
+				       	  (int)Opoint31Y,  (int)Opoint32Y};
 		
 		for (int i=0; i<OxPos.length; i++) OxPos[i]+=originX;
 		for (int i=0; i<OyPos.length; i++) OyPos[i]+=originY;
-		Polygon building = new Polygon(OxPos, OyPos, 32);
+		Main.houseArea3OUTSIDE = new BuildingObjects(OxPos, OyPos, 32, Black, DefaultStroke);
 
 	
 	//INSIDE POINTS LIST
@@ -951,31 +761,24 @@ public class DrawGameMap {
 			   Ipoint06X = ratioW*1769, Ipoint07X = ratioW*1793, Ipoint08X = ratioW*1793, Ipoint09X = ratioW*1832, Ipoint10X = ratioW*1832,
 			   Ipoint11X = ratioW*1732, Ipoint12X = ratioW*1732, Ipoint13X = ratioW*1748, Ipoint14X = ratioW*1748, Ipoint15X = ratioW*1732,
 			   Ipoint16X = ratioW*1732;
+		   int IxPos[] = {(int)Ipoint01X,  (int)Ipoint02X,  (int)Ipoint03X,  (int)Ipoint04X,  (int)Ipoint05X,
+				          (int)Ipoint06X,  (int)Ipoint07X,  (int)Ipoint08X,  (int)Ipoint09X,  (int)Ipoint10X,
+				          (int)Ipoint11X,  (int)Ipoint12X,  (int)Ipoint13X,  (int)Ipoint14X,  (int)Ipoint15X,
+				          (int)Ipoint16X};
 		
 	//Y Coordinates
 		double Ipoint01Y = ratioH*1162, Ipoint02Y = ratioH*1215, Ipoint03Y = ratioH*1215, Ipoint04Y = ratioH*1210, Ipoint05Y = ratioH*1210,
 			   Ipoint06Y = ratioH*1236, Ipoint07Y = ratioH*1236, Ipoint08Y = ratioH*1232, Ipoint09Y = ratioH*1232, Ipoint10Y = ratioH*1299,
 			   Ipoint11Y = ratioH*1299, Ipoint12Y = ratioH*1243, Ipoint13Y = ratioH*1243, Ipoint14Y = ratioH*1200, Ipoint15Y = ratioH*1200,
 			   Ipoint16Y = ratioH*1162;
-		
-		int IxPos[] = {(int)Ipoint01X,  (int)Ipoint02X,  (int)Ipoint03X,  (int)Ipoint04X,  (int)Ipoint05X,
-				       (int)Ipoint06X,  (int)Ipoint07X,  (int)Ipoint08X,  (int)Ipoint09X,  (int)Ipoint10X,
-				       (int)Ipoint11X,  (int)Ipoint12X,  (int)Ipoint13X,  (int)Ipoint14X,  (int)Ipoint15X,
-				       (int)Ipoint16X};
-		
-		int IyPos[] = {(int)Ipoint01Y,  (int)Ipoint02Y,  (int)Ipoint03Y,  (int)Ipoint04Y,  (int)Ipoint05Y,
-					   (int)Ipoint06Y,  (int)Ipoint07Y,  (int)Ipoint08Y,  (int)Ipoint09Y,  (int)Ipoint10Y,
-					   (int)Ipoint11Y,  (int)Ipoint12Y,  (int)Ipoint13Y,  (int)Ipoint14Y,  (int)Ipoint15Y,
-					   (int)Ipoint16Y};
+		   int IyPos[] = {(int)Ipoint01Y,  (int)Ipoint02Y,  (int)Ipoint03Y,  (int)Ipoint04Y,  (int)Ipoint05Y,
+				          (int)Ipoint06Y,  (int)Ipoint07Y,  (int)Ipoint08Y,  (int)Ipoint09Y,  (int)Ipoint10Y,
+				          (int)Ipoint11Y,  (int)Ipoint12Y,  (int)Ipoint13Y,  (int)Ipoint14Y,  (int)Ipoint15Y,
+				          (int)Ipoint16Y};
 		
 		for (int i=0; i<IxPos.length; i++) IxPos[i]+=originX;
 		for (int i=0; i<IyPos.length; i++) IyPos[i]+=originY;
-		Polygon interiorBuilding = new Polygon(IxPos, IyPos, 16);
-		
-//	g.setColor(Black);
-//	g.setStroke(DefaultStroke);
-//	g.fillPolygon(building);
-//	g.fillPolygon(interiorBuilding);
+		Main.houseArea3INSIDE = new BuildingObjects(IxPos, IyPos, 16, Black, DefaultStroke);
 		
 	}
 
@@ -988,22 +791,15 @@ public class DrawGameMap {
 	//	04: 2068, 1023
 			
 		double point01X = ratioW*2111, point02X = ratioW*2111, point03X = ratioW*2068, point04X = ratioW*2068;
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X};
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X};
 		
 		double point01Y = ratioH*1023,  point02Y = ratioH*1354, point03Y = ratioH*1354, point04Y = ratioH*1023;
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.southEastWall = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 4);	
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 		
 	}
 
@@ -1015,28 +811,17 @@ public class DrawGameMap {
 			
 		double point01X = ratioW*2377, point02X = ratioW*2377, point03X = ratioW*2323, point04X = ratioW*2323, point05X = ratioW*2184, 
 			   point06X = ratioW*2184, point07X = ratioW*2153, point08X = ratioW*2153;
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X, 
+				         (int)point06X, (int)point07X, (int)point08X};
 		
 		double point01Y = ratioH*1023,  point02Y = ratioH*1156, point03Y = ratioH*1156, point04Y = ratioH*1111, point05Y = ratioH*1111,  
 			   point06Y = ratioH*1156,  point07Y = ratioH*1156, point08Y = ratioH*1023;
-		
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X, 
-					  (int)point06X, (int)point07X, (int)point08X};
-		
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
-				      (int)point06Y, (int)point07Y, (int)point08Y};
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
+				         (int)point06Y, (int)point07Y, (int)point08Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
 		Main.southEastNorthBuilding = new BuildingObjects(xPos, yPos, 8, Black, DefaultStroke);
-		
-		
-//		
-//		Polygon building = new Polygon(xPos, yPos, 8);	
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 			
 	}
 
@@ -1050,33 +835,20 @@ public class DrawGameMap {
 		double point01X = ratioW*2377, point02X = ratioW*2377, point03X = ratioW*2296, point04X = ratioW*2296, point05X = ratioW*2215, 
 			   point06X = ratioW*2215, point07X = ratioW*2153, point08X = ratioW*2153, point09X = ratioW*2184, point10X = ratioW*2184,
 			   point11X = ratioW*2322, point12X = ratioW*2322;
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X, 
+			             (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X,
+			             (int)point11X, (int)point12X};
 		
 		double point01Y = ratioH*1198,  point02Y = ratioH*1354, point03Y = ratioH*1354, point04Y = ratioH*1315, point05Y = ratioH*1315,  
 			   point06Y = ratioH*1354,  point07Y = ratioH*1354, point08Y = ratioH*1198, point09Y = ratioH*1198, point10Y = ratioH*1252,
 		       point11Y = ratioH*1252,  point12Y = ratioH*1198;
-		
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X, 
-				      (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X,
-				      (int)point11X, (int)point12X};
-		
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
-				      (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y,
-				      (int)point11Y, (int)point12Y};
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
+				         (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y,
+				         (int)point11Y, (int)point12Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
-		
 		Main.southEastSouthBuilding = new BuildingObjects(xPos, yPos, 12, Black, DefaultStroke);
-		
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 12);	
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
-		
 	}
 	
 	static void initializeSouthEastExtendedBoarder(int originX, int originY) {
@@ -1093,44 +865,30 @@ public class DrawGameMap {
 			   point11X = ratioW*2297,  point12X = ratioW*2315, point13X = ratioW*2315,  point14X = ratioW*2433,  point15X = ratioW*2433,  
 			   point16X = ratioW*2450,  point17X = ratioW*2450, point18X = ratioW*2389,  point19X = ratioW*2389,  point20X = ratioW*2500,
 			   point21X = ratioW*2500,  point22X = ratioW*1690;
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X, 
+				         (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X,
+				         (int)point11X, (int)point12X, (int)point13X, (int)point14X, (int)point15X, 
+				         (int)point16X, (int)point17X, (int)point18X, (int)point19X, (int)point20X,
+				         (int)point21X, (int)point22X};
 		
 		double point01Y = ratioH*1400,  point02Y = ratioH*1400, point03Y = ratioH*1198,  point04Y = ratioH*1198,  point05Y = ratioH*1156,  
 			   point06Y = ratioH*1156,  point07Y = ratioH*974,  point08Y = ratioH*974,   point09Y = ratioH*925,   point10Y = ratioH*925,
 			   point11Y = ratioH*764,   point12Y = ratioH*764,  point13Y = ratioH*733,   point14Y = ratioH*733,   point15Y = ratioH*587,  
 			   point16Y = ratioH*587,   point17Y = ratioH*381,  point18Y = ratioH*381,   point19Y = ratioH*349,   point20Y = ratioH*349,
 			   point21Y = ratioH*1500,  point22Y = ratioH*1500;
-		
-		int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X, 
-					  (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X,
-					  (int)point11X, (int)point12X, (int)point13X, (int)point14X, (int)point15X, 
-					  (int)point16X, (int)point17X, (int)point18X, (int)point19X, (int)point20X,
-				      (int)point21X, (int)point22X};
-		
-		int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
-					  (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y,
-					  (int)point11Y, (int)point12Y, (int)point13Y, (int)point14Y, (int)point15Y, 
-					  (int)point16Y, (int)point17Y, (int)point18Y, (int)point19Y, (int)point20Y,
-				      (int)point21Y, (int)point22Y};
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y, 
+					     (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y,
+					     (int)point11Y, (int)point12Y, (int)point13Y, (int)point14Y, (int)point15Y, 
+					     (int)point16Y, (int)point17Y, (int)point18Y, (int)point19Y, (int)point20Y,
+					     (int)point21Y, (int)point22Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
 		Main.southEastExtendedBoarder = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
-		
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 22);	
-		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 		
 	}
 	
 	static void initializeColosseum(int originX, int originY) {
-		
-//		g.setStroke(ColosseumStroke);
-//		g.setColor(Black);
 		
 	//Arc Variables for All
 		double arcX = ratioW*656+originX, 
@@ -1141,18 +899,17 @@ public class DrawGameMap {
 	//Arc 1 Variables
 		int arc1startAngle = 60;
 		int arc1arcAngle = 240;
-	
+		Main.colosseumLarge = new ColosseumBuildingObjects((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc1startAngle, arc1arcAngle, Black, ColosseumStroke);
+		
 	//Arc 2 Variables
 		int arc2startAngle = 15;
 		int arc2arcAngle = 12;
+		Main.colosseumSmall1 = new ColosseumBuildingObjects((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc2startAngle, arc2arcAngle, Black, ColosseumStroke);
 		
 	//Arc 3 Variables
 		int arc3startAngle = -15;
 		int arc3arcAngle = -12;
-		
-//		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc1startAngle, arc1arcAngle);
-//		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc2startAngle, arc2arcAngle);
-//		g.drawArc((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc3startAngle, arc3arcAngle);
+		Main.colosseumSmall2 = new ColosseumBuildingObjects((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc3startAngle, arc3arcAngle, Black, ColosseumStroke);
 		
 	}
 	
@@ -1181,6 +938,16 @@ public class DrawGameMap {
 			   point36X = ratioW*1497,  point37X = ratioW*1415,  point38X = ratioW*1415,  point39X = ratioW*1438,  point40X = ratioW*1438,
 			   point41X = ratioW*1288,  point42X = ratioW*1288,  point43X = ratioW*1645,  point44X = ratioW*1645,  point45X = ratioW*1537,
 			   point46X = ratioW*1645,  point47X = ratioW*1691,  point48X = ratioW*1731,  point49X = ratioW*1731;
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+			             (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+			             (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+			             (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+			             (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
+			             (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
+			             (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
+			             (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
+			             (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X,  (int)point45X,
+			             (int)point46X,  (int)point47X,  (int)point48X,  (int)point49X};
 		
 	//Y Coordinates
 		double point01Y = ratioH*639,   point02Y = ratioH*675,   point03Y = ratioH*675,   point04Y = ratioH*638, point05Y = ratioH*638,
@@ -1193,29 +960,16 @@ public class DrawGameMap {
 			   point36Y = ratioH*123,   point37Y = ratioH*123,   point38Y = ratioH*195,   point39Y = ratioH*195, point40Y = ratioH*272,
 			   point41Y = ratioH*272,   point42Y = ratioH*82,    point43Y = ratioH*82,    point44Y = ratioH*126, point45Y = ratioH*232,
 			   point46Y = ratioH*346,   point47Y = ratioH*311,   point48Y = ratioH*350,   point49Y = ratioH*639;
-		
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-				      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-				      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-				      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-				      (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
-				      (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
-				      (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
-				      (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
-				      (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X,  (int)point45X,
-				      (int)point46X,  (int)point47X,  (int)point48X,  (int)point49X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-				      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-				      (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
-				      (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
-				      (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
-				      (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
-				      (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y,
-				      (int)point46Y,  (int)point47Y,  (int)point48Y,  (int)point49Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+				         (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+				         (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+				         (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+				         (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
+				         (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
+				         (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
+				         (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
+				         (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y,
+				         (int)point46Y,  (int)point47Y,  (int)point48Y,  (int)point49Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
@@ -1223,13 +977,6 @@ public class DrawGameMap {
 		
 		Main.townSquareWEST = new BuildingObjects(xPos, yPos, 49, Black, DefaultStroke);
 		
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 49);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 	}
 
 	static void initializeTownSquareSOUTHEAST(int originX, int originY) {
@@ -1250,6 +997,12 @@ public class DrawGameMap {
 				   point16X = ratioW*1916,  point17X = ratioW*2037,  point18X = ratioW*2037,  point19X = ratioW*2152,  point20X = ratioW*2152,
 				   point21X = ratioW*2119,  point22X = ratioW*2119,  point23X = ratioW*2224,  point24X = ratioW*2224,  point25X = ratioW*2185,
 				   point26X = ratioW*2185;
+			   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+				             (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+				             (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+				             (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+				             (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
+				             (int)point26X};
 			
 		//Y Coordinates
 			double point01Y = ratioH*515,   point02Y = ratioH*587,   point03Y = ratioH*587,   point04Y = ratioH*699, point05Y = ratioH*699,
@@ -1258,35 +1011,17 @@ public class DrawGameMap {
 				   point16Y = ratioH*639,   point17Y = ratioH*639,   point18Y = ratioH*515,   point19Y = ratioH*515, point20Y = ratioH*563,
 				   point21Y = ratioH*563,   point22Y = ratioH*619,   point23Y = ratioH*619,   point24Y = ratioH*563, point25Y = ratioH*563,
 				   point26Y = ratioH*515;
-			
-			
-			int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-					      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-					      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-					      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-					      (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
-					      (int)point26X};
-			
-			int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-					      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-					      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-					      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-					      (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
-					      (int)point26Y};
+			   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+					         (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+					         (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+					         (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+					         (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
+					         (int)point26Y};
 			
 			for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 			for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-			
-			
 			Main.townSquareSOUTHEAST = new BuildingObjects(xPos, yPos, 26, Black, DefaultStroke);
 			
-			
-//			
-//			Polygon building = new Polygon(xPos, yPos, 26);
-//			
-//			g.setColor(Black);
-//			g.setStroke(DefaultStroke);
-//			g.fillPolygon(building);
 	}
 
 	static void initializeTownSquareNORTHEAST(int originX, int originY) {
@@ -1312,6 +1047,15 @@ public class DrawGameMap {
 			   point31X = ratioW*1759,  point32X = ratioW*1806,  point33X = ratioW*1806,  point34X = ratioW*1943,  point35X = ratioW*1943,
 			   point36X = ratioW*2109,  point37X = ratioW*2109,  point38X = ratioW*2227,  point39X = ratioW*2227,  point40X = ratioW*2329,
 			   point41X = ratioW*2329,  point42X = ratioW*2259,  point43X = ratioW*2259,  point44X = ratioW*2277,  point45X = ratioW*2277;
+		   int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
+			            (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
+			            (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
+			            (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
+			            (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
+			            (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
+			            (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
+			            (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
+			            (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X,  (int)point45X};
 		
 	//Y Coordinates
 		double point01Y = ratioH*50,    point02Y = ratioH*159,   point03Y = ratioH*159,   point04Y = ratioH*308,   point05Y = ratioH*308,
@@ -1323,39 +1067,19 @@ public class DrawGameMap {
 			   point31Y = ratioH*147,   point32Y = ratioH*147,   point33Y = ratioH*234,   point34Y = ratioH*234,   point35Y = ratioH*122,
 			   point36Y = ratioH*122,   point37Y = ratioH*159,   point38Y = ratioH*159,   point39Y = ratioH*343,   point40Y = ratioH*343,
 			   point41Y = ratioH*250,   point42Y = ratioH*250,   point43Y = ratioH*159,   point44Y = ratioH*159,   point45Y = ratioH*50;
-		
-		int xPos[] = {(int)point01X,  (int)point02X,  (int)point03X,  (int)point04X,  (int)point05X,
-				      (int)point06X,  (int)point07X,  (int)point08X,  (int)point09X,  (int)point10X,
-				      (int)point11X,  (int)point12X,  (int)point13X,  (int)point14X,  (int)point15X,
-				      (int)point16X,  (int)point17X,  (int)point18X,  (int)point19X,  (int)point20X,
-				      (int)point21X,  (int)point22X,  (int)point23X,  (int)point24X,  (int)point25X,
-				      (int)point26X,  (int)point27X,  (int)point28X,  (int)point29X,  (int)point30X,
-				      (int)point31X,  (int)point32X,  (int)point33X,  (int)point34X,  (int)point35X,
-				      (int)point36X,  (int)point37X,  (int)point38X,  (int)point39X,  (int)point40X,
-				      (int)point41X,  (int)point42X,  (int)point43X,  (int)point44X,  (int)point45X};
-		
-		int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
-				      (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
-				      (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
-				      (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
-				      (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
-				      (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
-				      (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
-				      (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
-				      (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y};
+		   int yPos[] = {(int)point01Y,  (int)point02Y,  (int)point03Y,  (int)point04Y,  (int)point05Y,
+				        (int)point06Y,  (int)point07Y,  (int)point08Y,  (int)point09Y,  (int)point10Y,
+				        (int)point11Y,  (int)point12Y,  (int)point13Y,  (int)point14Y,  (int)point15Y,
+				        (int)point16Y,  (int)point17Y,  (int)point18Y,  (int)point19Y,  (int)point20Y,
+				        (int)point21Y,  (int)point22Y,  (int)point23Y,  (int)point24Y,  (int)point25Y,
+				        (int)point26Y,  (int)point27Y,  (int)point28Y,  (int)point29Y,  (int)point30Y,
+				        (int)point31Y,  (int)point32Y,  (int)point33Y,  (int)point34Y,  (int)point35Y,
+				        (int)point36Y,  (int)point37Y,  (int)point38Y,  (int)point39Y,  (int)point40Y,
+				        (int)point41Y,  (int)point42Y,  (int)point43Y,  (int)point44Y,  (int)point45Y};
 		
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
-		
-		
 		Main.townSquareNORTHEAST = new BuildingObjects(xPos, yPos, 45, Black, DefaultStroke);
-		
-		
-//		Polygon building = new Polygon(xPos, yPos, 45);
-//		
-//		g.setColor(Black);
-//		g.setStroke(DefaultStroke);
-//		g.fillPolygon(building);
 		
 	}
 }
