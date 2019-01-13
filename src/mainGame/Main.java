@@ -158,43 +158,101 @@ public class Main implements KeyListener{
 	
 	void playerMove() {
 		
-		if (keyW) {
-			checkCollision("UP");
-//			player.yLoc-=player.speed;
-		}
-		if (keyA) {
-//			checkCollision("LEFT");
-			player.xLoc-=player.speed;
-		}
-		if (keyS) {
-//			checkCollision("DOWN");
-			player.yLoc+=player.speed;
-		}
-		if (keyD) {
-//			checkCollision("RIGHT");
-			player.xLoc+=player.speed;
-		}
+		if (keyW) checkCollision("UP");
+		if (keyA) checkCollision("LEFT");
+		if (keyS) checkCollision("DOWN");
+		if (keyD) checkCollision("RIGHT");
 		
 	}
 	
 	void checkCollision(String direction) {
 		
+		boolean collisionUP = false,
+				collisionLEFT = false,
+				collisionDOWN = false,
+				collisionRIGHT = false;
+		
+		
+//		for (int i=0; i<buildings.length; i++) {
+//			if (direction.equals("UP")) {
+//				if (buildings[i].polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
+//			}
+//			
+//			if (direction.equals("LEFT")) {
+//				if (buildings[i].polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
+//			}
+//			
+//			if (direction.equals("DOWN")) {
+//				if (buildings[i].polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
+//			}
+//			
+//			if (direction.equals("RIGHT")) {
+//				if (buildings[i].polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
+//			}
+//		}
+		
+		
 		if (direction.equals("UP")) {
-			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.yLoc-=player.speed;
+			if (mansion.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
 		}
 		
 		if (direction.equals("LEFT")) {
-			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.xLoc-=player.speed;
+			if (mansion.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
 		}
 		
 		if (direction.equals("DOWN")) {
-			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.yLoc+=player.speed;
+			if (mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
 		}
 		
 		if (direction.equals("RIGHT")) {
-			if (!mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2)) player.xLoc+=player.speed;
+			if (mansion.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
 		}
 		
+		
+		
+		
+		
+		if (direction.equals("UP")) {
+			if (mansionFenceNorth.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
+		}
+		
+		if (direction.equals("LEFT")) {
+			if (mansionFenceNorth.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
+		}
+		
+		if (direction.equals("DOWN")) {
+			if (mansionFenceNorth.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
+		}
+		
+		if (direction.equals("RIGHT")) {
+			if (mansionFenceNorth.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
+		}
+		
+		
+		
+		
+	
+		if (direction.equals("UP")) {
+			if (mansionFenceSouth.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
+		}
+		
+		if (direction.equals("LEFT")) {
+			if (mansionFenceSouth.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
+		}
+		
+		if (direction.equals("DOWN")) {
+			if (mansionFenceSouth.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
+		}
+		
+		if (direction.equals("RIGHT")) {
+			if (mansionFenceSouth.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
+		}
+		
+		
+		if (!collisionUP && direction.equals("UP")) player.yLoc-=player.speed;
+		if (!collisionLEFT && direction.equals("LEFT")) player.xLoc-=player.speed;
+		if (!collisionDOWN && direction.equals("DOWN")) player.yLoc+=player.speed;
+		if (!collisionRIGHT && direction.equals("RIGHT")) player.xLoc+=player.speed;
 	}
 	
 	
