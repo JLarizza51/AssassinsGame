@@ -9,7 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -22,7 +27,7 @@ public class Main implements KeyListener{
 
 //JFrame and JWindow Creations
 	String gameTitle = "Assassins";
-	final static int WINW = 1000;
+	final static int WINW = 1500;
 	static JFrame window;
 	DrawingPanel drPanel = new DrawingPanel();	
 	
@@ -35,15 +40,16 @@ public class Main implements KeyListener{
 
 //Timer	Variables
 	Timer mainTimer;	// <---- Initializes the mainTimer
-	int tSpeed = 1;	// <---- Sets the Timer Speed
+	int tSpeed = 5;	// <---- Sets the Timer Speed
 	
 //Player Variables
+	String imageFileName = "Frisk_Back";
+	
 	String name = "Josh",
 	       location = "Anywhere Else";
-	
-    int maxHP = 55,
-	    HP = 35,
-	    enemiesKilled = 4;
+       int maxHP = 55,
+    	   HP = 35,
+    	   enemiesKilled = 4;
     
     Player player = new Player(name, location, maxHP, HP, enemiesKilled);
     int originX = (player.xLoc-player.x)*-1,
@@ -86,53 +92,21 @@ public class Main implements KeyListener{
                            southEastExtendedBoarder,
                            townSquareWEST,
                            townSquareSOUTHEAST,
-                           townSquareNORTHEAST;
+                           townSquareNORTHEAST;	
     
 	static ColosseumBuildingObjects colosseumLarge,
 	                                colosseumSmall1,
 	                                colosseumSmall2;
     
-    static BuildingObjects[] buildings = {boarder,				
-                                          maze,
-                                          mansionFenceNorth,
-                                          mansionFenceSouth,
-                                          mansion,
-                                          colosseumBoarder,
-                                          spawnPointBoarderNW,
-                                          spawnPointBoarderSW,
-                                          spawnPointBoarderSE,
-                                          spawnPointBoarderNE,
-                                          triangleBuilding1,   
-                                          mansionSideBuilding1,
-                                          mansionSideBuilding2,
-                                          triangleBuilding2,
-                                          houseArea1,
-                                          spawnPointSideStreetNORTH,
-                                          spawnPointSideStreetSOUTH,
-                                          buildingWithBottomEntrance,
-                                          hiddenCourtyard,
-                                          hiddenCourtyardInterior,
-                                          houseArea2,
-                                          houseArea3OUTSIDE,
-                                          houseArea3INSIDE,
-                                          southEastWall,
-                                          southEastNorthBuilding,
-                                          southEastSouthBuilding,
-                                          southEastExtendedBoarder,
-                                          townSquareWEST,
-                                          townSquareSOUTHEAST,
-                                          townSquareNORTHEAST};
-    
-    static ColosseumBuildingObjects[] colosseumBuildings = {colosseumLarge,
-                                                            colosseumSmall1,
-                                                            colosseumSmall2};
+	static ArrayList<BuildingObjects> buildings = new ArrayList<BuildingObjects>(); 
+    static ArrayList<ColosseumBuildingObjects> coloseeumBuildings = new ArrayList<ColosseumBuildingObjects>();
 	
 	public static void main(String[] args) {new Main();}
 
 	Main() {
 		GUISetup();
-		timerSetup();
 		mapSetup();
+		timerSetup();
 	}
 	
 	void GUISetup() {
@@ -158,10 +132,22 @@ public class Main implements KeyListener{
 	
 	void playerMove() {
 		
-		if (keyW) checkCollision("UP");
-		if (keyA) checkCollision("LEFT");
-		if (keyS) checkCollision("DOWN");
-		if (keyD) checkCollision("RIGHT");
+		if (keyW) {
+			imageFileName = "Frisk_Back.png";
+			checkCollision("UP");
+		}
+		if (keyA) {
+			imageFileName = "Frisk_Left.png";
+			checkCollision("LEFT");
+		}
+		if (keyS) {
+			imageFileName = "Frisk_Forward.png";
+			checkCollision("DOWN");
+		}
+		if (keyD) {
+			imageFileName = "Frisk_Right.png";
+			checkCollision("RIGHT");
+		}
 		
 	}
 	
@@ -171,88 +157,34 @@ public class Main implements KeyListener{
 				collisionLEFT = false,
 				collisionDOWN = false,
 				collisionRIGHT = false;
-		
-		
-//		for (int i=0; i<buildings.length; i++) {
-//			if (direction.equals("UP")) {
-//				if (buildings[i].polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
-//			}
-//			
-//			if (direction.equals("LEFT")) {
-//				if (buildings[i].polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
-//			}
-//			
-//			if (direction.equals("DOWN")) {
-//				if (buildings[i].polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
-//			}
-//			
-//			if (direction.equals("RIGHT")) {
-//				if (buildings[i].polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
-//			}
-//		}
-		
-		
-		if (direction.equals("UP")) {
-			if (mansion.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
-		}
-		
-		if (direction.equals("LEFT")) {
-			if (mansion.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
-		}
-		
-		if (direction.equals("DOWN")) {
-			if (mansion.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
-		}
-		
-		if (direction.equals("RIGHT")) {
-			if (mansion.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
-		}
-		
-		
-		
-		
-		
-		if (direction.equals("UP")) {
-			if (mansionFenceNorth.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
-		}
-		
-		if (direction.equals("LEFT")) {
-			if (mansionFenceNorth.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
-		}
-		
-		if (direction.equals("DOWN")) {
-			if (mansionFenceNorth.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
-		}
-		
-		if (direction.equals("RIGHT")) {
-			if (mansionFenceNorth.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
-		}
-		
-		
-		
-		
 	
-		if (direction.equals("UP")) {
-			if (mansionFenceSouth.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
+		for (BuildingObjects b: buildings) {
+			
+			if (direction.equals("UP")) {
+				if (b.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
+			}
+			
+			if (direction.equals("LEFT")) {
+				if (b.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) {
+					collisionLEFT = true;
+					System.out.println(b.numOfPoints);
+				}
+			}
+			
+			if (direction.equals("DOWN")) {
+				if (b.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
+			}
+			
+			if (direction.equals("RIGHT")) {
+				if (b.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
+			}
 		}
-		
-		if (direction.equals("LEFT")) {
-			if (mansionFenceSouth.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) collisionLEFT = true;
-		}
-		
-		if (direction.equals("DOWN")) {
-			if (mansionFenceSouth.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
-		}
-		
-		if (direction.equals("RIGHT")) {
-			if (mansionFenceSouth.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
-		}
-		
 		
 		if (!collisionUP && direction.equals("UP")) player.yLoc-=player.speed;
 		if (!collisionLEFT && direction.equals("LEFT")) player.xLoc-=player.speed;
 		if (!collisionDOWN && direction.equals("DOWN")) player.yLoc+=player.speed;
 		if (!collisionRIGHT && direction.equals("RIGHT")) player.xLoc+=player.speed;
+	
 	}
 	
 	
@@ -274,24 +206,42 @@ public class Main implements KeyListener{
 			super.paintComponent(g1);
 			this.requestFocus();
 			
+		//Makes the Background Black
+			g.setColor(Black);
+			g.fillRect(0, 0, WINW, WINW);
+			
 			drawMap(g);
 			drawPlayer(g);
+			
 		}
 		
 	}
 	
 	void drawPlayer(Graphics2D g) {
 		
-		int playerRadius = 24;
-		
-		int playerX = WINW/2-playerRadius;
-		int playerY = WINW/2-playerRadius;
+		int playerX = (int) (WINW/2-player.radius);
+		int playerY = (int) (WINW/2-player.radius);
 		
 		g.setColor(Red);
-		g.fillOval(playerX, playerY, playerRadius*2, playerRadius*2);
+		g.fillOval(playerX, playerY, (int)(player.radius*2), (int)(player.radius*2));
+		
+		
+		
+		
+		BufferedImage PlayerImg = null;
+		try { PlayerImg = ImageIO.read(new File(imageFileName)); 	// <---- Loads the player Sprite file
+		} catch (IOException e) {}
+		
+		g.drawImage(PlayerImg, player.x, player.y, drPanel);
+//		g.drawImage(PlayerImg, 0, 0, 38, 58, player.x, player.y, (int)(player.x+player.radius*2), (int)(player.y+player.radius*2), drPanel);
+		
 	}
 	
 	void drawMap(Graphics2D g) {
+		
+	//everywhere that is the Map White
+		g.setColor(White);
+		g.fillRect(originX, originY, DrawGameMap.mapW, DrawGameMap.mapH);
 		
 		boarder.paint(g); 
 		maze.paint(g);
@@ -335,7 +285,6 @@ public class Main implements KeyListener{
 	private class MainTimer implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
 				playerMove();
 				mapSetup();
 				window.repaint();	
@@ -352,7 +301,6 @@ public class Main implements KeyListener{
 		
 	}
 	
-
 	@Override
 	public void keyReleased(KeyEvent e) {	
 		
@@ -363,6 +311,5 @@ public class Main implements KeyListener{
 		
 	}
 	
-
 	public void keyTyped(KeyEvent arg0) {}
 }

@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 @SuppressWarnings("serial")
 class Player extends Rectangle{
 
+	double ratioW = Main.WINW/1000.0;
+	
 //Variables	
 	String name,
 		   location;
@@ -14,8 +16,8 @@ class Player extends Rectangle{
 	   
 	   int xLoc, yLoc; // <--- the X and Y Location of the Player. This is NOT the location
 	   				   //	   on the screen, but rather the location on the map
-	   int radius = 24;
-	   int speed;
+	   double radius;
+	   double speed;
 	  
 	
 	
@@ -26,9 +28,11 @@ class Player extends Rectangle{
 		this.HP = HP;
 		this.enemiesKilled = enemiesKilled;
 		
-		this.speed = 1;
-		x = Main.WINW/2-radius;
-		y = Main.WINW/2-radius;
+		this.speed = (int) (ratioW*5);
+		this.radius = (int) (ratioW*24);
+		
+		x = (int) (Main.WINW/2-this.radius);
+		y = (int) (Main.WINW/2-this.radius);
 		
 		if (location.equals("Spawn Point")) {
 		
