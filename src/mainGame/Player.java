@@ -28,24 +28,27 @@ class Player extends Rectangle{
 		this.HP = HP;
 		this.enemiesKilled = enemiesKilled;
 		
-		this.speed = (int) (ratioW*5);
+		this.speed = (int) (ratioW*10);
 		this.radius = (int) (ratioW*24);
 		
 		x = (int) (Main.WINW/2-this.radius);
 		y = (int) (Main.WINW/2-this.radius);
+		width  = (int) (ratioW*48);
+		height = (int) (ratioW*73);
+		
 		
 		if (location.equals("Spawn Point")) {
 		
 		// Point: 1239, 739
-			xLoc = (int) (DrawGameMap.ratioW*1239);
-			yLoc = (int) (DrawGameMap.ratioH*739);
+			xLoc = (int) (DrawBuildingObjects.ratioW*1239);
+			yLoc = (int) (DrawBuildingObjects.ratioH*739);
 			
 		}
 		
 		else {
 			
-			xLoc = (int) (DrawGameMap.ratioW*336);
-			yLoc = (int) (DrawGameMap.ratioH*739);
+			xLoc = (int) (DrawBuildingObjects.ratioW*336);
+			yLoc = (int) (DrawBuildingObjects.ratioH*739);
 			
 //			xLoc = (int) (DrawGameMap.ratioW*706);
 //			yLoc = (int) (DrawGameMap.ratioH*1282);

@@ -28,8 +28,14 @@ public class Main implements KeyListener{
 //JFrame and JWindow Creations
 	String gameTitle = "Assassins";
 	final static int WINW = 1500;
+	final static int mapW = Main.WINW/3*50;
+	final static int mapH = mapW/5*3;
 	static JFrame window;
 	DrawingPanel drPanel = new DrawingPanel();	
+	
+//NUMBERS USED FOR RATIOS	
+	static double ratioW = mapW/2500.0,
+		   	      ratioH = mapH/1500.0;
 	
 //Colors, Font, and Strokes
 	Color White = new Color (255, 255, 255);
@@ -37,13 +43,19 @@ public class Main implements KeyListener{
 	Color Red = new Color (255, 0, 0);
 	Color Green = new Color(0, 255, 0);
 	Color Black = new Color (0, 0, 0);
+	Color PlayerColor = Red;
 
 //Timer	Variables
 	Timer mainTimer;	// <---- Initializes the mainTimer
 	int tSpeed = 5;	// <---- Sets the Timer Speed
 	
 //Player Variables
-	String imageFileName = "Frisk_Back";
+	int playerSprite_BACK  = 0,
+		playerSprite_LEFT  = 1,
+		playerSprite_RIGHT = 2,
+		playerSprite_FRONT = 3,
+		playerSprite_CURRENT = playerSprite_FRONT;
+			
 	
 	String name = "Josh",
 	       location = "Anywhere Else";
@@ -60,7 +72,6 @@ public class Main implements KeyListener{
     		keyA = false,
     		keyS = false,
     		keyD = false;
-    
     
 //Initialize Building Objects
     static BuildingObjects boarder,					
@@ -99,7 +110,7 @@ public class Main implements KeyListener{
 	                                colosseumSmall2;
     
 	static ArrayList<BuildingObjects> buildings = new ArrayList<BuildingObjects>(); 
-    static ArrayList<ColosseumBuildingObjects> coloseeumBuildings = new ArrayList<ColosseumBuildingObjects>();
+    static ArrayList<ColosseumBuildingObjects> colosseumBuildings = new ArrayList<ColosseumBuildingObjects>();
 	
 	public static void main(String[] args) {new Main();}
 
@@ -107,6 +118,7 @@ public class Main implements KeyListener{
 		GUISetup();
 		mapSetup();
 		timerSetup();
+		addObjectsToArrayList();
 	}
 	
 	void GUISetup() {
@@ -122,7 +134,46 @@ public class Main implements KeyListener{
 	void mapSetup() {
 		originX = (player.xLoc-player.x)*-1;
 	    originY = (player.yLoc-player.y)*-1;
-	    DrawGameMap.initializeBuildings(originX, originY);
+	    DrawBuildingObjects.initializeBuildings(originX, originY);
+	}
+	
+	void addObjectsToArrayList() {
+		buildings.clear();
+		buildings.add(boarder);
+		buildings.add(maze);
+		buildings.add(mansionFenceNorth);
+		buildings.add(mansionFenceSouth);
+		buildings.add(mansion);
+		buildings.add(colosseumBoarder);
+		buildings.add(spawnPointBoarderNW);
+		buildings.add(spawnPointBoarderSW);
+		buildings.add(spawnPointBoarderSE);
+		buildings.add(spawnPointBoarderNE);
+		buildings.add(triangleBuilding1); 
+		buildings.add(mansionSideBuilding1);
+		buildings.add(mansionSideBuilding2);
+		buildings.add(triangleBuilding2);
+		buildings.add(houseArea1);
+		buildings.add(spawnPointSideStreetNORTH);
+        buildings.add(spawnPointSideStreetSOUTH);
+        buildings.add(buildingWithBottomEntrance);
+        buildings.add(hiddenCourtyard);
+        buildings.add(hiddenCourtyardInterior);
+        buildings.add(houseArea2);
+        buildings.add(houseArea3OUTSIDE);
+        buildings.add(houseArea3INSIDE);
+        buildings.add(southEastWall);
+        buildings.add(southEastNorthBuilding);
+        buildings.add(southEastSouthBuilding);
+        buildings.add(southEastExtendedBoarder);
+        buildings.add(townSquareWEST);
+        buildings.add(townSquareSOUTHEAST);
+        buildings.add(townSquareNORTHEAST);	   
+
+		colosseumBuildings.clear();
+		colosseumBuildings.add(colosseumLarge);
+		colosseumBuildings.add(colosseumSmall1);
+		colosseumBuildings.add(colosseumSmall2);
 	}
 	
 	void timerSetup() {
@@ -133,19 +184,19 @@ public class Main implements KeyListener{
 	void playerMove() {
 		
 		if (keyW) {
-			imageFileName = "Frisk_Back.png";
+			playerSprite_CURRENT = playerSprite_BACK;
 			checkCollision("UP");
 		}
 		if (keyA) {
-			imageFileName = "Frisk_Left.png";
+			playerSprite_CURRENT = playerSprite_LEFT;
 			checkCollision("LEFT");
 		}
 		if (keyS) {
-			imageFileName = "Frisk_Forward.png";
+			playerSprite_CURRENT = playerSprite_FRONT;
 			checkCollision("DOWN");
 		}
 		if (keyD) {
-			imageFileName = "Frisk_Right.png";
+			playerSprite_CURRENT = playerSprite_RIGHT;
 			checkCollision("RIGHT");
 		}
 		
@@ -157,33 +208,34 @@ public class Main implements KeyListener{
 				collisionLEFT = false,
 				collisionDOWN = false,
 				collisionRIGHT = false;
-	
-		for (BuildingObjects b: buildings) {
-			
-			if (direction.equals("UP")) {
-				if (b.polygon.intersects(player.x, player.y-player.speed, player.radius*2, player.radius*2)) collisionUP = true;
+		
+		if (direction.equals("UP")) {
+			for (BuildingObjects b: buildings) {
+				if (b.polygon.intersects(player.x, player.y-player.speed, player.width, player.height)) collisionUP = true;
 			}
-			
-			if (direction.equals("LEFT")) {
-				if (b.polygon.intersects(player.x-player.speed, player.y, player.radius*2, player.radius*2)) {
-					collisionLEFT = true;
-					System.out.println(b.numOfPoints);
-				}
-			}
-			
-			if (direction.equals("DOWN")) {
-				if (b.polygon.intersects(player.x, player.y, player.radius*2, player.radius*2+player.speed)) collisionDOWN = true;
-			}
-			
-			if (direction.equals("RIGHT")) {
-				if (b.polygon.intersects(player.x, player.y, player.radius*2+player.speed, player.radius*2)) collisionRIGHT = true;
-			}
+			if (!collisionUP) player.yLoc-=player.speed;
 		}
 		
-		if (!collisionUP && direction.equals("UP")) player.yLoc-=player.speed;
-		if (!collisionLEFT && direction.equals("LEFT")) player.xLoc-=player.speed;
-		if (!collisionDOWN && direction.equals("DOWN")) player.yLoc+=player.speed;
-		if (!collisionRIGHT && direction.equals("RIGHT")) player.xLoc+=player.speed;
+		if (direction.equals("LEFT")) {
+			for (BuildingObjects b: buildings) {
+				if (b.polygon.intersects(player.x-player.speed, player.y, player.width, player.height)) collisionLEFT = true;
+			}
+			if (!collisionLEFT) player.xLoc-=player.speed;
+		}
+		
+		if (direction.equals("DOWN")) {
+			for (BuildingObjects b: buildings) {
+				if (b.polygon.intersects(player.x, player.y, player.width, player.height+player.speed)) collisionDOWN = true;
+			}
+			if (!collisionDOWN) player.yLoc+=player.speed;
+		}
+		
+		if (direction.equals("RIGHT")) {
+			for (BuildingObjects b: buildings) {
+				if (b.polygon.intersects(player.x, player.y, player.width+player.speed, player.height)) collisionRIGHT = true;
+			}
+			if (!collisionRIGHT) player.xLoc+=player.speed;
+		}
 	
 	}
 	
@@ -209,7 +261,12 @@ public class Main implements KeyListener{
 		//Makes the Background Black
 			g.setColor(Black);
 			g.fillRect(0, 0, WINW, WINW);
+		
+		//everywhere that is the Map White
+			g.setColor(White);
+			g.fillRect(originX, originY, DrawBuildingObjects.mapW, DrawBuildingObjects.mapH);
 			
+			drawStoneTexture(g);
 			drawMap(g);
 			drawPlayer(g);
 			
@@ -217,31 +274,56 @@ public class Main implements KeyListener{
 		
 	}
 	
+	void drawStoneTexture(Graphics2D g) {
+		
+		BufferedImage TextureImg = null;
+		try { TextureImg = ImageIO.read(new File("TextureSprites.png"));
+		} catch (IOException e) {
+			System.out.println("CANT FIND IMAGE");
+			System.exit(0);
+		}
+		
+		int textureX = 0,
+		    textureY = 0,
+		    textureW = 50,
+		    textureH = 50;
+		
+//		for (int i=0; i<mapW; i+=(int)(textureW*ratioW)) {	
+//			for (int j=0; j<mapH; j+=(int)(textureH*ratioH)) {
+				
+//		for (int i=0; i<100; i++) {
+//			for (int j=0; j<100; j++) {
+//				g.drawImage(TextureImg,
+//						i*textureW, j*textureH, textureW, textureH,
+//						textureX, textureY, textureW, textureH,
+//					    null);
+//			}
+//		}
+		
+				
+				
+//			}
+//		}	
+			
+		
+		
+		
+	}
+	
 	void drawPlayer(Graphics2D g) {
 		
-		int playerX = (int) (WINW/2-player.radius);
-		int playerY = (int) (WINW/2-player.radius);
-		
-		g.setColor(Red);
-		g.fillOval(playerX, playerY, (int)(player.radius*2), (int)(player.radius*2));
-		
-		
-		
-		
 		BufferedImage PlayerImg = null;
-		try { PlayerImg = ImageIO.read(new File(imageFileName)); 	// <---- Loads the player Sprite file
+		try { PlayerImg = ImageIO.read(new File("PlayerSpritesTEST.png")); 	// <---- Loads the player Sprite file
 		} catch (IOException e) {}
 		
-		g.drawImage(PlayerImg, player.x, player.y, drPanel);
-//		g.drawImage(PlayerImg, 0, 0, 38, 58, player.x, player.y, (int)(player.x+player.radius*2), (int)(player.y+player.radius*2), drPanel);
+		g.drawImage(PlayerImg,
+			player.x, player.y, player.x+player.width, player.y+player.height,
+			38*playerSprite_CURRENT, 0, 38*(playerSprite_CURRENT+1)-1, 57,
+		    drPanel);
 		
 	}
 	
 	void drawMap(Graphics2D g) {
-		
-	//everywhere that is the Map White
-		g.setColor(White);
-		g.fillRect(originX, originY, DrawGameMap.mapW, DrawGameMap.mapH);
 		
 		boarder.paint(g); 
 		maze.paint(g);
@@ -287,6 +369,7 @@ public class Main implements KeyListener{
 		public void actionPerformed(ActionEvent arg0) {
 				playerMove();
 				mapSetup();
+				addObjectsToArrayList();
 				window.repaint();	
 			}
 		}

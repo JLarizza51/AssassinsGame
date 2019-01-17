@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class DrawGameMap {
+public class DrawBuildingObjects {
 	
 // --------------------------------------	
 // ---------- Global Variables ----------
@@ -39,9 +39,9 @@ public class DrawGameMap {
 			   	  ratioH = mapH/1500.0;
 	
 
-	public static void main(String[] args) {new DrawGameMap();}
+	public static void main(String[] args) {new DrawBuildingObjects();}
 
-	DrawGameMap() {
+	DrawBuildingObjects() {
 		GUISetup();
 	}
 	
@@ -121,7 +121,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.boarder = new BuildingObjects(xPos, yPos, 10, Black, DefaultStroke);
-		Main.buildings.add(Main.boarder);
 		
 	}
 	
@@ -166,7 +165,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 			
 		Main.maze = new BuildingObjects(xPos, yPos, 26, Black, DefaultStroke);
-		Main.buildings.add(Main.maze);
 		
 	}
 
@@ -201,7 +199,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionFenceNorth = new BuildingObjects(xPos, yPos, 20, Black, DefaultStroke);
-		Main.buildings.add(Main.mansionFenceNorth);
 		
 	}
 
@@ -236,7 +233,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionFenceSouth = new BuildingObjects(xPos, yPos, 20, Black, DefaultStroke);
-		Main.buildings.add(Main.mansionFenceSouth);
 		
 		}
 	
@@ -258,7 +254,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansion = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.mansion);
 		
 	}
 
@@ -289,7 +284,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.colosseumBoarder = new BuildingObjects(xPos, yPos, 14, Black, DefaultStroke);
-		Main.buildings.add(Main.colosseumBoarder);
 		
 	}
 
@@ -307,7 +301,6 @@ public class DrawGameMap {
 		for (int i=0; i<NWxPos.length; i++) NWxPos[i]+=originX;
 		for (int i=0; i<NWyPos.length; i++) NWyPos[i]+=originY;
 		Main.spawnPointBoarderNW = new BuildingObjects(NWxPos, NWyPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.spawnPointBoarderNW);
 		
 	//SOUTH WEST POINTS LIST
 	//	01:	1146, 770		02: 1150, 770		03: 1150, 807		04: 1146, 807
@@ -321,7 +314,6 @@ public class DrawGameMap {
 		for (int i=0; i<SWxPos.length; i++) SWxPos[i]+=originX;
 		for (int i=0; i<SWyPos.length; i++) SWyPos[i]+=originY;
 		Main.spawnPointBoarderSW = new BuildingObjects(SWxPos, SWyPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.spawnPointBoarderSW);
 		
 	//SOUTH EAST POINTS LIST
 	//	01:	1355, 770		02: 1359, 770		03: 1359, 807		04: 1355, 807
@@ -335,7 +327,6 @@ public class DrawGameMap {
 		for (int i=0; i<SExPos.length; i++) SExPos[i]+=originX;
 		for (int i=0; i<SEyPos.length; i++) SEyPos[i]+=originY;
 		Main.spawnPointBoarderSE = new BuildingObjects(SExPos, SEyPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.spawnPointBoarderSE);
 		
 	//NORTH EAST POINTS LIST
 	//	01:	1355, 674		02: 1359, 674		03: 1359, 724		04: 1355, 724
@@ -349,7 +340,6 @@ public class DrawGameMap {
 		for (int i=0; i<NExPos.length; i++) NExPos[i]+=originX;
 		for (int i=0; i<NEyPos.length; i++) NEyPos[i]+=originY;
 		Main.spawnPointBoarderNE= new BuildingObjects(NExPos, NEyPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.spawnPointBoarderNE);
 		
 	}
 
@@ -370,7 +360,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.triangleBuilding1 = new BuildingObjects(xPos, yPos, 3, Black, DefaultStroke);
-		Main.buildings.add(Main.triangleBuilding1);
 		
 	}
 
@@ -392,7 +381,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionSideBuilding1 = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.mansionSideBuilding1);
 		
 	}
 
@@ -414,7 +402,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.mansionSideBuilding2 = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.mansionSideBuilding2);
 		
 	}
 
@@ -435,7 +422,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.triangleBuilding2 = new BuildingObjects(xPos, yPos, 3, Black, DefaultStroke);
-		Main.buildings.add(Main.triangleBuilding2);
 		
 	}
 
@@ -525,7 +511,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.houseArea1 = new BuildingObjects(xPos, yPos, 75, Black, DefaultStroke);
-		Main.buildings.add(Main.houseArea1);
 		
 	}
 
@@ -555,7 +540,6 @@ public class DrawGameMap {
 		for (int i=0; i<NxPos.length; i++) NxPos[i]+=originX;
 		for (int i=0; i<NyPos.length; i++) NyPos[i]+=originY;
 		Main.spawnPointSideStreetNORTH = new BuildingObjects(NxPos, NyPos, 13, Black, DefaultStroke);
-		Main.buildings.add(Main.spawnPointSideStreetNORTH);
 		
 	//POINTS LIST - SOUTH SECTION
 	//	01:	1219, 940		02: 1219, 1176		03: 1093, 1176		04: 1039, 1099		05: 1093, 1061
@@ -598,7 +582,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.buildingWithBottomEntrance = new BuildingObjects(xPos, yPos, 8, Black, DefaultStroke);
-		Main.buildings.add(Main.buildingWithBottomEntrance);
 		
 	}
 
@@ -638,7 +621,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.hiddenCourtyard = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
-		Main.buildings.add(Main.hiddenCourtyard);
 		
 	}
 
@@ -658,7 +640,6 @@ public class DrawGameMap {
 		
 		
 		Main.hiddenCourtyardInterior = new BuildingObjects(xPos, yPos, 4, Blue, DefaultStroke);
-		Main.buildings.add(Main.hiddenCourtyardInterior);
 		
 	}
 
@@ -718,7 +699,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.houseArea2 = new BuildingObjects(xPos, yPos, 44, Black, DefaultStroke);
-		Main.buildings.add(Main.houseArea2);
 		
 	}
 
@@ -768,7 +748,6 @@ public class DrawGameMap {
 		for (int i=0; i<OxPos.length; i++) OxPos[i]+=originX;
 		for (int i=0; i<OyPos.length; i++) OyPos[i]+=originY;
 		Main.houseArea3OUTSIDE = new BuildingObjects(OxPos, OyPos, 32, Black, DefaultStroke);
-		Main.buildings.add(Main.houseArea3OUTSIDE);
 	
 	//INSIDE POINTS LIST
 	//	01:	1832, 1162		02: 1832, 1215		03: 1794, 1215		04: 1794, 1210		05: 1769, 1210
@@ -799,7 +778,6 @@ public class DrawGameMap {
 		for (int i=0; i<IxPos.length; i++) IxPos[i]+=originX;
 		for (int i=0; i<IyPos.length; i++) IyPos[i]+=originY;
 		Main.houseArea3INSIDE = new BuildingObjects(IxPos, IyPos, 16, Black, DefaultStroke);
-		Main.buildings.add(Main.houseArea3INSIDE);
 		
 	}
 
@@ -821,7 +799,6 @@ public class DrawGameMap {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		Main.southEastWall = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
-		Main.buildings.add(Main.southEastWall);
 		
 	}
 
@@ -844,7 +821,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.southEastNorthBuilding = new BuildingObjects(xPos, yPos, 8, Black, DefaultStroke);
-		Main.buildings.add(Main.southEastNorthBuilding);
 		
 	}
 
@@ -872,7 +848,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.southEastSouthBuilding = new BuildingObjects(xPos, yPos, 12, Black, DefaultStroke);
-		Main.buildings.add(Main.southEastSouthBuilding);
 		
 	}
 	
@@ -910,7 +885,6 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.southEastExtendedBoarder = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
-		Main.buildings.add(Main.southEastExtendedBoarder);
 		
 	}
 	
@@ -1002,7 +976,7 @@ public class DrawGameMap {
 		
 		
 		Main.townSquareWEST = new BuildingObjects(xPos, yPos, 49, Black, DefaultStroke);
-		Main.buildings.add(Main.townSquareWEST);
+//		Main.buildings.add(Main.townSquareWEST);
 	}
 
 	static void initializeTownSquareSOUTHEAST(int originX, int originY) {
@@ -1046,7 +1020,7 @@ public class DrawGameMap {
 			for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 			for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 			Main.townSquareSOUTHEAST = new BuildingObjects(xPos, yPos, 26, Black, DefaultStroke);
-			Main.buildings.add(Main.townSquareSOUTHEAST);
+//			Main.buildings.add(Main.townSquareSOUTHEAST);
 			
 	}
 
@@ -1106,7 +1080,7 @@ public class DrawGameMap {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		Main.townSquareNORTHEAST = new BuildingObjects(xPos, yPos, 45, Black, DefaultStroke);
-		Main.buildings.add(Main.townSquareNORTHEAST);
+//		Main.buildings.add(Main.townSquareNORTHEAST);
 		
 	}
 }
