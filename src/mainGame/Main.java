@@ -73,6 +73,13 @@ public class Main implements KeyListener{
     		keyS = false,
     		keyD = false;
     
+//2D Array for Texture Tiles
+    int textureSTONE = 0,
+    	textureGRASS = 1,
+    	textureWATER = 2,
+    	textureWOOD  = 3;
+    int textureTiles[][] = new int[48][28];
+    
 //Initialize Building Objects
     static BuildingObjects boarder,					
                            maze,
@@ -116,6 +123,7 @@ public class Main implements KeyListener{
 
 	Main() {
 		GUISetup();
+		fillTextureTilesArray();
 		mapSetup();
 		timerSetup();
 		addObjectsToArrayList();
@@ -135,6 +143,79 @@ public class Main implements KeyListener{
 		originX = (player.xLoc-player.x)*-1;
 	    originY = (player.yLoc-player.y)*-1;
 	    DrawBuildingObjects.initializeBuildings(originX, originY);
+	}
+	
+	void fillTextureTilesArray() {
+		for (int i=0; i<48; i++) {
+			for (int j=0; j<28; j++) {
+				textureTiles[i][j] = textureSTONE;
+			}
+		}
+		
+		for (int i=0; i<48; i++) {
+			for (int j=0; j<28; j++) {
+				
+			//GRASS BLOCKS
+				if (i>=1 && i<=8 && j>=1 && j<=7) { 
+					textureTiles[i][j] = textureGRASS;
+				}
+				
+				if (i>=0 && i<=8 && j>=8 && j<=12) {
+					textureTiles[i][j] = textureGRASS;
+				}
+				
+				if (i>=0 && i<=3 && j>=13 && j<=14) {
+					textureTiles[i][j] = textureGRASS;
+				}
+				
+				if (i>=0 && i<=8 && j>=15 && j<=20) {
+					textureTiles[i][j] = textureGRASS;
+				}
+				
+			//WOOD BLOCKS	
+//				if (i>=# && i<=# && j>=# && j<=#) {
+//					textureTiles[i][j] = textureWOOD;
+//				}
+				
+				if (i>=10 && i<=33 && j>=1 && j<=10) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+				if (i>=22 && i<=26 && j>=11 && j<=15) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+				if (i>=21 && i<=24 && j>=16 && j<=26) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+				if (i>=18 && i<=20 && j>=17 && j<=18) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+				if (i>=15 && i<=20 && j>=19 && j<=20) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+				if (i>=13 && i<=20 && j>=21 && j<=26) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+				if (i>=11 && i<=12 && j>=22 && j<=26) {
+					textureTiles[i][j] = textureWOOD;
+				}
+				
+			}
+		}
+		
+	//SINGLE TILES
+		textureTiles[17][18] = textureWOOD;
+		textureTiles[18][18] = textureWOOD;
+		textureTiles[14][20] = textureWOOD;
+		textureTiles[10][23] = textureWOOD;
+		textureTiles[10][24] = textureWOOD;
+		textureTiles[10][25] = textureWOOD;
+		textureTiles[10][26] = textureWOOD;
 	}
 	
 	void addObjectsToArrayList() {
@@ -266,7 +347,7 @@ public class Main implements KeyListener{
 			g.setColor(White);
 			g.fillRect(originX, originY, DrawBuildingObjects.mapW, DrawBuildingObjects.mapH);
 			
-			drawStoneTexture(g);
+			drawTexturesTexture(g);
 			drawMap(g);
 			drawPlayer(g);
 			
@@ -274,38 +355,67 @@ public class Main implements KeyListener{
 		
 	}
 	
-	void drawStoneTexture(Graphics2D g) {
+	void drawTexturesTexture(Graphics2D g) {
 		
 		BufferedImage TextureImg = null;
 		try { TextureImg = ImageIO.read(new File("TextureSprites.png"));
 		} catch (IOException e) {
 			System.out.println("CANT FIND IMAGE");
 			System.exit(0);
-		}
+		}	
 		
-		int textureX = 0,
-		    textureY = 0,
-		    textureW = 50,
-		    textureH = 50;
+		double startingX = ratioW*50,
+			   startingY = ratioH*50,
+			       tileW = ratioW*50,
+			       tileH = ratioH*50;
 		
-//		for (int i=0; i<mapW; i+=(int)(textureW*ratioW)) {	
-//			for (int j=0; j<mapH; j+=(int)(textureH*ratioH)) {
-				
-//		for (int i=0; i<100; i++) {
-//			for (int j=0; j<100; j++) {
-//				g.drawImage(TextureImg,
-//						i*textureW, j*textureH, textureW, textureH,
-//						textureX, textureY, textureW, textureH,
-//					    null);
-//			}
-//		}
-		
-				
-				
-//			}
-//		}	
+		int srcX1 = 0,
+		    srcY1 = 0,
+		    srcX2 = 50,
+		    srcY2 = 50;
 			
-		
+		for (int i=0; i<48; i++) {
+			for (int j=0; j<28; j++) {
+				
+				if (textureTiles[i][j]==textureSTONE) {
+					srcX1 = 0;
+					srcY1 = 0;
+				}
+				
+				if (textureTiles[i][j]==textureGRASS) {
+					srcX1 = 50;
+					srcY1 = 0;
+				}
+				
+				if (textureTiles[i][j]==textureWATER) {
+					srcX1 = 0;
+					srcY1 = 50;
+				}
+				
+				if (textureTiles[i][j]==textureWOOD) {
+					srcX1 = 50;
+					srcY1 = 50;
+				}
+				
+				srcX2 = srcX1 + 49;
+				srcY2 = srcY1 + 49;
+				
+				int tileX1 = (int)(startingX+(tileW*i))+originX,
+					tileY1 = (int)(startingY+(tileW*j))+originY,
+					tileX2 = (int)(tileX1+tileW),
+					tileY2 = (int)(tileY1+tileH);
+				
+				g.drawImage(TextureImg,
+						tileX1, tileY1, tileX2, tileY2,
+						srcX1, srcY1, srcX2, srcY2,
+					    null);
+				
+				
+				
+				
+				
+			}
+		}
 		
 		
 	}
@@ -319,7 +429,7 @@ public class Main implements KeyListener{
 		g.drawImage(PlayerImg,
 			player.x, player.y, player.x+player.width, player.y+player.height,
 			38*playerSprite_CURRENT, 0, 38*(playerSprite_CURRENT+1)-1, 57,
-		    drPanel);
+		    null);
 		
 	}
 	
