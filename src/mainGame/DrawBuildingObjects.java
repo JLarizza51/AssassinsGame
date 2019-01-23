@@ -2,14 +2,6 @@ package mainGame;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 
 public class DrawBuildingObjects {
 	
@@ -18,45 +10,22 @@ public class DrawBuildingObjects {
 // --------------------------------------	
 	
 //JFrame and JWindow Creations
-	String gameTitle = "Assassins";
-	final static int mapW = Main.WINW/3*50;
-//	final static int mapW = 2500;
+	final static int mapW = Main.WINW/3*50;		// <--- Same as what's in "Main"
 	final static int mapH = mapW/5*3;
-	static JFrame window;
-	DrawingPanel drPanel = new DrawingPanel();
 			
 //Colors, Font, and Strokes
 	static Color White = new Color (255, 255, 255);
-	static Color Blue = new Color (0, 0, 255);
-	static Color Red = new Color (255, 0, 0);
-	static Color Green = new Color(0, 255, 0);
 	static Color Black = new Color (0, 0, 0);
 	static BasicStroke DefaultStroke = new BasicStroke(1);
 	static BasicStroke ColosseumStroke = new BasicStroke(mapW/50);
 	
 //NUMBERS USED FOR RATIOS
-	static double ratioW = mapW/2500.0,
+	static double ratioW = mapW/2500.0,		// <--- Same as what's in "Main"
 			   	  ratioH = mapH/1500.0;
 	
-
-	public static void main(String[] args) {new DrawBuildingObjects();}
-
-	DrawBuildingObjects() {
-		GUISetup();
-	}
-	
-	void GUISetup() {
-		window = new JFrame(gameTitle);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-		window.add(drPanel);
-		window.pack();
-		window.setVisible(true);
-	}
-	
-	static void initializeBuildings(int originX, int originY) {
-		initializeBoarder(originX, originY);
-		initializeMaze(originX, originY);
+	static void initializeBuildings(int originX, int originY) {			// <---- Runs all of the different methods for
+		initializeBoarder(originX, originY);							//		 creating the BuildingObjects, using
+		initializeMaze(originX, originY);								//		 originX and originY variables
 		initializeMansionFenceNorth(originX, originY);
 		initializeMansionFenceSouth(originX, originY);
 		initializeMansion(originX, originY);
@@ -78,27 +47,10 @@ public class DrawBuildingObjects {
 		initializeSouthEastSouthBuilding(originX, originY);
 		initializeSouthEastExtendedBoarder(originX, originY);
 		initializeColosseum(originX, originY);
+		initializeTownSquarePond(originX, originY);
 		initializeTownSquareWEST(originX, originY);
 		initializeTownSquareSOUTHEAST(originX, originY);
 		initializeTownSquareNORTHEAST(originX, originY);
-	}
-	
-	
-	
-	@SuppressWarnings("serial")
-	private class DrawingPanel extends JPanel {
-		
-		DrawingPanel() {this.setPreferredSize(new Dimension (mapW, mapH));}
-		
-		@Override
-		public void paintComponent(Graphics g1) {
-			Graphics2D g = (Graphics2D) g1;
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			
-			super.paintComponent(g1);
-			this.requestFocus();
-		}
-		
 	}
 	
 	static void initializeBoarder(int originX, int originY) {
@@ -107,20 +59,30 @@ public class DrawBuildingObjects {
 	// 01: 0, 0		02: WINW, 0		03: WINW, WINH		04: 0, WINH			05: 0, 50
 	// 06: 50, 50	07: 50, 1450	08: 2450, 1450		09: 2450, 50		10: 0, 50
 		
+		
+	//Sets the double variables for each X point in the Points List^, multiplied by the rationW to properly scale them
 		double point01X = 0,         point02X = mapW,        point03X = mapW,        point04X = 0,           point05X = 0,
 			   point06X = ratioW*50, point07X = ratioW*50,   point08X = ratioW*2450, point09X = ratioW*2450, point10X = ratioW*0;
+	
+	//Puts all of the double variables for each X point into and array of xPos', and turns them into integers
 		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X, (int)point05X,
 				         (int)point06X, (int)point07X, (int)point08X, (int)point09X, (int)point10X};
-		
+		   
+		   
+	//Sets the double variables for each Y point in the Points List^, multiplied by the rationH to properly scale them
 		double point01Y = 0,         point02Y = 0,           point03Y = mapH,        point04Y = mapH,        point05Y = ratioH*50,
 			   point06Y = ratioH*50, point07Y = ratioH*1450, point08Y = ratioH*1450, point09Y = ratioH*50,   point10Y = ratioH*50;
-	       int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
+	
+	//Puts all of the double variables for each Y point into and array of yPos', and turns them into integers  
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y, (int)point05Y,
 				         (int)point06Y, (int)point07Y, (int)point08Y, (int)point09Y, (int)point10Y};
 		
-		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
-		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;		// <---- Adds originX and originY to the xPos and yPos variables,
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;		//		 so that they can be drawn in the right locations, according
+																//		 to where the player is on the map
 		
-		Main.boarder = new BuildingObjects(xPos, yPos, 10, Black, DefaultStroke);
+		Main.boarder = new BuildingObjects(xPos, yPos, 10, Black, DefaultStroke);	// <---- Adds the Building Object to the buildings ArrayList in "Main",
+																					//		 using the xPos and yPos arrays
 		
 	}
 	
@@ -639,7 +601,7 @@ public class DrawBuildingObjects {
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
 		
-		Main.hiddenCourtyardInterior = new BuildingObjects(xPos, yPos, 4, Blue, DefaultStroke);
+		Main.hiddenCourtyardInterior = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
 		
 	}
 
@@ -913,6 +875,23 @@ public class DrawBuildingObjects {
 		
 	}
 	
+	static void initializeTownSquarePond(int originX, int originY) {
+		
+	//POINTS LIST
+	//	01:	1801, 401		02: 1950, 401		03: 1950, 550		04: 1801, 550
+		
+		double point01X = ratioW*1801, point02X = ratioW*1950, point03X = ratioW*1950, point04X = ratioW*1801;
+		   int xPos[] = {(int)point01X, (int)point02X, (int)point03X, (int)point04X}; 
+		
+		double point01Y = ratioH*401, point02Y = ratioH*401, point03Y = ratioH*550, point04Y = ratioH*550;
+		   int yPos[] = {(int)point01Y, (int)point02Y, (int)point03Y, (int)point04Y}; 
+		   
+		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
+		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
+		
+		Main.townSquarePond = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+	}
+	
 	static void initializeTownSquareWEST(int originX, int originY) {
 		
 	//POINTS LIST
@@ -976,7 +955,6 @@ public class DrawBuildingObjects {
 		
 		
 		Main.townSquareWEST = new BuildingObjects(xPos, yPos, 49, Black, DefaultStroke);
-//		Main.buildings.add(Main.townSquareWEST);
 	}
 
 	static void initializeTownSquareSOUTHEAST(int originX, int originY) {

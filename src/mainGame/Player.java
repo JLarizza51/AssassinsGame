@@ -8,15 +8,15 @@ class Player extends Rectangle{
 	double ratioW = Main.WINW/1000.0;
 	
 //Variables	
-	String name,
-		   location;
-	   int maxHP,
-		   HP,
-		   enemiesKilled;
+	String name,			// <---- The Name of the player
+		   location;		// <---- Where the player will be spawned into the game
+	   int maxHP,			// <---- How many total health points the player can have
+		   HP,				// <---- How many health points the player currently has
+		   enemiesKilled;	// <---- How many enemies the player has killed
 	   
 	   int xLoc, yLoc; // <--- the X and Y Location of the Player. This is NOT the location
 	   				   //	   on the screen, but rather the location on the map
-	   double radius;
+//	   double radius;
 	   double speed;
 	  
 	
@@ -29,12 +29,13 @@ class Player extends Rectangle{
 		this.enemiesKilled = enemiesKilled;
 		
 		this.speed = (int) (ratioW*10);
-		this.radius = (int) (ratioW*24);
 		
-		x = (int) (Main.WINW/2-this.radius);
-		y = (int) (Main.WINW/2-this.radius);
 		width  = (int) (ratioW*48);
 		height = (int) (ratioW*73);
+		
+		x = (int) (Main.WINW/2-width/2);
+		y = (int) (Main.WINW/2-height/2);
+		
 		
 		
 		if (location.equals("Spawn Point")) {
@@ -50,11 +51,11 @@ class Player extends Rectangle{
 			xLoc = (int) (DrawBuildingObjects.ratioW*336);
 			yLoc = (int) (DrawBuildingObjects.ratioH*739);
 			
-//			xLoc = (int) (DrawGameMap.ratioW*706);
-//			yLoc = (int) (DrawGameMap.ratioH*1282);
+//			xLoc = (int) (DrawBuildingObjects.ratioW*706);
+//			yLoc = (int) (DrawBuildingObjects.ratioH*1282);
 			
-//			xLoc = (int) (DrawGameMap.ratioW*0);
-//			yLoc = (int) (DrawGameMap.ratioH*0);
+//			xLoc = (int) (DrawBuildingObjects.ratioW*0);
+//			yLoc = (int) (DrawBuildingObjects.ratioH*0);
 			
 			
 		}
