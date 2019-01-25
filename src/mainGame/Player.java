@@ -16,10 +16,7 @@ class Player extends Rectangle{
 	   
 	   int xLoc, yLoc; // <--- the X and Y Location of the Player. This is NOT the location
 	   				   //	   on the screen, but rather the location on the map
-//	   double radius;
 	   double speed;
-	  
-	
 	
 	Player(String name, String location, int maxHP, int HP, int enemiesKilled) {
 		this.name = name;
@@ -36,27 +33,18 @@ class Player extends Rectangle{
 		x = (int) (Main.WINW/2-width/2);
 		y = (int) (Main.WINW/2-height/2);
 		
-		
-		
-		if (location.equals("Spawn Point")) {
-		
-		// Point: 1239, 739
-			xLoc = (int) (DrawBuildingObjects.ratioW*1239);
-			yLoc = (int) (DrawBuildingObjects.ratioH*739);
+		if (location.equals("Mansion")) {
 			
+		// Point 336, 739
+			xLoc = (int) (DrawBuildingObjects.ratioW*336);
+			yLoc = (int) (DrawBuildingObjects.ratioH*739);
 		}
 		
 		else {
 			
-			xLoc = (int) (DrawBuildingObjects.ratioW*336);
+		// Point: 1239, 739
+			xLoc = (int) (DrawBuildingObjects.ratioW*1239);
 			yLoc = (int) (DrawBuildingObjects.ratioH*739);
-			
-//			xLoc = (int) (DrawBuildingObjects.ratioW*706);
-//			yLoc = (int) (DrawBuildingObjects.ratioH*1282);
-			
-//			xLoc = (int) (DrawBuildingObjects.ratioW*0);
-//			yLoc = (int) (DrawBuildingObjects.ratioH*0);
-			
 			
 		}
 	}

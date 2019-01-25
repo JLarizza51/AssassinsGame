@@ -19,7 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Main implements KeyListener{
+public class Main implements KeyListener {
 	
 // --------------------------------------	
 // ---------- Global Variables ----------
@@ -109,23 +109,35 @@ public class Main implements KeyListener{
                            townSquarePond,
                            townSquareWEST,
                            townSquareSOUTHEAST,
-                           townSquareNORTHEAST;	
-    
-	static ColosseumBuildingObjects colosseumLarge,
-	                                colosseumSmall1,
-	                                colosseumSmall2;
+                           townSquareNORTHEAST;
     
 	static ArrayList<BuildingObjects> buildings = new ArrayList<BuildingObjects>();  							// <---- Puts the BuildingObjects into an Array List
-    static ArrayList<ColosseumBuildingObjects> colosseumBuildings = new ArrayList<ColosseumBuildingObjects>();
-	
-	public static void main(String[] args) {new Main();}
+   
+	public static void main(String[] args) {
+		new Main();
+		Main game = new Main();
+		game.loadVars("Josh", "Mansion", 20, 20, 0);
+		game.startGame();
+		
+	}
 
 	Main() {
 		GUISetup();					// <---- These methods are run
 		fillTextureTilesArray();	//		 when the program is
 		mapSetup();					//		 first run
-		timerSetup();
 		addObjectsToArrayList();
+	}
+	
+	void loadVars(String name, String location, int maxHP, int HP, int enemiesKilled) {
+		
+//		player.name = name;
+//		player.location = location;
+//		player.maxHP = HP;
+//		player.HP = HP;
+//		player.enemiesKilled = enemiesKilled;
+		
+		player = new Player(name, location, maxHP, HP, enemiesKilled);
+		
 	}
 	
 	void GUISetup() {
@@ -241,15 +253,10 @@ public class Main implements KeyListener{
         buildings.add(townSquarePond);
         buildings.add(townSquareWEST);
         buildings.add(townSquareSOUTHEAST);
-        buildings.add(townSquareNORTHEAST);	   
-
-		colosseumBuildings.clear();
-		colosseumBuildings.add(colosseumLarge);
-		colosseumBuildings.add(colosseumSmall1);
-		colosseumBuildings.add(colosseumSmall2);
+        buildings.add(townSquareNORTHEAST);
 	}
 	
-	void timerSetup() {
+	void startGame() {
 		mainTimer = new Timer(tSpeed, new MainTimer());		// <---- Creates the Timer
 		mainTimer.start();									// <---- Starts the timer
 	}

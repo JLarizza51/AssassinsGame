@@ -10,22 +10,17 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.swing.*;
 
-public class startMenu implements KeyListener, MouseListener, MouseMotionListener {
+public class startMenu implements MouseListener, MouseMotionListener {
 
 // --------------------------------------	
 // ---------- Global Variables ----------
@@ -273,7 +268,7 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			int titleY = (fileButtons[i].y+WIN/100*6);
 			g.drawString(title, titleX, titleY);
 			
-			g.drawLine(titleX-WIN/20, titleY+WIN/100, titleX+fMetricsTitle.stringWidth(title)+WIN/20, titleY+WIN/100);
+			g.drawLine(fileButtons[i].x+WIN/50, titleY+WIN/100, fileButtons[i].x+fileButtons[i].width-WIN/50, titleY+WIN/100);
 			
 			g.setFont(fileMenuButtonsText);
 			
@@ -287,7 +282,7 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			int locY = (hpY+WIN/20);
 			g.drawString(loc, locX, locY);
 			
-			String prog = "33%";
+			String prog = "0%";
 			int progX = (fileButtons[i].x+(fileButtons[i].width/2))-(fMetricsText.stringWidth(prog)/2);
 			int progY = (locY+WIN/20);
 			g.drawString(prog, progX, progY);
@@ -321,7 +316,7 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 			try {
 				brFile = new BufferedReader (new FileReader(new File(fileNames[i])));
 			} catch (FileNotFoundException ee) {
-				createNewFilesText();
+				System.out.println("TEXT FILES NOT FOUND");
 			}
 			
 		//Process the text
@@ -419,9 +414,18 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	void checkMainButtonsPressed() {
 		
 		if (M1) {
-			if (mainButton1.hovering) menu_CURRENT = menu_NEWGAME;
-			if (mainButton2.hovering) menu_CURRENT = menu_LOADGAME;
-			if (mainButton3.hovering) menu_CURRENT = menu_OPTIONS;
+			if (mainButton1.hovering) {
+				M1 = false;
+				menu_CURRENT = menu_NEWGAME;
+			}
+			if (mainButton2.hovering) {
+				M1 = false;
+				menu_CURRENT = menu_LOADGAME;
+			}
+			if (mainButton3.hovering) {
+				M1 = false;
+				menu_CURRENT = menu_OPTIONS;
+			}
 			if (mainButton4.hovering) System.exit(0);
 		}
 		
@@ -458,62 +462,28 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	}
 	
 	void checkFileButtonsPressed() {
-		//TODO: WRITE THE CODE
-	}
-	
-	void createNewFilesText() {
 		
-		//TODO: FIX THIS
-		
-		PrintWriter pwFile = null;
-		try {pwFile = new PrintWriter( new BufferedWriter( new FileWriter ("SAVE FILES")));
-			} catch (IOException e) {e.printStackTrace();
+		if (M1) {
+			
+			for (int i=0; i<saveFiles.length; i++) {
+				if (fileButtons[i].hovering) {
+					
+					if (saveFiles[i].empty) continue;
+					
+					Main game = new Main();
+					game.loadVars(saveFiles[i].name, saveFiles[i].location, saveFiles[i].maxHP, saveFiles[i].HP, saveFiles[i].enemiesKilled);
+					startMenuTimer.stop();
+					game.startGame();
+					window.setVisible(false);
+				}
+			}
+			
+			
+			
 		}
 		
-		pwFile.println("FILE 1: ");
-		pwFile.println("EMPTY: TRUE");
-		pwFile.println("NAME: ");
-		pwFile.println("MAXHP: ");
-		pwFile.println("HP: ");
-		pwFile.println("LOCATION: ");
-		pwFile.println("ENEMIES KILLED: ");
-		
-		pwFile.println("");
-		
-		pwFile.println("FILE 2: ");
-		pwFile.println("EMPTY: TRUE");
-		pwFile.println("NAME: ");
-		pwFile.println("MAXHP: ");
-		pwFile.println("HP: ");
-		pwFile.println("LOCATION: ");
-		pwFile.println("ENEMIES KILLED: ");
-		
-		pwFile.println("");
-		
-		pwFile.println("FILE 3: ");
-		pwFile.println("EMPTY: TRUE");
-		pwFile.println("NAME: ");
-		pwFile.println("MAXHP: ");
-		pwFile.println("HP: ");
-		pwFile.println("LOCATION: ");
-		pwFile.println("ENEMIES KILLED: ");
-		
-		pwFile.close();
 	}
-	
-//Keyboard Presses
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
 		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-	}
-
-	
 //Mouse Inputs	
 	
 	@Override
@@ -523,7 +493,8 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
+		mouseX = e.getX();
+		mouseY = e.getY();
 	}
 
 	@Override
@@ -534,10 +505,10 @@ public class startMenu implements KeyListener, MouseListener, MouseMotionListene
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if (e.getButton()==MouseEvent.BUTTON1) M1 = false;
 	}
 
 //UNUSED METHODS
-	public void keyTyped(KeyEvent arg0) {}
 	public void mouseEntered(MouseEvent arg0) {}
 	public void mouseExited(MouseEvent arg0) {}
 	public void mouseClicked(MouseEvent arg0) {}

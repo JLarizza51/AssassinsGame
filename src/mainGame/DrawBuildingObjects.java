@@ -46,7 +46,6 @@ public class DrawBuildingObjects {
 		initializeSouthEastNorthBuilding(originX, originY);
 		initializeSouthEastSouthBuilding(originX, originY);
 		initializeSouthEastExtendedBoarder(originX, originY);
-		initializeColosseum(originX, originY);
 		initializeTownSquarePond(originX, originY);
 		initializeTownSquareWEST(originX, originY);
 		initializeTownSquareSOUTHEAST(originX, originY);
@@ -849,32 +848,7 @@ public class DrawBuildingObjects {
 		Main.southEastExtendedBoarder = new BuildingObjects(xPos, yPos, 22, Black, DefaultStroke);
 		
 	}
-	
-	static void initializeColosseum(int originX, int originY) {
-		
-	//Arc Variables for All
-		double arcX = ratioW*656+originX, 
-			   arcY = ratioH*164+originY,
-			   arcWidth = ratioW*350,
-			   arcHeight = ratioH*350;
-		
-	//Arc 1 Variables
-		int arc1startAngle = 60;
-		int arc1arcAngle = 240;
-		Main.colosseumLarge = new ColosseumBuildingObjects((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc1startAngle, arc1arcAngle, Black, ColosseumStroke);
-		
-	//Arc 2 Variables
-		int arc2startAngle = 15;
-		int arc2arcAngle = 12;
-		Main.colosseumSmall1 = new ColosseumBuildingObjects((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc2startAngle, arc2arcAngle, Black, ColosseumStroke);
-		
-	//Arc 3 Variables
-		int arc3startAngle = -15;
-		int arc3arcAngle = -12;
-		Main.colosseumSmall2 = new ColosseumBuildingObjects((int)arcX, (int)arcY, (int)arcWidth, (int)arcHeight, arc3startAngle, arc3arcAngle, Black, ColosseumStroke);
-		
-	}
-	
+
 	static void initializeTownSquarePond(int originX, int originY) {
 		
 	//POINTS LIST
