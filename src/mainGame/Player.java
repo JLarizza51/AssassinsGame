@@ -40,8 +40,15 @@ class Player extends Rectangle{
 			yLoc = (int) (DrawBuildingObjects.ratioH*739);
 		}
 		
-		else {
+		else if (location.equals("Town Square")) {
 			
+		// Point 1880, 560
+			xLoc = (int) (DrawBuildingObjects.ratioW*1880);
+			yLoc = (int) (DrawBuildingObjects.ratioH*560);
+			
+		}
+		
+		else {
 		// Point: 1239, 739
 			xLoc = (int) (DrawBuildingObjects.ratioW*1239);
 			yLoc = (int) (DrawBuildingObjects.ratioH*739);

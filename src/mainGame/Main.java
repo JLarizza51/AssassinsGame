@@ -27,7 +27,7 @@ public class Main implements KeyListener {
 
 //JFrame and JWindow Creations
 	String gameTitle = "Assassins";
-	final static int WINW = 1500;				// <---- The Width and the Height of the window (has to be a square)
+	static int WINW = 1500;				// <---- The Width and the Height of the window (has to be a square)
 	final static int mapW = Main.WINW/3*50;		// <---- The Map width, based off of the window width (it's larger than the window)
 	final static int mapH = mapW/5*3;			// <---- The Map height, based off the map width, 60% of the map width
 	static JFrame window;						// <---- Initializes the JFrame
@@ -55,7 +55,7 @@ public class Main implements KeyListener {
 	
 //Player Variables
 	String name = "Josh",
-	       location = "Spawn Point";
+	       location = "Mansion";
        int maxHP = 20,
     	   HP = 20,
     	   enemiesKilled = 0;
@@ -114,7 +114,6 @@ public class Main implements KeyListener {
 	static ArrayList<BuildingObjects> buildings = new ArrayList<BuildingObjects>();  							// <---- Puts the BuildingObjects into an Array List
    
 	public static void main(String[] args) {
-		new Main();
 		Main game = new Main();
 		game.loadVars("Josh", "Mansion", 20, 20, 0);
 		game.startGame();
@@ -129,12 +128,6 @@ public class Main implements KeyListener {
 	}
 	
 	void loadVars(String name, String location, int maxHP, int HP, int enemiesKilled) {
-		
-//		player.name = name;
-//		player.location = location;
-//		player.maxHP = HP;
-//		player.HP = HP;
-//		player.enemiesKilled = enemiesKilled;
 		
 		player = new Player(name, location, maxHP, HP, enemiesKilled);
 		
@@ -335,6 +328,7 @@ public class Main implements KeyListener {
 		
 		@Override
 		public void paintComponent(Graphics g1) {
+			this.setPreferredSize(new Dimension(WINW, WINW));
 			Graphics2D g = (Graphics2D) g1;			// <---- Creates the 2D graphics tool
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			
@@ -422,7 +416,7 @@ public class Main implements KeyListener {
 	void drawPlayer(Graphics2D g) {
 		
 		BufferedImage PlayerImg = null;
-		try { PlayerImg = ImageIO.read(new File("PlayerSpritesTEST.png")); 	// <---- Loads the player Sprite file
+		try { PlayerImg = ImageIO.read(new File("PlayerSprites.png")); 	// <---- Loads the player Sprite file
 		} catch (IOException e) {}
 		
 		g.drawImage(PlayerImg,														// <---- Draws the player sprite in the centre of the screen,

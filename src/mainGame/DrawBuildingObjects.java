@@ -16,6 +16,7 @@ public class DrawBuildingObjects {
 //Colors, Font, and Strokes
 	static Color White = new Color (255, 255, 255);
 	static Color Black = new Color (0, 0, 0);
+	static Color Transparent = new Color (0, 0, 0, 0);
 	static BasicStroke DefaultStroke = new BasicStroke(1);
 	static BasicStroke ColosseumStroke = new BasicStroke(mapW/50);
 	
@@ -863,7 +864,7 @@ public class DrawBuildingObjects {
 		for (int i=0; i<xPos.length; i++) xPos[i]+=originX;
 		for (int i=0; i<yPos.length; i++) yPos[i]+=originY;
 		
-		Main.townSquarePond = new BuildingObjects(xPos, yPos, 4, Black, DefaultStroke);
+		Main.townSquarePond = new BuildingObjects(xPos, yPos, 4, Transparent, DefaultStroke);
 	}
 	
 	static void initializeTownSquareWEST(int originX, int originY) {
